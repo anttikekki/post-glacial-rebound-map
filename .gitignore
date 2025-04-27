@@ -1,9 +1,6 @@
 # Node.js Dependency directories
 node_modules/
 
-# TypeScript cache
-*.tsbuildinfo
-
 # NKG2016LU model processing temp files
 map-data-processing/01_land-uplift-model-NKG2016LU/nkg2016lu-with-readme.zip
 map-data-processing/01_land-uplift-model-NKG2016LU/nkg2016lu
@@ -19,6 +16,12 @@ map-data-processing/02_nls-elevation-model-2m/vrt
 # Post-glacial rebound calculation temp files
 map-data-processing/03_post-glacial-rebound-calculation/aligned_NKG2016LU_rasters
 map-data-processing/03_post-glacial-rebound-calculation/uplifted_DEMs
+
+# Sea level calculation temp files
+map-data-processing/04_sea-level-mask-calculation/sea_land_masks
+
+# Sea level raster colorization temp files
+map-data-processing/05_generate-colorized-sea-raster/sea_land_colored
 
 # MacOS
 .DS_Store
