@@ -16,5 +16,9 @@ map-data-processing/01_land-uplift-model-NKG2016LU/NKG2016LU_lev_tm35fin.tif
 map-data-processing/02_nls-elevation-model-2m/mml
 map-data-processing/02_nls-elevation-model-2m/vrt
 
+# Post-glacial rebound calculation temp files
+map-data-processing/03_post-glacial-rebound-calculation/aligned_NKG2016LU_rasters
+map-data-processing/03_post-glacial-rebound-calculation/uplifted_DEMs
+
 # MacOS
 .DS_Store
