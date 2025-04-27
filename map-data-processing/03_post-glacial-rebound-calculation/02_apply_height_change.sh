@@ -77,23 +77,3 @@ export CHANGE_FOLDER OUTPUT_FOLDER YEARS
 find "$BASE_DEM_FOLDER" -name "*.vrt" | xargs -n 1 -P "$PARALLEL_JOBS" bash -c 'process_pair "$0"'
 
 echo "All DEMs processed."
-
-# Summary table
-echo ""
-echo "Summary of uplifted DEMs:"
-printf "%-40s %-10s %-10s %-10s\n" "Filename" "Min" "Max" "Mean"
-echo "--------------------------------------------------------------------------------"
-
-for FILE in "$OUTPUT_FOLDER"/*.tif; do
-    if [ -f "$FILE" ]; then
-        STATS=$(gdalinfo -stats "$FILE" | awk '
-            /Minimum/ {gsub(",", "", $0); min=$3}
-            /Maximum/ {gsub(",", "", $0); max=$3}
-            /STATISTICS_MEAN=/ {split($0, a, "="); mean=a[2]}
-            END {printf "%.2f %.2f %.2f", min, max, mean}'
-        )
-        printf "%-40s %-10s %-10s %-10s\n" "$(basename "$FILE")" $STATS
-    fi
-done
-
-echo "Summary complete."
