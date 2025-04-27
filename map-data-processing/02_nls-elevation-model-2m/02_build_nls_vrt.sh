@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Exit if any command fail
+# Exit if any command fails
 set -euo pipefail
 
 # build_nls_vrts_by_subfolder.sh
 # This script builds a separate VRT (Virtual Raster Tile) mosaic for each subfolder
 # inside the Finnish NLS Elevation Model 2m base directory.
-# A VRT is a lightweight XML file that references many individual raster files and acts like a single mosaic raster.
+# It also updates the VRT files so that SourceFilenames are relative to the VRT.
 
 BASE_INPUT_FOLDER="./mml/korkeusmalli/hila_2m/etrs-tm35fin-n2000"
 OUTPUT_FOLDER="./vrt"
@@ -35,7 +35,7 @@ for SUBFOLDER in "$BASE_INPUT_FOLDER"/*/; do
 
     # Remove old VRT if it exists
     if [ -f "$VRT_OUTPUT" ]; then
-        echo "🗑️  Removing existing VRT: $VRT_OUTPUT"
+        echo "Removing existing VRT: $VRT_OUTPUT"
         rm "$VRT_OUTPUT"
     fi
 
@@ -55,7 +55,17 @@ for SUBFOLDER in "$BASE_INPUT_FOLDER"/*/; do
         -hidenodata \
         "$VRT_OUTPUT" $TIFF_FILES
 
-    echo "VRT created: $VRT_OUTPUT"
+    # Fix the VRT file
+    if [ -f "$VRT_OUTPUT" ]; then
+        echo "Patching VRT paths and setting relativeToVRT=\"1\": $VRT_OUTPUT"
+        # First fix the path ./mml/ -> ../mml/
+        sed -i.bak 's|>./mml/|>../mml/|g' "$VRT_OUTPUT"
+        # Then change relativeToVRT="0" to relativeToVRT="1"
+        sed -i.bak 's|relativeToVRT="0"|relativeToVRT="1"|g' "$VRT_OUTPUT"
+        rm -f "${VRT_OUTPUT}.bak"
+    fi
+
+    echo "VRT created and patched: $VRT_OUTPUT"
 done
 
-echo "All subfolders processed!"
+echo "All subfolders processed."
