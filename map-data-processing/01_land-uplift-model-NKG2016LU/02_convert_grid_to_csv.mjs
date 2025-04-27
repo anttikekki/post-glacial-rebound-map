@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 
 // === CONFIGURATION ===
 const inputFile = "nkg2016lu/NKG2016LU_lev.gri"; // Your input .gri file

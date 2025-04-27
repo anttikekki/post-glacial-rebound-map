@@ -5,6 +5,7 @@ node_modules/
 map-data-processing/01_land-uplift-model-NKG2016LU/nkg2016lu-with-readme.zip
 map-data-processing/01_land-uplift-model-NKG2016LU/nkg2016lu
 map-data-processing/01_land-uplift-model-NKG2016LU/NKG2016LU_lev.csv
+map-data-processing/01_land-uplift-model-NKG2016LU/grid_metadata.txt
 map-data-processing/01_land-uplift-model-NKG2016LU/NKG2016LU_lev.vrt
 map-data-processing/01_land-uplift-model-NKG2016LU/NKG2016LU_lev.tif
 map-data-processing/01_land-uplift-model-NKG2016LU/NKG2016LU_lev_tm35fin.tif
