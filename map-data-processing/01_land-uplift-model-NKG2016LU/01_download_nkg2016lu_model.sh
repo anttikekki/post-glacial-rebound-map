@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Exit if any command in a pipeline fails
+# Exit if any command fail
 set -euo pipefail
 
 # Define variables

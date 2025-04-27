@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Exit if any command in a pipeline fails
+# Exit if any command fail
 set -euo pipefail
 
 echo "Starting script execution..."
@@ -17,4 +17,4 @@ bash 03_process_grid_to_raster.sh
 echo "4. Running 04_reproject_to_tm35fin.sh..."
 bash 04_reproject_to_tm35fin.sh
 
-echo "All scripts executed successfully! 🎉"
+echo "All scripts executed successfully!"

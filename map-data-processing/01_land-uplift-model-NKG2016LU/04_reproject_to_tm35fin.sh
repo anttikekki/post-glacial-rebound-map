@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Exit if any command in a pipeline fails
+# Exit if any command fail
 set -euo pipefail
 
 # ===================================================
@@ -21,4 +21,4 @@ gdalwarp \
   -of GTiff \
   "$INPUT_TIF" "$REPROJECTED_TIF"
 
-echo "✅ Raster reprojected to $TARGET_CRS: $REPROJECTED_TIF"
+echo "Raster reprojected to $TARGET_CRS: $REPROJECTED_TIF"

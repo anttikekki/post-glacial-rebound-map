@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Exit if any command in a pipeline fails
+# Exit if any command fail
 set -euo pipefail
 
 # ===================================================
@@ -32,7 +32,7 @@ cat <<EOF > "$VRT_FILE"
 </OGRVRTDataSource>
 EOF
 
-echo "✅ VRT file created: $VRT_FILE"
+echo "VRT file created: $VRT_FILE"
 
 # === RUN GDAL_GRID TO CREATE RASTER ===
 gdal_grid \
@@ -44,4 +44,4 @@ gdal_grid \
   -of GTiff \
   "$VRT_FILE" "$OUTPUT_TIF"
 
-echo "✅ Raster generated: $OUTPUT_TIF"
+echo "Raster generated: $OUTPUT_TIF"
