@@ -12,13 +12,16 @@ TARGET_BASE_DIR="./mml/korkeusmalli/hila_2m/etrs-tm35fin-n2000"
 # File containing list of folders to download
 FOLDER_LIST_FILE="map-sheets-to-download.txt"
 
-# Read folders into an array
-mapfile -t FOLDERS < "$FOLDER_LIST_FILE"
-
 # Make sure base directory exists
 mkdir -p "$TARGET_BASE_DIR"
 
-for folder in "${FOLDERS[@]}"; do
+# Read folders line by line
+while IFS= read -r folder || [ -n "$folder" ]; do
+  # Skip empty lines and comments
+  if [[ -z "$folder" || "$folder" == \#* ]]; then
+    continue
+  fi
+
   echo "Downloading folder: $folder"
   
   rsync -avz --partial --progress \
@@ -29,6 +32,6 @@ for folder in "${FOLDERS[@]}"; do
     "${TARGET_BASE_DIR}/${folder}/"
   
   echo "Finished downloading $folder!"
-done
+done < "$FOLDER_LIST_FILE"
 
 echo "All folders downloaded successfully!"
