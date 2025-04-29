@@ -24,5 +24,9 @@ map-data-processing/04_sea-level-mask-calculation/sea_land_masks
 # Sea level raster colorization temp files
 map-data-processing/05_generate-colorized-sea-raster/sea_land_colored
 
+# Cloud Optimized GeoTIFF generation temp files
+map-data-processing/06_generate-map-distribution/result_cog
+map-data-processing/06_generate-map-distribution/vrt
+
 # MacOS
 .DS_Store
