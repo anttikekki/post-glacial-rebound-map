@@ -16,10 +16,6 @@ PARALLEL_JOBS=8  # Number of parallel gdalwarp processes
 # Create output folder if it doesn't exist
 mkdir -p "$OUTPUT_FOLDER"
 
-# Clean old output files if any
-echo "Cleaning existing files in $OUTPUT_FOLDER..."
-rm -f "$OUTPUT_FOLDER"/*.tif || true
-
 # Check if input files exist
 if [ ! -d "$VRT_FOLDER" ]; then
     echo "VRT folder not found: $VRT_FOLDER"
@@ -38,9 +34,14 @@ process_vrt() {
     BASENAME=$(basename "$VRT" .vrt)
     local ALIGNED_OUTPUT="$OUTPUT_FOLDER/${BASENAME}_NKG2016LU_aligned.tif"
 
+    if [ -f "$ALIGNED_OUTPUT" ]; then
+      echo "File $ALIGNED_OUTPUT exists, skipping..."
+      return
+    fi
+
     echo "Processing VRT: $BASENAME"
 
-    # Extract extent (-te) from VRT
+    # Extract extent from VRT
     local EXTENT
     EXTENT=$(gdalinfo "$VRT" | awk '
         /Lower Left/ {gsub("[(),]", "", $0); xmin=$3; ymin=$4}
@@ -48,15 +49,15 @@ process_vrt() {
         END {print xmin, ymin, xmax, ymax}'
     )
 
-    # Extract raster size (-ts) from VRT
+    # Extract raster size from VRT
     local SIZE
     SIZE=$(gdalinfo "$VRT" | awk '
         /Size is/ {gsub(",", "", $0); print $3, $4}'
     )
 
     # Debug: Print extracted values
-    echo "Extracted Extent (-te): $EXTENT"
-    echo "Extracted Size (-ts): $SIZE"
+    echo "Extracted Extent: $EXTENT"
+    echo "Extracted Size: $SIZE"
 
     echo "Running gdalwarp for $BASENAME..."
     gdalwarp -overwrite \

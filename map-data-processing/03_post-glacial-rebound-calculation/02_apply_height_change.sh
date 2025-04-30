@@ -29,20 +29,20 @@ OUTPUT_FOLDER="$OUTPUT_ROOT_FOLDER/$YEARS"
 # Create output folder if it doesn't exist
 mkdir -p "$OUTPUT_FOLDER"
 
-# Clean old output files if any
-echo "Cleaning existing files in $OUTPUT_FOLDER..."
-rm -f "$OUTPUT_FOLDER"/*.tif || true
-
-echo "Years parameter for simulation: $YEARS"
+echo "Years parameter for calculations: $YEARS"
 echo "Output folder: $OUTPUT_FOLDER"
 
 # Function to process a single VRT and matching change raster
 process_pair() {
     local VRT="$1"
-    local BASENAME
-    BASENAME=$(basename "$VRT" .vrt)
+    local BASENAME=$(basename "$VRT" .vrt)
     local CHANGE_RASTER="$CHANGE_FOLDER/${BASENAME}_NKG2016LU_aligned.tif"
     local OUTPUT="$OUTPUT_FOLDER/${BASENAME}_uplifted_${YEARS}y.tif"
+
+    if [ -f "$OUTPUT" ]; then
+      echo "File $OUTPUT exists, skipping..."
+      return
+    fi
 
     echo "Processing DEM: $BASENAME"
 

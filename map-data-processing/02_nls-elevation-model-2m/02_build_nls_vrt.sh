@@ -33,10 +33,9 @@ for SUBFOLDER in "$BASE_INPUT_FOLDER"/*/; do
     SUBFOLDER_NAME=$(basename "$SUBFOLDER")
     VRT_OUTPUT="$OUTPUT_FOLDER/${SUBFOLDER_NAME}.vrt"
 
-    # Remove old VRT if it exists
     if [ -f "$VRT_OUTPUT" ]; then
-        echo "Removing existing VRT: $VRT_OUTPUT"
-        rm "$VRT_OUTPUT"
+      echo "File $VRT_OUTPUT exists, skipping..."
+      continue
     fi
 
     echo "Building VRT for subfolder: $SUBFOLDER_NAME"

@@ -27,10 +27,10 @@ case "$SOURCE" in
 esac
 
 # Output folders
-OUTPUT_BASE="./result_cog"
+OUTPUT_FOLDER="./result_cog"
 VRT_FOLDER="./source_vrt"
 
-mkdir -p "$OUTPUT_BASE"
+mkdir -p "$OUTPUT_FOLDER"
 mkdir -p "$VRT_FOLDER"
 
 # Loop through year subfolders
@@ -38,11 +38,13 @@ find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
     YEAR=$(basename "$YEAR_FOLDER")
     echo "Processing year: $YEAR"
 
-    YEAR_OUTPUT_FOLDER="$OUTPUT_BASE/$YEAR"
-    mkdir -p "$YEAR_OUTPUT_FOLDER"
-
     VRT_FILE="$VRT_FOLDER/${YEAR}.vrt"
-    OUTPUT_COG="$YEAR_OUTPUT_FOLDER/${YEAR}_cog.tif"
+    OUTPUT_COG="$OUTPUT_FOLDER/${YEAR}_cog.tif"
+
+    if [ -f "$VRT_FILE" ] && [ -f "$OUTPUT_COG" ]; then
+      echo "Files for year $YEAR exists, skipping..."
+      continue
+    fi
 
     # Find all TIFs inside the year folder
     TIF_LIST=$(find "$YEAR_FOLDER" -type f -name "*.tif")
@@ -68,4 +70,4 @@ find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
 
 done
 
-echo "All COGs generated successfully in $OUTPUT_BASE!"
+echo "All COGs generated successfully in $OUTPUT_FOLDER!"

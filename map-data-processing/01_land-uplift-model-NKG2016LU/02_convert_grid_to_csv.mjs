@@ -47,4 +47,4 @@ for (let row = 0; row < nrows; row++) {
 }
 
 output.end();
-console.log(`✅ Conversion completed: ${outputFile}`);
+console.log(`Conversion completed: ${outputFile}`);

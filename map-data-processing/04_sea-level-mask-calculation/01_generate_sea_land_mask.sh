@@ -18,12 +18,17 @@ process_mask() {
     local INPUT_FILE="$1"
     local YEAR_FOLDER="$2"
     local YEAR=$(basename "$YEAR_FOLDER")
-    local BASENAME=$(basename "${INPUT_FILE%.*}")
+    local OUTPUT_BASENAME=$(basename "${INPUT_FILE%.*}")
 
     local YEAR_OUTPUT_FOLDER="$OUTPUT_FOLDER/$YEAR"
     mkdir -p "$YEAR_OUTPUT_FOLDER"
 
-    local OUTPUT_FILE="$YEAR_OUTPUT_FOLDER/${BASENAME}_mask.tif"
+    local OUTPUT_FILE="$YEAR_OUTPUT_FOLDER/${OUTPUT_BASENAME}_mask.tif"
+
+    if [ -f "$OUTPUT_FILE" ]; then
+      echo "File $OUTPUT_FILE exists, skipping..."
+      return
+    fi
 
     echo "Generating mask for: $INPUT_FILE"
 
