@@ -3,19 +3,37 @@
 # Exit if any command fails
 set -euo pipefail
 
-# Input base folder containing per-year subfolders
-INPUT_BASE="../05_generate-colorized-sea-raster/sea_land_colored"
+# --- Parse input argument ---
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 SOURCE"
+    echo "SOURCE must be one of: MASK, COLORIZED"
+    exit 1
+fi
 
-# Output base folder
+SOURCE="$1"
+
+case "$SOURCE" in
+  MASK)
+    INPUT_BASE="../04_sea-level-mask-calculation/sea_land_masks"
+    ;;
+  COLORIZED)
+    INPUT_BASE="../05_generate-colorized-sea-raster/sea_land_colored"
+    ;;
+  *)
+    echo "Invalid SOURCE: $SOURCE"
+    echo "Valid options: MASK, COLORIZED"
+    exit 1
+    ;;
+esac
+
+# Output folders
 OUTPUT_BASE="./result_cog"
-
-# Folder for VRT files
-VRT_FOLDER="./vrt"
+VRT_FOLDER="./source_vrt"
 
 mkdir -p "$OUTPUT_BASE"
 mkdir -p "$VRT_FOLDER"
 
-# Find all year subfolders
+# Loop through year subfolders
 find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
     YEAR=$(basename "$YEAR_FOLDER")
     echo "Processing year: $YEAR"
@@ -24,7 +42,7 @@ find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
     mkdir -p "$YEAR_OUTPUT_FOLDER"
 
     VRT_FILE="$VRT_FOLDER/${YEAR}.vrt"
-    OUTPUT_COG="$YEAR_OUTPUT_FOLDER/${YEAR}_merged_cog.tif"
+    OUTPUT_COG="$YEAR_OUTPUT_FOLDER/${YEAR}_cog.tif"
 
     # Find all TIFs inside the year folder
     TIF_LIST=$(find "$YEAR_FOLDER" -type f -name "*.tif")
