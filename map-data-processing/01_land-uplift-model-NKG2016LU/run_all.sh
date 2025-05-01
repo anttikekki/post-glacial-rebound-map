@@ -3,6 +3,13 @@
 # Exit if any command fail
 set -euo pipefail
 
+FINAL_OUTPUT_FILE="NKG2016LU_lev_tm35fin.tif"
+
+if [ -f "$FINAL_OUTPUT_FILE" ]; then
+    echo "Final result file $FINAL_OUTPUT_FILE exists, skipping 01_land-uplift-model-NKG2016LU phase..."
+    exit 1
+fi
+
 echo "Starting script execution..."
 
 echo "1. Running 01_download_nkg2016lu_model.sh..."
