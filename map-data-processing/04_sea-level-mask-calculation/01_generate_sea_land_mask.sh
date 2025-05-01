@@ -3,10 +3,6 @@
 # Exit if any command fails
 set -euo pipefail
 
-# Generate binary sea/land masks from uplifted DEMs
-# Land (height > 0) -> 0
-# Sea (height <= 0) -> 1
-
 INPUT_FOLDER="../03_post-glacial-rebound-calculation/uplifted_DEMs"
 OUTPUT_FOLDER="./sea_land_masks"
 PARALLEL_JOBS=8
@@ -32,13 +28,15 @@ process_mask() {
 
     echo "Generating mask for: $INPUT_FILE"
 
+    # Generate binary sea/land masks from uplifted DEMs
+    # Land (height > 0) -> 0
+    # Sea (height <= 0) -> 1
     gdal_calc \
       -A "$INPUT_FILE" \
       --outfile="$OUTPUT_FILE" \
       --calc="(A <= 0) * 1 + (A > 0) * 0" \
       --type=Byte \
       --NoDataValue=255 \
-      --overwrite \
       --co COMPRESS=DEFLATE \
       --co PREDICTOR=2 \
       --co ZLEVEL=9 \

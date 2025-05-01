@@ -51,7 +51,6 @@ for SUBFOLDER in "$BASE_INPUT_FOLDER"/*/; do
     gdalbuildvrt \
         -vrtnodata -9999 \
         -srcnodata -9999 \
-        -hidenodata \
         "$VRT_OUTPUT" $TIFF_FILES
 
     # Fix the VRT file

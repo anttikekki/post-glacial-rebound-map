@@ -58,7 +58,7 @@ process_pair() {
       --outfile="$OUTPUT" \
       --calc="A + ((B * $YEARS) / 1000.0)" \
       --type=Float32 \
-      --overwrite \
+      --NoDataValue=-9999 \
       --co COMPRESS=DEFLATE \
       --co PREDICTOR=2 \
       --co ZLEVEL=9 \
