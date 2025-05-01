@@ -1,37 +1,29 @@
 #!/bin/bash
-
-# Exit on error
 set -euo pipefail
 
-# List of relative script paths to execute
-SCRIPTS=(
-  "01_land-uplift-model-NKG2016LU/run_all.sh"
-  "02_nls-elevation-model-2m/run_all.sh"
-  "03_post-glacial-rebound-calculation/run_all.sh"
-  "04_sea-level-mask-calculation/run_all.sh"
-  "06_generate-map-distribution/run_all.sh"
-)
-
-echo "Executing scripts."
+echo "Executing scripts..."
 echo "-------------------------------------"
 
-for SCRIPT_PATH in "${SCRIPTS[@]}"; do
-    SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
-    SCRIPT_FILE=$(basename "$SCRIPT_PATH")
+run_script() {
+    DIR="$1"
+    echo "Running: $DIR/run_all.sh"
+    pushd "$DIR" > /dev/null
 
-    echo "Running: $SCRIPT_PATH"
-    pushd "$SCRIPT_DIR" > /dev/null
-
-    if [ ! -x "$SCRIPT_FILE" ]; then
-        echo "Error: $SCRIPT_FILE is not executable or not found."
-        popd > /dev/null
-        exit 1
+    # Run script in a subshell so its exit won't stop this master script
+    if ! ./run_all.sh; then
+        echo "Script in $DIR failed (but continuing)"
+    else
+        echo "Script in $DIR completed"
     fi
-
-    ./"$SCRIPT_FILE"
 
     popd > /dev/null
     echo ""
-done
+}
 
-echo "All subfolder scripts executed."
+run_script "01_land-uplift-model-NKG2016LU"
+run_script "02_nls-elevation-model-2m"
+run_script "03_post-glacial-rebound-calculation"
+run_script "04_sea-level-mask-calculation"
+run_script "06_generate-map-distribution"
+
+echo "All subfolder scripts attempted."
