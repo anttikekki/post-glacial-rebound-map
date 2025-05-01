@@ -1,0 +1,16 @@
+{
+  "name": "post-glacial-rebound-worker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "generate-types": "wrangler types",
+    "type-check": "npm run generate-types && tsc"
+  },
+  "devDependencies": {
+    "wrangler": "^4.13.2",
+    "typescript": "^5.8.3"
+  }
+}
