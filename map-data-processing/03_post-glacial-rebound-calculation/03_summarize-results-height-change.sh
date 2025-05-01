@@ -5,7 +5,7 @@ set -euo pipefail
 
 # Configurations
 SOURCE_FOLDER="../02_nls-elevation-model-2m/vrt"
-RESULT_FOLDER="./uplifted_DEMs"
+RESULT_FOLDER="./calculation_results"
 PARALLEL_JOBS=8
 
 echo "Comparing DEM statistics (fast method) between source and uplifted results..."

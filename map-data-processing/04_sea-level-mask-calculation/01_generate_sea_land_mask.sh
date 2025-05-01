@@ -3,7 +3,7 @@
 # Exit if any command fails
 set -euo pipefail
 
-INPUT_FOLDER="../03_post-glacial-rebound-calculation/uplifted_DEMs"
+INPUT_FOLDER="../03_post-glacial-rebound-calculation/calculation_results"
 OUTPUT_FOLDER="./sea_land_masks"
 PARALLEL_JOBS=8
 

@@ -16,7 +16,7 @@ map-data-processing/02_nls-elevation-model-2m/vrt
 
 # Post-glacial rebound calculation temp files
 map-data-processing/03_post-glacial-rebound-calculation/aligned_NKG2016LU_rasters
-map-data-processing/03_post-glacial-rebound-calculation/uplifted_DEMs
+map-data-processing/03_post-glacial-rebound-calculation/calculation_results
 
 # Sea level calculation temp files
 map-data-processing/04_sea-level-mask-calculation/sea_land_masks
