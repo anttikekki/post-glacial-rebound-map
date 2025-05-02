@@ -21,10 +21,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/V1/:year/:filename", (req, res) => {
-  const filePath = path.join(COG_DIR, req.params.year, req.params.filename);
+app.use((req, res, next) => {
+  console.info(`Request`, req.method, req.url, "Range", req.headers.range);
+  next();
+});
+
+app.get("/api/V1/:year", (req, res) => {
+  const filePath = path.join(COG_DIR, `${req.params.year}.tif`);
 
   if (!fs.existsSync(filePath)) {
+    console.error(`File ${filePath} not found`);
     return res.status(404).send("File not found");
   }
 
@@ -32,6 +38,7 @@ app.get("/V1/:year/:filename", (req, res) => {
   const range = req.headers.range;
 
   if (!range) {
+    console.error(`No range`);
     return res.status(400).send("No range");
   }
 

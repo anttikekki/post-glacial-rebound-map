@@ -5,8 +5,8 @@ export const createPostGlacialReboundLayer = (): WebGLTileLayer => {
   const source = new GeoTIFF({
     sources: [
       {
-        //url: "http://localhost:3000/V1/-3000/-3000_cog.tif",
-        url: "https://maannousu.info/api/V1/-3000",
+        url: "http://localhost:3000/api/V1/-6000/",
+        //url: "https://maannousu.info/api/V1/-3000",
         bands: [1],
       },
     ],
