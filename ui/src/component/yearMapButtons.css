@@ -1,0 +1,10 @@
+.year-buttons {
+  bottom: 0.5em;
+  left: 50%;
+  position: absolute;
+  display: flex;
+}
+
+.year-buttons span {
+  width: 50px;
+}
