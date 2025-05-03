@@ -3,14 +3,17 @@
 # Exit on error
 set -euo pipefail
 
-# Input file with list of years
-YEAR_FILE="calculation-years.txt"
+# JSON file containing an array of years
+YEAR_FILE="../../common/mapLayerYears.json"
 
-# Check that required files exist
+# Check that file exists
 if [ ! -f "$YEAR_FILE" ]; then
     echo "Error: $YEAR_FILE not found."
     exit 1
 fi
+
+# Parse the JSON array into a Bash array using jq
+YEARS=($(jq '.[]' "$YEAR_FILE"))
 
 echo "------------------------------------------"
 echo "Step 1: Aligning NKG2016LU raster..."
@@ -19,11 +22,9 @@ echo "Alignment complete."
 echo "------------------------------------------"
 
 echo "Step 2: Running land uplift calculations..."
-while IFS= read -r YEAR; do
-    # Skip empty lines or comments
-    [[ -z "$YEAR" || "$YEAR" =~ ^# ]] && continue
+for YEAR in "${YEARS[@]}"; do
     echo "Running uplift for year: $YEAR"
     bash ./02_apply_height_change.sh "$YEAR"
-done < "$YEAR_FILE"
+done
 
 echo "All uplift calculations completed."
