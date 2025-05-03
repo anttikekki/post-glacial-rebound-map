@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/api/V1/:year", (req, res) => {
+app.get("/api/v1/:year", (req, res) => {
   const filePath = path.join(COG_DIR, `${req.params.year}.tif`);
 
   if (!fs.existsSync(filePath)) {

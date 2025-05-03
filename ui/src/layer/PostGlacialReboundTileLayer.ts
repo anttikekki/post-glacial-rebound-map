@@ -40,8 +40,7 @@ export default class PostGlacialReboundLayer {
     return new GeoTIFF({
       sources: [
         {
-          url: `http://localhost:3000/api/V1/${year}/`,
-          //url: "https://maannousu.info/api/V1/-3000",
+          url: `${process.env.MAANNOUSU_API}/api/v1/${year}`,
           bands: [1],
         },
       ],

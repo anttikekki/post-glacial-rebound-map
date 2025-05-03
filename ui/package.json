@@ -4,8 +4,9 @@
   "author": "Antti Kekki",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "webpack"
+    "start:dev": "MAANNOUSU_API=http://localhost:3000 webpack serve --open  --mode development",
+    "start:prod": "MAANNOUSU_API=https://maannousu.info webpack serve --open  --mode production",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "proj4": "2.15.0",
