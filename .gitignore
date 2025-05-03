@@ -28,5 +28,8 @@ map-data-processing/05_generate-colorized-sea-raster/sea_land_colored
 map-data-processing/06_generate-map-distribution/result_cog
 map-data-processing/06_generate-map-distribution/source_vrt
 
+# Infra temp files
+infra/post-glacial-rebound-worker/.wrangler
+
 # MacOS
 .DS_Store

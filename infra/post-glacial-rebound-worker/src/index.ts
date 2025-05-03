@@ -6,6 +6,8 @@ import { corsHeaders } from "./util/corsUtils";
 
 export default {
   async fetch(request, env, ctx): Promise<Response> {
+    console.info(request.method, request.url);
+
     if (mapApiRoute.test(request.url)) {
       // Handle API CORS preflight
       if (request.method === "OPTIONS") {
