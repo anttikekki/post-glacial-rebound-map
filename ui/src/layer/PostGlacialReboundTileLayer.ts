@@ -1,29 +1,30 @@
-import WebGLTileLayer from "ol/layer/WebGLTile";
+import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
+
+const colorLand = [0, 0, 0, 0];
+const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
+const noData = [0, 0, 0, 0];
+const style: Style = {
+  color: [
+    "case",
+    ["==", ["band", 1], 0], // Value 0 = land
+    colorLand,
+    ["==", ["band", 1], 1], // Value 1 = sea
+    colorSea,
+    noData, // Fallback
+  ],
+};
 
 export default class PostGlacialReboundLayer {
   private source: GeoTIFF;
   private readonly layer: WebGLTileLayer;
 
-  public constructor() {
-    this.source = PostGlacialReboundLayer.createGeoTIFFSource(-6000);
-
-    const colorLand = [0, 0, 0, 0];
-    const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
-    const noData = [0, 0, 0, 0];
+  public constructor(initialYear: number) {
+    this.source = PostGlacialReboundLayer.createGeoTIFFSource(initialYear);
 
     this.layer = new WebGLTileLayer({
       source: this.source,
-      style: {
-        color: [
-          "case",
-          ["==", ["band", 1], 0],
-          colorLand,
-          ["==", ["band", 1], 1],
-          colorSea,
-          noData, // Fallback
-        ],
-      },
+      style,
     });
   }
 

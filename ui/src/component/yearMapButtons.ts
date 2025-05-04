@@ -5,10 +5,13 @@ import "./yearMapButtons.css";
 
 export default class YearMapButtons extends Control {
   private readonly postGlacialReboundLayer: PostGlacialReboundLayer;
-  private year = years[0];
+  private year: number;
   private yearTextSpan: HTMLSpanElement;
 
-  constructor(postGlacialReboundLayer: PostGlacialReboundLayer) {
+  constructor(
+    postGlacialReboundLayer: PostGlacialReboundLayer,
+    initialYear: number
+  ) {
     const buttonPrev = document.createElement("button");
     buttonPrev.innerHTML = "<";
     const buttonNext = document.createElement("button");
@@ -22,6 +25,7 @@ export default class YearMapButtons extends Control {
     element.appendChild(buttonNext);
 
     super({ element });
+    this.year = initialYear;
     this.yearTextSpan = yearTextSpan;
     this.postGlacialReboundLayer = postGlacialReboundLayer;
     yearTextSpan.innerHTML = this.year.toString();

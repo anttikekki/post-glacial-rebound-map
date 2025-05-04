@@ -28,8 +28,9 @@ const view = new View({
   zoom: 5,
 });
 
+const initialYear = -6000;
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
-const postGlacialReboundLayer = new PostGlacialReboundLayer();
+const postGlacialReboundLayer = new PostGlacialReboundLayer(initialYear);
 
 const map = new Map({
   target: "map",
@@ -40,6 +41,6 @@ const map = new Map({
     new ScaleLine({
       units: "metric",
     }),
-    new YearMapButtons(postGlacialReboundLayer),
+    new YearMapButtons(postGlacialReboundLayer, initialYear),
   ]),
 });
