@@ -2,6 +2,7 @@ import {
   mapApiRoute,
   mapDataHttpRangeFetchRoute,
 } from "./routes/mapDataHttpRangeRoute";
+import { getFromCacheOrExecute } from "./util/cacheUtils";
 import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
@@ -21,11 +22,12 @@ export default {
       if (request.method === "OPTIONS") {
         return new Response(null, {
           status: 204,
-          headers: corsHeaders(),
+          headers: corsHeaders,
         });
       }
-
-      return mapDataHttpRangeFetchRoute(request, env, ctx);
+      return getFromCacheOrExecute(request, () =>
+        mapDataHttpRangeFetchRoute(request, env)
+      );
     }
 
     return env.ASSETS.fetch(request);
