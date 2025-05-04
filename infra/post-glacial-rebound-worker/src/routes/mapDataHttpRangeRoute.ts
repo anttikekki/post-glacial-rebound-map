@@ -1,4 +1,4 @@
-import yearFilesJSON from "../../../../common/mapLayerYears.json" assert { type: "json" };
+import years from "../../../../common/mapLayerYears.json" assert { type: "json" };
 import { corsHeaders } from "../util/corsUtils";
 import { parseRangeHeader } from "../util/httpRangeUtil";
 
@@ -11,14 +11,17 @@ export const mapDataHttpRangeFetchRoute: ExportedHandlerFetchHandler<
   const url = mapApiRoute.exec(request.url);
   const year = parseInt(url?.pathname.groups.year ?? "");
 
-  if (isNaN(year) || !yearFilesJSON.includes(year)) {
-    console.error({
-      message: "GeoTIFF file not found for year",
-      path: url?.pathname,
-      year,
-      yearFilesJSON,
-    });
-    return new Response("Not Found", { status: 404, headers });
+  if (isNaN(year)) {
+    return new Response(
+      "Year parameter in path /api/v1/:year is not a number",
+      { status: 400, headers }
+    );
+  }
+  if (!years.includes(year)) {
+    return new Response(
+      `Year ${year} is not supported. Supported years: ${years.join(", ")}`,
+      { status: 400, headers }
+    );
   }
 
   const r2key = `V1/${year}.tif`;

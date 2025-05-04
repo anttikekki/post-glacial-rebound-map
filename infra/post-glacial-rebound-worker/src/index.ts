@@ -2,11 +2,19 @@ import {
   mapApiRoute,
   mapDataHttpRangeFetchRoute,
 } from "./routes/mapDataHttpRangeRoute";
-import { corsHeaders } from "./util/corsUtils";
+import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
   async fetch(request, env, ctx): Promise<Response> {
-    console.info(request.method, request.url);
+    if (!allowedMethods.includes(request.method)) {
+      return new Response("Method Not Allowed", {
+        status: 405,
+        headers: {
+          Allow: allowedMethods.join(", "),
+          "Content-Type": "text/plain",
+        },
+      });
+    }
 
     if (mapApiRoute.test(request.url)) {
       // Handle API CORS preflight
