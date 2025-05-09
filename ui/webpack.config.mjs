@@ -54,7 +54,10 @@ export default (env, argv) => {
     },
     output: {
       filename: "[name]-[contenthash].js",
-      path: path.resolve(__dirname, "public"),
+      path: path.resolve(
+        __dirname,
+        "../infra/post-glacial-rebound-worker/public"
+      ),
       clean: true,
     },
   };

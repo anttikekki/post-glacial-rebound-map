@@ -15,13 +15,13 @@ export const mapDataHttpRangeFetchRoute = async (
   if (isNaN(year)) {
     return new Response(
       "Year parameter in path /api/v1/:year is not a number",
-      { status: 400, headers: corsHeaders }
+      { status: 400, headers: { ...corsHeaders, "Accept-Ranges": "bytes" } }
     );
   }
   if (!years.includes(year)) {
     return new Response(
       `Year ${year} is not supported. Supported years: ${years.join(", ")}`,
-      { status: 400, headers: corsHeaders }
+      { status: 400, headers: { ...corsHeaders, "Accept-Ranges": "bytes" } }
     );
   }
 
@@ -52,7 +52,7 @@ export const mapDataHttpRangeFetchRoute = async (
   const headers = new Headers({
     "Content-Range": `bytes ${start}-${end}/${headObj.size}`,
     "Accept-Ranges": "bytes",
-    etag: object.httpEtag,
+    //etag: object.httpEtag,
     ...corsHeaders,
     ...cacheHeaders,
   });

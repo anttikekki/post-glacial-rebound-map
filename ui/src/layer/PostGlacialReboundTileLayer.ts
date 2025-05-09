@@ -38,10 +38,11 @@ export default class PostGlacialReboundLayer {
   }
 
   private static createGeoTIFFSource(year: number): GeoTIFF {
+    const host = process.env.MAANNOUSU_API ?? "https://maannousu.info";
     return new GeoTIFF({
       sources: [
         {
-          url: `${process.env.MAANNOUSU_API}/api/v1/${year}`,
+          url: `${host}/api/v1/${year}`,
           bands: [1],
         },
       ],

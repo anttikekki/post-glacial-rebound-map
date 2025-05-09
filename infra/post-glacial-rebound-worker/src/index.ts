@@ -22,7 +22,7 @@ export default {
       if (request.method === "OPTIONS") {
         return new Response(null, {
           status: 204,
-          headers: corsHeaders,
+          headers: { ...corsHeaders, "Accept-Ranges": "bytes" },
         });
       }
       return getFromCacheOrExecute(request, () =>

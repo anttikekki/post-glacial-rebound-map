@@ -28,6 +28,7 @@ export const parseRangeHeader = (
         headers: {
           ...corsHeaders,
           "Content-Range": `bytes */${fileSizeInBytes}`,
+          "Accept-Ranges": "bytes",
         },
       }),
     };
@@ -41,6 +42,7 @@ export const parseRangeHeader = (
         headers: {
           ...corsHeaders,
           "Content-Range": `bytes */${fileSizeInBytes}`,
+          "Accept-Ranges": "bytes",
         },
       }),
     };
@@ -55,6 +57,7 @@ export const parseRangeHeader = (
         headers: {
           ...corsHeaders,
           "Content-Range": `bytes */${fileSizeInBytes}`,
+          "Accept-Ranges": "bytes",
         },
       }),
     };
@@ -67,6 +70,7 @@ export const parseRangeHeader = (
         headers: {
           ...corsHeaders,
           "Content-Range": `bytes */${fileSizeInBytes}`,
+          "Accept-Ranges": "bytes",
         },
       }),
     };
