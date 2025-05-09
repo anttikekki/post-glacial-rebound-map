@@ -1,5 +1,4 @@
 import years from "../../../../common/mapLayerYears.json" assert { type: "json" };
-import { cacheHeaders } from "../util/cacheUtils";
 import { corsHeaders } from "../util/corsUtils";
 import { parseRangeHeader } from "../util/httpRangeUtil";
 
@@ -52,9 +51,10 @@ export const mapDataHttpRangeFetchRoute = async (
   const headers = new Headers({
     "Content-Range": `bytes ${start}-${end}/${headObj.size}`,
     "Accept-Ranges": "bytes",
-    //etag: object.httpEtag,
+    etag: object.httpEtag,
+    "Cache-Control": `public, max-age=86400`, // Cache 1 day on edge and browser
+    Vary: "Accept-Encoding, Range", // Ensure the cache varies based on encoding and range requests
     ...corsHeaders,
-    ...cacheHeaders,
   });
   object.writeHttpMetadata(headers);
 

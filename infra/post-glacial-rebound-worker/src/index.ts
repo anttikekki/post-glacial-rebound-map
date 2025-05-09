@@ -2,7 +2,6 @@ import {
   mapApiRoute,
   mapDataHttpRangeFetchRoute,
 } from "./routes/mapDataHttpRangeRoute";
-import { getFromCacheOrExecute } from "./util/cacheUtils";
 import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
@@ -25,9 +24,7 @@ export default {
           headers: { ...corsHeaders, "Accept-Ranges": "bytes" },
         });
       }
-      return getFromCacheOrExecute(request, () =>
-        mapDataHttpRangeFetchRoute(request, env)
-      );
+      return mapDataHttpRangeFetchRoute(request, env);
     }
 
     return env.ASSETS.fetch(request);
