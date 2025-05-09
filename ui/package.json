@@ -1,5 +1,5 @@
 {
-  "name": "geotiff-viewer",
+  "name": "post-glacial-rebound-map-ui",
   "version": "1.0.0",
   "author": "Antti Kekki",
   "license": "MIT",
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/proj4": "2.5.6",
     "css-loader": "7.1.2",
+    "html-webpack-plugin": "5.6.3",
     "style-loader": "4.0.0",
     "typescript": "5.8.3",
     "ts-loader": "9.5.2",

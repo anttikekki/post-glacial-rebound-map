@@ -1,6 +1,9 @@
 # Node.js Dependency directories
 node_modules/
 
+# Webpack build result
+ui/public
+
 # NKG2016LU model processing temp files
 map-data-processing/01_land-uplift-model-NKG2016LU/nkg2016lu-with-readme.zip
 map-data-processing/01_land-uplift-model-NKG2016LU/nkg2016lu
