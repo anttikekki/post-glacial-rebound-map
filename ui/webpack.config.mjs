@@ -53,8 +53,7 @@ export default (env, argv) => {
     },
     // Hide chunk size warnings on "npm run start:prod"
     performance: {
-      maxAssetSize: 1000000, // 1000 KiB (default is 250 KiB)
-      maxEntrypointSize: 1000000, // 1000 KiB (default is 250 KiB)
+      hints: false,
     },
     output: {
       filename: "[name]-[contenthash].js",
