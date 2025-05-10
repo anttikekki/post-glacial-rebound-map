@@ -9,7 +9,10 @@ import webpack from "webpack";
 
 export default (env, argv) => {
   return {
-    entry: "./src/main.ts",
+    entry: {
+      root: "./src/index.ts",
+      map: "./src/map.ts",
+    },
     mode: argv.mode || "development",
     plugins: [
       new webpack.DefinePlugin({
@@ -18,6 +21,12 @@ export default (env, argv) => {
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
         filename: "index.html",
+        excludeChunks: ["map"],
+      }),
+      new HtmlWebpackPlugin({
+        template: "src/map.ejs",
+        filename: "map.html",
+        excludeChunks: ["root"],
       }),
     ],
     devtool: "source-map",
@@ -42,15 +51,10 @@ export default (env, argv) => {
     resolve: {
       extensions: [".ts", ".js"],
     },
+    // Hide chunk size warnings on "npm run start:prod"
     performance: {
       maxAssetSize: 1000000, // 1000 KiB (default is 250 KiB)
       maxEntrypointSize: 1000000, // 1000 KiB (default is 250 KiB)
-    },
-    optimization: {
-      splitChunks: {
-        chunks: "all",
-        minSize: 100000, // Minimum size for splitting (100 KiB)
-      },
     },
     output: {
       filename: "[name]-[contenthash].js",
