@@ -67,6 +67,7 @@ export default class PostGlacialReboundLayer {
     map: OpenLayersMap,
     loadingAnimation: LoadingAnimation
   ): void => {
+    loadingAnimation.setVisible(false);
     const nextLayer = PostGlacialReboundLayer.layers.get(nextYear);
     if (!nextLayer) {
       loadingAnimation.setVisible(true);

@@ -8,7 +8,7 @@ import { get as getProjection } from "ol/proj";
 import { register as registerProj4 } from "ol/proj/proj4";
 import proj4 from "proj4";
 import LoadingAnimation from "./component/loadingAnimation";
-import YearMapButtons from "./component/yearMapButtons";
+import YearMapControls from "./component/yearMapControls";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
 import PostGlacialReboundLayer from "./layer/PostGlacialReboundTileLayer";
 
@@ -42,7 +42,7 @@ const map = new OpenLayersMap({
     new ScaleLine({
       units: "metric",
     }),
-    new YearMapButtons(
+    new YearMapControls(
       (year) => PostGlacialReboundLayer.changeYear(year, map, loadingAnimation),
       initialYear
     ),

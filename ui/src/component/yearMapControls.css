@@ -1,0 +1,13 @@
+.year-buttons {
+  bottom: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  display: flex;
+}
+
+.ol-control button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
