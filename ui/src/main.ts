@@ -1,5 +1,5 @@
 import Collection from "ol/Collection";
-import Map from "ol/Map";
+import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { ScaleLine, Zoom } from "ol/control";
 import { Extent } from "ol/extent";
@@ -7,6 +7,7 @@ import "ol/ol.css";
 import { get as getProjection } from "ol/proj";
 import { register as registerProj4 } from "ol/proj/proj4";
 import proj4 from "proj4";
+import LoadingAnimation from "./component/loadingAnimation";
 import YearMapButtons from "./component/yearMapButtons";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
 import PostGlacialReboundLayer from "./layer/PostGlacialReboundTileLayer";
@@ -27,20 +28,25 @@ const view = new View({
   enableRotation: false,
   zoom: 5,
 });
+const loadingAnimation = new LoadingAnimation();
 
 const initialYear = -6000;
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
-const postGlacialReboundLayer = new PostGlacialReboundLayer(initialYear);
 
-const map = new Map({
+const map = new OpenLayersMap({
   target: "map",
-  layers: [nlsBackgroundLayer, postGlacialReboundLayer.getLayer()],
+  layers: [nlsBackgroundLayer],
   view,
   controls: new Collection([
     new Zoom(),
     new ScaleLine({
       units: "metric",
     }),
-    new YearMapButtons(postGlacialReboundLayer, initialYear),
+    new YearMapButtons(
+      (year) => PostGlacialReboundLayer.changeYear(year, map, loadingAnimation),
+      initialYear
+    ),
+    loadingAnimation,
   ]),
 });
+PostGlacialReboundLayer.initialize(initialYear, map, loadingAnimation);

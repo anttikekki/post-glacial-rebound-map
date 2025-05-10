@@ -1,17 +1,13 @@
 import Control from "ol/control/Control";
 import years from "../../../common/mapLayerYears.json";
-import PostGlacialReboundLayer from "../layer/PostGlacialReboundTileLayer";
 import "./yearMapButtons.css";
 
 export default class YearMapButtons extends Control {
-  private readonly postGlacialReboundLayer: PostGlacialReboundLayer;
+  private readonly changeYear: (year: number) => void;
   private year: number;
   private yearTextSpan: HTMLSpanElement;
 
-  constructor(
-    postGlacialReboundLayer: PostGlacialReboundLayer,
-    initialYear: number
-  ) {
+  constructor(changeYear: (year: number) => void, initialYear: number) {
     const buttonPrev = document.createElement("button");
     buttonPrev.innerHTML = "<";
     const buttonNext = document.createElement("button");
@@ -27,7 +23,7 @@ export default class YearMapButtons extends Control {
     super({ element });
     this.year = initialYear;
     this.yearTextSpan = yearTextSpan;
-    this.postGlacialReboundLayer = postGlacialReboundLayer;
+    this.changeYear = changeYear;
     yearTextSpan.innerHTML = this.year.toString();
 
     buttonPrev.addEventListener("click", () => {
@@ -41,7 +37,7 @@ export default class YearMapButtons extends Control {
   private updateYear(year: number) {
     this.year = year;
     this.yearTextSpan.innerHTML = this.year.toString();
-    this.postGlacialReboundLayer.changeYear(this.year);
+    this.changeYear(this.year);
   }
 
   private prevYear() {

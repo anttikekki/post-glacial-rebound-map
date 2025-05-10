@@ -1,9 +1,11 @@
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
+import OpenLayersMap from "ol/Map";
 import { GeoTIFF } from "ol/source";
+import LoadingAnimation from "../component/loadingAnimation";
 
-const colorLand = [0, 0, 0, 0];
+const colorLand = [0, 0, 0, 0]; // Invisible
 const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
-const noData = [0, 0, 0, 0];
+const noData = [0, 0, 0, 0]; // Invisible
 const style: Style = {
   color: [
     "case",
@@ -16,38 +18,92 @@ const style: Style = {
 };
 
 export default class PostGlacialReboundLayer {
-  private source: GeoTIFF;
+  private readonly year: number;
+  private readonly source: GeoTIFF;
   private readonly layer: WebGLTileLayer;
 
-  public constructor(initialYear: number) {
-    this.source = PostGlacialReboundLayer.createGeoTIFFSource(initialYear);
+  private constructor(year: number) {
+    this.year = year;
 
-    this.layer = new WebGLTileLayer({
-      source: this.source,
-      style,
-    });
-  }
-
-  public getLayer(): WebGLTileLayer {
-    return this.layer;
-  }
-
-  public changeYear(year: number): void {
-    this.source = PostGlacialReboundLayer.createGeoTIFFSource(year);
-    this.layer.setSource(this.source);
-  }
-
-  private static createGeoTIFFSource(year: number): GeoTIFF {
     const host = process.env.MAANNOUSU_API ?? "https://maannousu.info";
-    return new GeoTIFF({
+    this.source = new GeoTIFF({
       sources: [
         {
-          url: `${host}/api/v1/${year}`,
+          url: `${host}/api/v1/${this.year}`,
           bands: [1],
         },
       ],
       convertToRGB: false,
       normalize: false,
     });
+
+    this.layer = new WebGLTileLayer({
+      source: this.source,
+      style,
+      visible: true,
+    });
+  }
+
+  public getYear(): number {
+    return this.year;
+  }
+
+  public getLayer(): WebGLTileLayer {
+    return this.layer;
+  }
+
+  private static readonly layers = new Map<number, PostGlacialReboundLayer>();
+
+  public static getLayer(year: number): PostGlacialReboundLayer {
+    const layer = PostGlacialReboundLayer.layers.get(year);
+    if (!layer) {
+      throw new Error(`No layer created for year ${year}`);
+    }
+    return layer;
+  }
+
+  public static changeYear = (
+    nextYear: number,
+    map: OpenLayersMap,
+    loadingAnimation: LoadingAnimation
+  ): void => {
+    const nextLayer = PostGlacialReboundLayer.layers.get(nextYear);
+    if (!nextLayer) {
+      loadingAnimation.setVisible(true);
+      const newLayer = new PostGlacialReboundLayer(nextYear);
+      PostGlacialReboundLayer.layers.set(nextYear, newLayer);
+
+      newLayer.source.once("tileloadend", () => {
+        map.once("rendercomplete", () => {
+          PostGlacialReboundLayer.setPostGlacialReboundLayerVisible(newLayer);
+          loadingAnimation.setVisible(false);
+        });
+      });
+      map.addLayer(newLayer.layer);
+    } else {
+      PostGlacialReboundLayer.setPostGlacialReboundLayerVisible(nextLayer);
+    }
+  };
+
+  private static setPostGlacialReboundLayerVisible = (
+    nextLayer: PostGlacialReboundLayer
+  ): void => {
+    nextLayer.getLayer().setVisible(true);
+    PostGlacialReboundLayer.layers.forEach((prevLayer) => {
+      if (
+        prevLayer.getYear() !== nextLayer.getYear() &&
+        prevLayer.getLayer().isVisible()
+      ) {
+        prevLayer.getLayer().setVisible(false);
+      }
+    });
+  };
+
+  public static initialize(
+    initialYear: number,
+    map: OpenLayersMap,
+    loadingAnimation: LoadingAnimation
+  ): void {
+    PostGlacialReboundLayer.changeYear(initialYear, map, loadingAnimation);
   }
 }

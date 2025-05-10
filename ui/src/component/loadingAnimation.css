@@ -1,0 +1,30 @@
+/*
+Spinner from Bootstrap: https://github.com/twbs/bootstrap/blob/main/scss/_spinners.scss
+Licence: MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+*/
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner 0.75s linear infinite;
+  animation: spinner 0.75s linear infinite;
+}
+
+.hidden {
+  display: none;
+}
