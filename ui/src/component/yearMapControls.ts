@@ -1,18 +1,20 @@
 import Control from "ol/control/Control";
-import years from "../../../common/mapLayerYears.json";
+import baseYears from "../../../common/mapLayerYears.json";
 import "./yearMapControls.css";
 
 export default class YearMapControls extends Control {
+  private readonly years = [...baseYears, new Date().getFullYear()];
   private readonly changeYear: (year: number) => void;
+  private readonly yearSelect: HTMLSelectElement;
+  private readonly buttonPrev: HTMLButtonElement;
+  private readonly buttonNext: HTMLButtonElement;
   private year: number;
-  private yearSelect: HTMLSelectElement;
-  private buttonPrev: HTMLButtonElement;
-  private buttonNext: HTMLButtonElement;
 
   constructor(changeYear: (year: number) => void, initialYear: number) {
+    const years = [...baseYears, new Date().getFullYear()];
     const buttonPrev = createButton("<");
     const buttonNext = createButton(">");
-    const yearSelect = createYearSelectElement();
+    const yearSelect = createYearSelectElement(years);
 
     const element = document.createElement("div");
     element.className = "year-buttons ol-unselectable ol-control";
@@ -21,11 +23,12 @@ export default class YearMapControls extends Control {
     element.appendChild(buttonNext);
 
     super({ element });
-    this.year = initialYear;
+    this.years = years;
     this.yearSelect = yearSelect;
     this.buttonPrev = buttonPrev;
     this.buttonNext = buttonNext;
     this.changeYear = changeYear;
+    this.year = initialYear;
 
     buttonPrev.addEventListener("click", () => {
       this.prevYear();
@@ -43,13 +46,13 @@ export default class YearMapControls extends Control {
   }
 
   private hasPrevYear(): boolean {
-    const prevYearIndex = years.indexOf(this.year) - 1;
+    const prevYearIndex = this.years.indexOf(this.year) - 1;
     return prevYearIndex >= 0;
   }
 
   private hasNextYear(): boolean {
-    const nextYearIndex = years.indexOf(this.year) + 1;
-    return nextYearIndex < years.length;
+    const nextYearIndex = this.years.indexOf(this.year) + 1;
+    return nextYearIndex < this.years.length;
   }
 
   private updateYear(year: number) {
@@ -61,16 +64,16 @@ export default class YearMapControls extends Control {
   }
 
   private prevYear() {
-    const prevYearIndex = years.indexOf(this.year) - 1;
+    const prevYearIndex = this.years.indexOf(this.year) - 1;
     if (this.hasPrevYear()) {
-      this.updateYear(years[prevYearIndex]);
+      this.updateYear(this.years[prevYearIndex]);
     }
   }
 
   private nextYear() {
-    const nextYearIndex = years.indexOf(this.year) + 1;
+    const nextYearIndex = this.years.indexOf(this.year) + 1;
     if (this.hasNextYear()) {
-      this.updateYear(years[nextYearIndex]);
+      this.updateYear(this.years[nextYearIndex]);
     }
   }
 }
@@ -81,7 +84,7 @@ const createButton = (label: string): HTMLButtonElement => {
   return button;
 };
 
-const createYearSelectElement = (): HTMLSelectElement => {
+const createYearSelectElement = (years: number[]): HTMLSelectElement => {
   const select = document.createElement("select");
 
   years.forEach((year) => {
