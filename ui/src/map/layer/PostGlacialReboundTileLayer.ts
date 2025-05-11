@@ -34,6 +34,12 @@ export default class PostGlacialReboundLayer {
           bands: [1],
         },
       ],
+      sourceOptions: {
+        /**
+         * Decrease cache size from default 100 to 50 tiles to save memory.
+         */
+        cacheSize: 50,
+      },
       convertToRGB: false,
       normalize: false,
     });

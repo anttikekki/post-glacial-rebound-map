@@ -17,7 +17,7 @@ export const createMMLTaustakarttaLayer = (): TileLayer => {
 
   const source = new WMTSSource(taustakarttaOptions);
 
-  // Add MML api key to all layers. This API key is just for avoin-karttakuva.maanmittauslaitos.fi
+  // Add MML api key. This API key is just for avoin-karttakuva.maanmittauslaitos.fi
   source.setUrls(
     source
       .getUrls()
