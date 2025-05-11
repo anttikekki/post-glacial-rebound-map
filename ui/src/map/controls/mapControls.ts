@@ -2,6 +2,7 @@ import "bootstrap-icons/font/bootstrap-icons.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Collection } from "ol";
 import { ScaleLine } from "ol/control";
+import "ol/ol.css"; // This is just for ScaleLine styles
 import InfoButton from "./infoButton";
 import LoadingAnimation from "./loadingAnimation";
 import "./mapControls.css";

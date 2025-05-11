@@ -1,7 +1,6 @@
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { Extent } from "ol/extent";
-import "ol/ol.css";
 import { get as getProjection } from "ol/proj";
 import { register as registerProj4 } from "ol/proj/proj4";
 import proj4 from "proj4";
@@ -53,18 +52,17 @@ const map = new OpenLayersMap({
     initialYear,
     loadingAnimation,
     centerToCurrentLocation: () => userLocationLayer.centerToCurrentPositions(),
-    changeYear: (year) =>
-      PostGlacialReboundLayer.changeYear(year, map, loadingAnimation),
+    changeYear: (nextYear) => PostGlacialReboundLayer.changeYear(nextYear),
     zoomIn: () => zoom(1),
     zoomOut: () => zoom(-1),
   }),
 });
 const postGlacialReboundLayerGroup =
-  PostGlacialReboundLayer.initializeLayerGroup(
+  PostGlacialReboundLayer.initializeLayerGroup({
     initialYear,
-    map,
-    loadingAnimation
-  );
+    onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
+    loadingAnimation,
+  });
 
 map.addLayer(postGlacialReboundLayerGroup);
 map.addLayer(userLocationLayer.getLayer());
