@@ -1,7 +1,7 @@
 import Collection from "ol/Collection";
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
-import { ScaleLine, Zoom } from "ol/control";
+import { FullScreen, ScaleLine, Zoom } from "ol/control";
 import { Extent } from "ol/extent";
 import "ol/ol.css";
 import { get as getProjection } from "ol/proj";
@@ -39,10 +39,11 @@ const userLocationLayer = new UserLocationVectorLayer(view);
 
 const map = new OpenLayersMap({
   target: "map",
-  layers: [nlsBackgroundLayer, userLocationLayer.getLayer()],
+  layers: [nlsBackgroundLayer],
   view,
   controls: new Collection([
     new Zoom(),
+    new FullScreen(),
     new ScaleLine({
       units: "metric",
     }),
@@ -55,4 +56,12 @@ const map = new OpenLayersMap({
     loadingAnimation,
   ]),
 });
-PostGlacialReboundLayer.initialize(initialYear, map, loadingAnimation);
+const postGlacialReboundLayerGroup =
+  PostGlacialReboundLayer.initializeLayerGroup(
+    initialYear,
+    map,
+    loadingAnimation
+  );
+
+map.addLayer(userLocationLayer.getLayer());
+map.addLayer(postGlacialReboundLayerGroup);

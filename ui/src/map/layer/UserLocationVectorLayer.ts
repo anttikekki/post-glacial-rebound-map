@@ -16,6 +16,7 @@ export default class UserLocationVectorLayer {
     this.source = new VectorSource();
     this.layer = new VectorLayer({
       source: this.source,
+      visible: true,
     });
   }
 

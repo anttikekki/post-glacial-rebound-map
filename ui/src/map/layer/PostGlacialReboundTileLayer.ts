@@ -1,3 +1,4 @@
+import LayerGroup from "ol/layer/Group";
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import OpenLayersMap from "ol/Map";
 import { GeoTIFF } from "ol/source";
@@ -53,9 +54,10 @@ export default class PostGlacialReboundLayer {
   }
 
   private static readonly layers = new Map<number, PostGlacialReboundLayer>();
+  private static readonly layerGroup = new LayerGroup();
 
   public static getLayer(year: number): PostGlacialReboundLayer {
-    const layer = PostGlacialReboundLayer.layers.get(year);
+    const layer = this.layers.get(year);
     if (!layer) {
       throw new Error(`No layer created for year ${year}`);
     }
@@ -69,7 +71,7 @@ export default class PostGlacialReboundLayer {
   ): void => {
     // Hide all layers if current year is selected. This just shows the NLS base map.
     if (nextYear === new Date().getFullYear()) {
-      PostGlacialReboundLayer.layers.forEach((layer) => {
+      this.layers.forEach((layer) => {
         layer.getLayer().setVisible(false);
       });
       return;
@@ -80,17 +82,17 @@ export default class PostGlacialReboundLayer {
     if (!nextLayer) {
       loadingAnimation.setVisible(true);
       const newLayer = new PostGlacialReboundLayer(nextYear);
-      PostGlacialReboundLayer.layers.set(nextYear, newLayer);
+      this.layers.set(nextYear, newLayer);
 
       newLayer.source.once("tileloadend", () => {
         map.once("rendercomplete", () => {
-          PostGlacialReboundLayer.setPostGlacialReboundLayerVisible(newLayer);
+          this.setPostGlacialReboundLayerVisible(newLayer);
           loadingAnimation.setVisible(false);
         });
       });
-      map.addLayer(newLayer.layer);
+      this.layerGroup.getLayers().push(newLayer.layer);
     } else {
-      PostGlacialReboundLayer.setPostGlacialReboundLayerVisible(nextLayer);
+      this.setPostGlacialReboundLayerVisible(nextLayer);
     }
   };
 
@@ -98,7 +100,7 @@ export default class PostGlacialReboundLayer {
     nextLayer: PostGlacialReboundLayer
   ): void => {
     nextLayer.getLayer().setVisible(true);
-    PostGlacialReboundLayer.layers.forEach((prevLayer) => {
+    this.layers.forEach((prevLayer) => {
       if (
         prevLayer.getYear() !== nextLayer.getYear() &&
         prevLayer.getLayer().isVisible()
@@ -108,11 +110,13 @@ export default class PostGlacialReboundLayer {
     });
   };
 
-  public static initialize(
+  public static initializeLayerGroup(
     initialYear: number,
     map: OpenLayersMap,
     loadingAnimation: LoadingAnimation
-  ): void {
-    PostGlacialReboundLayer.changeYear(initialYear, map, loadingAnimation);
+  ): LayerGroup {
+    map.addLayer(this.layerGroup);
+    this.changeYear(initialYear, map, loadingAnimation);
+    return this.layerGroup;
   }
 }
