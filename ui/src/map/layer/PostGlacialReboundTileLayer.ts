@@ -2,7 +2,7 @@ import LayerGroup from "ol/layer/Group";
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import OpenLayersMap from "ol/Map";
 import { GeoTIFF } from "ol/source";
-import LoadingAnimation from "../component/loadingAnimation";
+import LoadingAnimation from "../controls/loadingAnimation";
 
 const colorLand = [0, 0, 0, 0]; // Invisible
 const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
