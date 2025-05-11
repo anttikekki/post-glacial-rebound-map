@@ -66,5 +66,5 @@ const postGlacialReboundLayerGroup =
     loadingAnimation
   );
 
-map.addLayer(userLocationLayer.getLayer());
 map.addLayer(postGlacialReboundLayerGroup);
+map.addLayer(userLocationLayer.getLayer());

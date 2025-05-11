@@ -115,7 +115,6 @@ export default class PostGlacialReboundLayer {
     map: OpenLayersMap,
     loadingAnimation: LoadingAnimation
   ): LayerGroup {
-    map.addLayer(this.layerGroup);
     this.changeYear(initialYear, map, loadingAnimation);
     return this.layerGroup;
   }
