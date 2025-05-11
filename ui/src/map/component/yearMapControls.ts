@@ -1,5 +1,5 @@
 import Control from "ol/control/Control";
-import baseYears from "../../../common/mapLayerYears.json";
+import baseYears from "../../../../common/mapLayerYears.json";
 import "./yearMapControls.css";
 
 export default class YearMapControls extends Control {

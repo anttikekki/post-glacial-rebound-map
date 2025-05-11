@@ -11,7 +11,7 @@ export default (env, argv) => {
   return {
     entry: {
       root: "./src/index.ts",
-      map: "./src/map.ts",
+      map: "./src/map/map.ts",
     },
     mode: argv.mode || "development",
     plugins: [
@@ -24,7 +24,7 @@ export default (env, argv) => {
         excludeChunks: ["map"],
       }),
       new HtmlWebpackPlugin({
-        template: "src/map.ejs",
+        template: "src/map/map.ejs",
         filename: "map.html",
         excludeChunks: ["root"],
       }),
