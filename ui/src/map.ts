@@ -7,10 +7,13 @@ import "ol/ol.css";
 import { get as getProjection } from "ol/proj";
 import { register as registerProj4 } from "ol/proj/proj4";
 import proj4 from "proj4";
+import InfoButton from "./component/infoButton";
 import LoadingAnimation from "./component/loadingAnimation";
+import UserLocationButton from "./component/userLocationButton";
 import YearMapControls from "./component/yearMapControls";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
 import PostGlacialReboundLayer from "./layer/PostGlacialReboundTileLayer";
+import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
 
 // https://epsg.io/3067
 proj4.defs(
@@ -32,10 +35,11 @@ const loadingAnimation = new LoadingAnimation();
 
 const initialYear = -6000;
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
+const userLocationLayer = new UserLocationVectorLayer(view);
 
 const map = new OpenLayersMap({
   target: "map",
-  layers: [nlsBackgroundLayer],
+  layers: [nlsBackgroundLayer, userLocationLayer.getLayer()],
   view,
   controls: new Collection([
     new Zoom(),
@@ -46,6 +50,8 @@ const map = new OpenLayersMap({
       (year) => PostGlacialReboundLayer.changeYear(year, map, loadingAnimation),
       initialYear
     ),
+    new UserLocationButton(() => userLocationLayer.centerToCurrentPositions()),
+    new InfoButton(),
     loadingAnimation,
   ]),
 });

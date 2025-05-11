@@ -12,8 +12,8 @@ export default class YearMapControls extends Control {
 
   constructor(changeYear: (year: number) => void, initialYear: number) {
     const years = [...baseYears, new Date().getFullYear()];
-    const buttonPrev = createButton("<");
-    const buttonNext = createButton(">");
+    const buttonPrev = createButton("<", "Edellinen vuosi");
+    const buttonNext = createButton(">", "Seuraava vuosi");
     const yearSelect = createYearSelectElement(years);
 
     const element = document.createElement("div");
@@ -78,14 +78,16 @@ export default class YearMapControls extends Control {
   }
 }
 
-const createButton = (label: string): HTMLButtonElement => {
+const createButton = (label: string, title: string): HTMLButtonElement => {
   const button = document.createElement("button");
+  button.title = title;
   button.innerHTML = label;
   return button;
 };
 
 const createYearSelectElement = (years: number[]): HTMLSelectElement => {
   const select = document.createElement("select");
+  select.title = "Valitse vuosi";
 
   years.forEach((year) => {
     const option = document.createElement("option");
