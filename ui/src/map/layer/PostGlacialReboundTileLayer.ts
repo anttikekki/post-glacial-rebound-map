@@ -83,9 +83,7 @@ export default class PostGlacialReboundLayer {
   public static changeYear = (nextYear: number): void => {
     // Hide all layers if current year is selected. This just shows the NLS base map.
     if (nextYear === new Date().getFullYear()) {
-      this.layers.forEach((layer) => {
-        layer.getLayer().setVisible(false);
-      });
+      this.layerGroup.setVisible(false);
       return;
     }
 

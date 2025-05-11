@@ -1,26 +1,13 @@
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
-import { Extent } from "ol/extent";
-import { get as getProjection } from "ol/proj";
-import { register as registerProj4 } from "ol/proj/proj4";
-import proj4 from "proj4";
 import LoadingAnimation from "./controls/loadingAnimation";
 import { getMapControls } from "./controls/mapControls";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
 import PostGlacialReboundLayer from "./layer/PostGlacialReboundTileLayer";
 import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
+import { initEPSG3067Projection } from "./util/projectionUtil";
 
-const projection = "EPSG:3067";
-
-// https://epsg.io/3067
-proj4.defs(
-  projection,
-  "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-);
-registerProj4(proj4);
-
-const extent: Extent = [50199.4814, 6582464.0358, 761274.6247, 7799839.8902];
-getProjection(projection)?.setExtent(extent);
+const { projection } = initEPSG3067Projection();
 
 const view = new View({
   center: [385249.63630000036, 6672695.7579], // Helsinki
