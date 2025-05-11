@@ -95,9 +95,9 @@ const createYearSelectElement = (years: number[]): HTMLSelectElement => {
     option.value = year.toString();
     option.text = (() => {
       if (year >= 0) {
-        return `Vuosi ${year} jaa.`;
+        return `${year} jaa.`;
       } else {
-        return `Vuosi ${-year} eaa.`;
+        return `${-year} eaa.`;
       }
     })();
     select.appendChild(option);
