@@ -5,6 +5,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import webpack from "webpack";
 
 export default (env, argv) => {
@@ -17,6 +18,9 @@ export default (env, argv) => {
     plugins: [
       new webpack.DefinePlugin({
         "process.env.MAANNOUSU_API": JSON.stringify(process.env.MAANNOUSU_API),
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[contenthash].css",
       }),
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
@@ -44,7 +48,10 @@ export default (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: ["style-loader", "css-loader"],
+          use: [
+            MiniCssExtractPlugin.loader, // Extract CSS to separate files
+            "css-loader",
+          ],
         },
       ],
     },
@@ -54,6 +61,19 @@ export default (env, argv) => {
     // Hide chunk size warnings on "npm run start:prod"
     performance: {
       hints: false,
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          // Make sure that Bootstrap CSS is shared between entrypoints
+          bootstrap: {
+            test: /[\\/]node_modules[\\/]bootstrap[\\/]/,
+            name: "bootstrap",
+            chunks: "all",
+            enforce: true,
+          },
+        },
+      },
     },
     output: {
       filename: "[name]-[contenthash].js",

@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import Collection from "ol/Collection";
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
