@@ -1,3 +1,4 @@
+import { LRUCache } from "lru-cache";
 import LayerGroup from "ol/layer/Group";
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
@@ -52,8 +53,18 @@ export default class PostGlacialReboundLayer {
     return this.layer;
   }
 
-  private static readonly layers = new Map<number, PostGlacialReboundLayer>();
   private static readonly layerGroup = new LayerGroup();
+  // Store only 5 layers to save memory. Older mobile devices crash if
+  // too many layers are loaded.
+  private static readonly layers = new LRUCache<
+    number, // Year
+    PostGlacialReboundLayer
+  >({
+    max: 5,
+    dispose: (layer) => {
+      this.layerGroup.getLayers().remove(layer.getLayer());
+    },
+  });
   private static onMapRenderCompleteOnce?: (fn: () => void) => void;
   private static loadingAnimation?: LoadingAnimation;
 

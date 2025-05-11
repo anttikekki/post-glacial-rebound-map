@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap": "5.3.6",
     "bootstrap-icons": "1.13.1",
+    "lru-cache": "11.1.0",
     "ol": "10.5.0",
     "proj4": "2.16.2",
     "tslib": "2.8.1"
