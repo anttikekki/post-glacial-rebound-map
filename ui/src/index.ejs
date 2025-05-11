@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
   <head>
     <meta charset="utf-8" />
     <title>Maannousu.info</title>
@@ -10,9 +10,10 @@
       <h1 class="display-5 fw-bold text-body-emphasis">Maannousu.info</h1>
       <div class="col-lg-6 mx-auto">
         <p class="lead mb-4">
-          Maannousu.info on sivusto Suomessa tapahtuneen maannousun
+          Maannousu.info sivusto on tarkoitettu Suomessa jääkauden jälkeen
+          tapahtuneen maannousun aiheuttamaan merenrannan siirtymisen
           visualisointiin. Kartan kautta pystyy katsomaan merenpinnan tason eri
-          vuosituhansina historiassa.
+          vuosituhansina historiassa. Kartta-aineisto on vapaasti käytettävissä.
         </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <a href="map.html" class="btn btn-primary btn-lg px-4 gap-3">
@@ -20,6 +21,272 @@
           </a>
         </div>
       </div>
+    </div>
+
+    <div class="container">
+      <div class="alert alert-warning" role="alert">
+        <p><b>Varoitus!</b></p>
+
+        <p>
+          Tämä sivusto ja sen kartta-aineisto ovat harrastelijaprojekti.
+          Sivuston näyttämät tiedot merenpinnan tasosta eri vuosina historiassa
+          ovat epätieteellisiä väittämiä, eikä tätä aineistoa siksi tule käyttää
+          tilanteissa, joissa tarvitaan tieteellistä tarkkuutta.
+        </p>
+
+        <p>
+          Lue lisää aineiston luotettavuudesta osiosta
+          <a href="#aineiston-luotettavuus">Aineiston luotettavuus</a>. Samassa
+          osiossa on linkkejä maannousua käsitteleviin tieteellisiin
+          artikkeleihin.
+        </p>
+      </div>
+
+      <h2>Maannousu?</h2>
+
+      <p>
+        Maannousu tarkoittaa Pohjois-Euroopassa ja Kanadassa tapahtuvaa
+        maanpinnan hidasta nousua, joka johtuu viimeisimmän jääkauden alaspäin
+        painaman maankuoren noususta takaisin alkuperöiselle korkeudelleen.
+        Maankohoamisen seuraksena merenranta perääntyy Suomen rannikolla noin 9
+        - 3 mm vuodessa. Nopeinta nousu on Vaasan seudulla ja hitainta
+        Etelä-Suomessa. Lue lisää maannoususta:
+      </p>
+
+      <ul>
+        <li>
+          <a
+            href="https://www.maanmittauslaitos.fi/tutkimus/teematietoa/maannousu"
+            >Maanmittauslaitos: Maannousu</a
+          >
+        </li>
+        <li>
+          <a href="https://fi.wikipedia.org/wiki/Maankohoaminen"
+            >Wikipedia: Maankohoaminen</a
+          >
+        </li>
+      </ul>
+
+      <h2>Rajaukset</h2>
+      <p>
+        Tämän sivuston kartta-aineisto näyttää vain merenrannan siirtymisen.
+        Siinä ei ole laskettu maanpinnan kallistumisesta johtuvaa järvien
+        siirtymisiä tai niiden lasku-uomien muutoksia. Myöskään merenpinnan
+        tason historialisia muutoksia ei ole huomioitu.
+      </p>
+
+      <h2>Kartta-aineisto</h2>
+
+      <h3>Aineiston lataus ja rajapinnat</h3>
+      <p>TODO</p>
+
+      <h3>Kartta-aineiston lähteet</h3>
+
+      <p>
+        Kartta-aineiston lähdeaineistona on käytetty seuraavia avoimia
+        aineistoja:
+      </p>
+
+      <ul>
+        <li>
+          Ruotsin Lantmäteriet -viraston vuonna 2016 julkaisema
+          <a
+            href="https://www.lantmateriet.se/sv/geodata/gps-geodesi-och-swepos/Referenssystem/Landhojning/"
+            >NKG2016LU</a
+          >
+          malli maannoususta Pohjoismaissa (<a
+            href="https://www.lantmateriet.se/contentassets/58490c18f7b042e5aa4c38075c9d3af5/nkg2016lu-with-readme.zip"
+            >zip-tiedosto</a
+          >). Malli kertoo millimetreinä maannousun määrä vuodessa eri osissa
+          Pohjoismaita. Aineiston esittely:
+          <a
+            href="https://www.lantmateriet.se/contentassets/58490c18f7b042e5aa4c38075c9d3af5/presentation-av-nkg2016lu.pdf"
+            >NKG2016LU, an improved postglacial land uplift model over the
+            Nordic-Baltic region, 2016</a
+          >.
+        </li>
+        <li>
+          Maanmittauslaitoksen (MML) julkaisema
+          <a
+            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m"
+            >korkeusmalli 2 m</a
+          >, joka kuvaa 2m x 2m ruudukolla koko Suomen maankorkeuden
+          merenpinnasta vuonna 2023. Aineisto on julkaistu
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+            >CC BY 4.0</a
+          >
+          lisenssillä.
+        </li>
+      </ul>
+
+      <h3>Maannousun laskenta</h3>
+
+      <p>
+        NKG2016LU maannousumallista saadaan nykyinen maannousun nopeus eri
+        Suomen alueille. Tämän jälkeen voidaan yksinkertaisesti kertoa tuo
+        muutos sillä vuosimäärällä, jonka merenpinnan korkeus halutaan
+        selvittää. Seuraava kaava lasketaan jokaisella 2m x 2m ruudulle MML:n
+        korkeusmallissa:
+      </p>
+      <p>
+        <code>Maankorkeus (m) + ((Maannousu (mm) * Vuosi) / 1000.0)</code>
+      </p>
+
+      <ul>
+        <li>
+          Maankorkeus (m) = MLL:n korkeusmallin maankorkeus metreinä
+          merenpinnasta vuona 2023.
+        </li>
+        <li>
+          Maannousu (mm) = NKG2016LU mallin maankohoaminen vuodessa
+          milimetreinä.
+        </li>
+        <li>
+          Vuosi = erotus vuosina vuodesta 2023, jonka ajanhetkenä merenpinnan
+          korkeus halutaan laskea. Miinusmerkkiset vuosiluvut laskevat
+          tilannetta historiaan, plusmerkkiset tulevaisuuteen.
+        </li>
+      </ul>
+
+      <h4>Esimerkki</h4>
+
+      <p>
+        Lasketaan yhden 2m x 2m ruudun maankorkeus vuonna 4000 ennen ajanlaskun
+        alkua (eaa.), eli 6023 vuotta taaksepäin vuodesta 2023. Maannousu tässä
+        kohtaa on 6.5 mm vuodessa.
+      </p>
+      <p>
+        <code
+          >1.5 + (6.5 * -6023 / 1000.0) = 1.5 + (-39149,5 / 1000.0) = 1.5 +
+          -39,1495 = -37,6495</code
+        >
+      </p>
+      <p>
+        <b>Lopputulos:</b> kohta, joka on 1.5 metria merenpinnan yläpuolella
+        vuonna 2023 oli noin 37 metriä maan pinnan alapuolella vuonna 4000 eaa.
+        kun maannousu tuossa kohtaa on ollut 6.5 mm vuodessa.
+      </p>
+
+      <h3>Aineiston luotettavuus</h3>
+      <a name="aineiston-luotettavuus"></a>
+
+      <p>
+        Tämä sivuston kartta-aineisto on harrastelijaprojekti. Aineisto voi
+        sisältää tämän vuoksi paljon virheitä, eikä se pohjaa mitenkään
+        maannousua koskevaan tieteelliseen tutkimukseen. Tämän lisäksi
+        aineistossa on monia ominaisuuksia, jotka laskevat sen luotettavuutta:
+      </p>
+
+      <h4>Maannousun hidastuminen</h4>
+      <p>
+        Tämän sivun kartta-aineisto on tuotettu sellaisella logiikalla, jossa
+        vuoden 2016 vuosittainen maannousu on pysynyt identtisenä vuosituhansia
+        historiaan. Tämä ei pidä paikkaansa, vaan maannousu on ollut heti jään
+        sulamisen jälkeen valtavasti nopeampaa ja hidastunut siitä jokainen
+        vuosi. Aineisto on siis sitä epätarkempaa, mitä kauemmaksi historiaan
+        sitä lasketaan.
+      </p>
+
+      <p>
+        Luotetavampi tapa olisi ottaa huomioon myös geologiset havainnot
+        muinaisista merenrannoista. Geologisella tutkimuskeskuksella (GTK) on
+        aineisto muinaisrannoista Suomessa. Tämä data pitäisi ottaa jotenkin
+        huomioon laskennassa.
+      </p>
+
+      <p>
+        GTK:n muinaisranta-aineiston tarkasteltavissa GTK:n
+        <a href="https://gtkdata.gtk.fi/maankamara/">omasta karttapalvelusta</a>
+        tai esim.
+        <a
+          href="https://muinaismuistot.info/#ahvenanmaaEnabled=false&gtkEnabled=true&gtkLayer=muinaisrannat&helsinkiEnabled=false&maisemanMuistiLayer=none&modelsLayer=none&museovirastoEnabled=false"
+          >muinaismuistot.info</a
+        >
+        sivustolta.
+      </p>
+
+      <h4>Maanpinnan muutokset</h4>
+      <p>
+        Pohja-aineistona on vuoden 2023 korkeusmalli. Tämän vuoksi kaikki
+        ihmisen tekemät maanpinnan muuutokset vaikuttavat laskentaan: ojitus,
+        kanavat, tiet, rantarakentaminen jne. Laskennallinen merenpinta voi olla
+        näillä muokatun maaston kohdilla pielessä useita metrejä.
+      </p>
+      <p>
+        Myöskään luonnollisia maan- tai merenpinnan muutoksia ei ole huomiotu.
+        Näitä ovat esim. jokien lasku-uomien muutokset, jokien kuljettamien
+        sedimenttien kasaantuminen ja merenpinnan korkeusvaihtelut.
+      </p>
+      <p>
+        Tällä aineistolla ei edes pyritä mallintamaan jääkauden jään sulamisen
+        aikaisia
+        <a href="https://fi.wikipedia.org/wiki/It%C3%A4meri#Geologia"
+          >Itämeren vaiheita</a
+        >
+        (<a href="https://fi.wikipedia.org/wiki/Baltian_j%C3%A4%C3%A4j%C3%A4rvi"
+          >Baltian jääjärvi</a
+        >,
+        <a href="https://fi.wikipedia.org/wiki/Yoldiameri">Yoldiameri</a> jne.),
+        vaan aineisto keskittyy
+        <a href="https://fi.wikipedia.org/wiki/Litorinameri">Litorinamereen</a>
+        (noin 8 000 - 4 000 vuotta sitten) ja nykyisen Itämeren aikaan.
+      </p>
+
+      <h4>Tieteellisiä artikkeleita maannoususta</h4>
+      <p>
+        Tieteellistä tietoa maannoususta löytyy esimerkiksi näistä artikkeleista
+        ja niiden lähteistä:
+      </p>
+
+      <ul>
+        <li>
+          Eronen, M; Gluckert, G; Hatakka, L; Van De Plassche, O; Van Der
+          Plicht, J; Rantala, P: Rates of Holocene isostatic uplift and relative
+          sea-level lowering of the Baltic in SW Finland based on studies of
+          isolation contacts, 2001 (<a
+            href="https://pure.rug.nl/ws/files/6663240/2001BoreasEronen.pdf"
+            >University of Groningen</a
+          >)
+        </li>
+        <li>
+          Tikkanen, Matti, Juha Oksanen: Late Weichselian and Holocene
+          shoredisplacement history of the Baltic Sea in Finland, 2020 (<a
+            href="https://fennia.journal.fi/article/view/3760/3551"
+            >fennia.journal.fi</a
+          >)
+        </li>
+        <li>
+          Arto Miettinen, Henrik Jansson, Teija Alenius, Georg Haggrén: Late
+          Holocene sea-level changes along the southern coast of Finland, Baltic
+          Sea, 2007 (<a
+            href="https://www.sciencedirect.com/science/article/abs/pii/S0025322706003598"
+            >sciencedirect.com</a
+          >)
+        </li>
+        <li>
+          Viljami Perheentupa, Ville Mäkinen, Hando-Laur Habicht, Juha Oksanen:
+          Animated visualization of post-glacial land uplift and shore
+          displacement from modeled paleotopographic reconstructions, 2020 (<a
+            href="https://www.sciencedirect.com/science/article/pii/S2590197420300240"
+            >sciencedirect.com</a
+          >)
+        </li>
+        <li>
+          Markku Poutanen, Holger Steffen: Land Uplift at Kvarken Archipelago /
+          High Coast UNESCO World Heritage area, 2014 (<a
+            href="https://www.researchgate.net/publication/281717497_Land_uplift_at_Kvarken_Archipelago_high_coast_UNESCO_World_Heritage_area"
+            >researchgate.net</a
+          >)
+        </li>
+        <li>
+          Olav Vestøl, Jonas Ågren, Holger Steffen, Halfdan Kierulf, Lev
+          Tarasov: NKG2016LU: a new land uplift model for Fennoscandia and the
+          Baltic Region, 2019 (<a
+            href="https://link.springer.com/article/10.1007/s00190-019-01280-8#Abs1"
+            >springer.com</a
+          >)
+        </li>
+      </ul>
     </div>
   </body>
 </html>
