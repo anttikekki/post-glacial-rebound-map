@@ -1,6 +1,5 @@
 import Control from "ol/control/Control";
 import baseYears from "../../../../common/mapLayerYears.json";
-import "./yearMapControls.css";
 
 export default class YearMapControls extends Control {
   private readonly years = [...baseYears, new Date().getFullYear()];
@@ -17,7 +16,7 @@ export default class YearMapControls extends Control {
     const yearSelect = createYearSelectElement(years);
 
     const element = document.createElement("div");
-    element.className = "year-buttons ol-unselectable ol-control";
+    element.className = "year-buttons";
     element.appendChild(buttonPrev);
     element.appendChild(yearSelect);
     element.appendChild(buttonNext);
@@ -80,6 +79,7 @@ export default class YearMapControls extends Control {
 
 const createButton = (label: string, title: string): HTMLButtonElement => {
   const button = document.createElement("button");
+  button.className = "btn btn-info btn-sm";
   button.title = title;
   button.innerHTML = label;
   return button;
@@ -88,6 +88,7 @@ const createButton = (label: string, title: string): HTMLButtonElement => {
 const createYearSelectElement = (years: number[]): HTMLSelectElement => {
   const select = document.createElement("select");
   select.title = "Valitse vuosi";
+  select.className = "form-select form-select-sm";
 
   years.forEach((year) => {
     const option = document.createElement("option");

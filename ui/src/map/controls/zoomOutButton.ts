@@ -1,19 +1,19 @@
 import Control from "ol/control/Control";
 
-export default class InfoButton extends Control {
-  public constructor() {
+export default class ZoomOutButton extends Control {
+  public constructor(zoomOut: () => void) {
     const icon = document.createElement("i");
-    icon.className = "bi bi-info-circle";
+    icon.className = "bi bi-zoom-out";
 
     const button = document.createElement("button");
-    button.title = "Lisätietoa sivustosta";
-    button.className = "info-button btn btn-info btn-sm";
+    button.title = "Loitonna";
+    button.className = "zoom-out-button btn btn-info btn-sm";
     button.appendChild(icon);
 
     super({ element: button });
 
     button.addEventListener("click", () => {
-      window.open("/", "_blank");
+      zoomOut();
     });
   }
 }

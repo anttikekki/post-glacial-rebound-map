@@ -53,6 +53,10 @@ export default (env, argv) => {
             "css-loader",
           ],
         },
+        {
+          test: [/\.svg$/, /\.woff(2?)$/, /\.ttf$/, /\.eot$/],
+          type: "asset/resource",
+        },
       ],
     },
     resolve: {
@@ -81,6 +85,7 @@ export default (env, argv) => {
         __dirname,
         "../infra/post-glacial-rebound-worker/public"
       ),
+      assetModuleFilename: "fonts/[name][ext]",
       clean: true,
     },
   };

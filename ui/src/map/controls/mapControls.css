@@ -1,0 +1,31 @@
+.zoom-in-button {
+  top: 10px;
+  left: 10px;
+  position: absolute;
+}
+
+.zoom-out-button {
+  top: 50px;
+  left: 10px;
+  position: absolute;
+}
+
+.user-location-button {
+  top: 90px;
+  left: 10px;
+  position: absolute;
+}
+
+.info-button {
+  top: 130px;
+  left: 10px;
+  position: absolute;
+}
+
+.year-buttons {
+  bottom: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  display: flex;
+}

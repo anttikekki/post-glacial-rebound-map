@@ -1,16 +1,16 @@
 import Control from "ol/control/Control";
-import "./userLocationButton.css";
 
 export default class UserLocationButton extends Control {
   public constructor(centerToCurrentLocation: () => void) {
+    const icon = document.createElement("i");
+    icon.className = "bi bi-crosshair";
+
     const button = document.createElement("button");
     button.title = "Keskitä kartta nykyiseen sijaintiin";
-    button.innerHTML = "📍";
+    button.className = "user-location-button btn btn-info btn-sm";
+    button.appendChild(icon);
 
-    const element = document.createElement("div");
-    element.className = "user-location-button ol-unselectable ol-control";
-    element.appendChild(button);
-    super({ element });
+    super({ element: button });
 
     button.addEventListener("click", () => {
       centerToCurrentLocation();

@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { Extent } from "ol/extent";
@@ -36,6 +35,16 @@ const initialYear = -6000;
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
 const userLocationLayer = new UserLocationVectorLayer(view);
 
+const zoom = (zoomChange: number) => {
+  const zoom = view.getZoom();
+  if (zoom) {
+    view.animate({
+      zoom: zoom + zoomChange,
+      duration: 250,
+    });
+  }
+};
+
 const map = new OpenLayersMap({
   target: "map",
   layers: [nlsBackgroundLayer],
@@ -46,6 +55,8 @@ const map = new OpenLayersMap({
     centerToCurrentLocation: () => userLocationLayer.centerToCurrentPositions(),
     changeYear: (year) =>
       PostGlacialReboundLayer.changeYear(year, map, loadingAnimation),
+    zoomIn: () => zoom(1),
+    zoomOut: () => zoom(-1),
   }),
 });
 const postGlacialReboundLayerGroup =
