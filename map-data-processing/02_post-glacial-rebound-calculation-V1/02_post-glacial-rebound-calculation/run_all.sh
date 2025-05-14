@@ -4,7 +4,7 @@
 set -euo pipefail
 
 # JSON file containing an array of years
-YEAR_FILE="../../common/mapLayerYears.json"
+YEAR_FILE="../../../common/mapLayerYears.json"
 
 # Check that file exists
 if [ ! -f "$YEAR_FILE" ]; then

@@ -3,7 +3,30 @@
 # Exit if any command fails
 set -euo pipefail
 
-INPUT_FOLDER="../03_post-glacial-rebound-calculation/calculation_results"
+# --- Parse input argument ---
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 SOURCE_VERSION"
+    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
+    exit 1
+fi
+
+SOURCE_VERSION="$1"
+
+case "$SOURCE_VERSION" in
+  V1)
+    INPUT_FOLDER="../02_post-glacial-rebound-calculation-V1/02_post-glacial-rebound-calculation/calculation_results"
+    ;;
+  V2)
+    INPUT_FOLDER="../02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/calculation_results"
+    ;;
+  *)
+    echo "Invalid VERSION: $SOURCE_VERSION"
+    echo "Valid options: V1, V2"
+    exit 1
+    ;;
+esac
+
+
 OUTPUT_FOLDER="./sea_land_masks"
 PARALLEL_JOBS=8
 

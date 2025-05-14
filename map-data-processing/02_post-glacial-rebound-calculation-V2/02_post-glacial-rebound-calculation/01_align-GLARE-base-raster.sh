@@ -3,14 +3,14 @@
 # Exit if any command fails
 set -euo pipefail
 
-# This script warps and aligns the NKG2016LU raster
+# This script warps and aligns the GLARE model base raster
 # to match multiple input VRTs (DEM mosaics) in parallel.
 # Output will be one compressed and tiled aligned raster per input VRT.
 
 # Configurations
-VRT_FOLDER="../02_nls-elevation-model-2m/vrt"
-NKG2016LU_SRC="../01_land-uplift-model-NKG2016LU/NKG2016LU_lev_tm35fin.tif"
-OUTPUT_FOLDER="./aligned_NKG2016LU_rasters"
+VRT_FOLDER="../../01_download-nls-elevation-model-2m/vrt"
+GLARE_BASE_RASTER_SRC="../01_downloada-GLARE-model-data/Base-raster-tm35fin.tif"
+OUTPUT_FOLDER="./aligned_GLARE_base_rasters"
 PARALLEL_JOBS=8  # Number of parallel gdalwarp processes
 
 # Create output folder if it doesn't exist
@@ -22,8 +22,8 @@ if [ ! -d "$VRT_FOLDER" ]; then
     exit 1
 fi
 
-if [ ! -f "$NKG2016LU_SRC" ]; then
-    echo "Source NKG2016LU raster not found: $NKG2016LU_SRC"
+if [ ! -f "$GLARE_BASE_RASTER_SRC" ]; then
+    echo "Source GLARE base raster not found: $GLARE_BASE_RASTER_SRC"
     exit 1
 fi
 
@@ -32,7 +32,7 @@ process_vrt() {
     local VRT="$1"
     local BASENAME
     BASENAME=$(basename "$VRT" .vrt)
-    local ALIGNED_OUTPUT="$OUTPUT_FOLDER/${BASENAME}_NKG2016LU_aligned.tif"
+    local ALIGNED_OUTPUT="$OUTPUT_FOLDER/${BASENAME}_GLARE_base_raster_aligned.tif"
 
     if [ -f "$ALIGNED_OUTPUT" ]; then
       echo "File $ALIGNED_OUTPUT exists, skipping..."
@@ -69,13 +69,13 @@ process_vrt() {
       -co PREDICTOR=2 \
       -co ZLEVEL=9 \
       -co TILED=YES \
-      "$NKG2016LU_SRC" "$ALIGNED_OUTPUT"
+      "$GLARE_BASE_RASTER_SRC" "$ALIGNED_OUTPUT"
 
     echo "Finished: $ALIGNED_OUTPUT"
 }
 
 export -f process_vrt
-export NKG2016LU_SRC OUTPUT_FOLDER
+export GLARE_BASE_RASTER_SRC OUTPUT_FOLDER
 
 # Find all VRTs and process them in parallel using xargs
 find "$VRT_FOLDER" -name "*.vrt" | xargs -n 1 -P "$PARALLEL_JOBS" bash -c 'process_vrt "$0"' 
