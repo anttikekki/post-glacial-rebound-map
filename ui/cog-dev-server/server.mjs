@@ -26,8 +26,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/api/v1/:year", (req, res) => {
-  const filePath = path.join(COG_DIR, `${req.params.year}.tif`);
+app.get("/api/:version/:year", (req, res) => {
+  const filePath = path.join(
+    COG_DIR,
+    req.params.version,
+    `${req.params.year}.tif`
+  );
 
   if (!fs.existsSync(filePath)) {
     console.error(`File ${filePath} not found`);

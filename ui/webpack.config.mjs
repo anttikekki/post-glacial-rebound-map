@@ -17,7 +17,12 @@ export default (env, argv) => {
     mode: argv.mode || "development",
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.MAANNOUSU_API": JSON.stringify(process.env.MAANNOUSU_API),
+        "process.env.MAANNOUSU_API_BASE_URL": JSON.stringify(
+          process.env.MAANNOUSU_API_BASE_URL
+        ),
+        "process.env.MAANNOUSU_API_VERSION": JSON.stringify(
+          process.env.MAANNOUSU_API_VERSION
+        ),
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash].css",
