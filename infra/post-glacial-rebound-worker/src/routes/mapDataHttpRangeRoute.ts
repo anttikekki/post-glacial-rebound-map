@@ -2,7 +2,10 @@ import years from "../../../../common/mapLayerYears.json" assert { type: "json" 
 import { corsHeaders } from "../util/corsUtils";
 import { parseRangeHeader } from "../util/httpRangeUtil";
 
-export const mapApiRoute = new URLPattern({ pathname: "/api/v1/:year" });
+const API_VERSIONS = ["V1"];
+const errorHeaders = { ...corsHeaders, "Accept-Ranges": "bytes" };
+
+export const mapApiRoute = new URLPattern({ pathname: "/api/:version/:year" });
 
 export const mapDataHttpRangeFetchRoute = async (
   request: Request,
@@ -10,26 +13,35 @@ export const mapDataHttpRangeFetchRoute = async (
 ): Promise<Response> => {
   const url = mapApiRoute.exec(request.url);
   const year = parseInt(url?.pathname.groups.year ?? "");
+  const apiVersion = (url?.pathname.groups.version ?? "").toUpperCase();
 
   if (isNaN(year)) {
     return new Response(
-      "Year parameter in path /api/v1/:year is not a number",
-      { status: 400, headers: { ...corsHeaders, "Accept-Ranges": "bytes" } }
+      "Year parameter in path /api/:version/:year is not a number",
+      { status: 400, headers: errorHeaders }
     );
   }
   if (!years.includes(year)) {
     return new Response(
       `Year ${year} is not supported. Supported years: ${years.join(", ")}`,
-      { status: 400, headers: { ...corsHeaders, "Accept-Ranges": "bytes" } }
+      { status: 400, headers: errorHeaders }
+    );
+  }
+  if (!API_VERSIONS.includes(apiVersion)) {
+    return new Response(
+      `API version ${apiVersion} is not supported. Supported versions: ${API_VERSIONS.join(
+        ", "
+      )}`,
+      { status: 400, headers: errorHeaders }
     );
   }
 
-  const r2key = `V1/${year}.tif`;
+  const r2key = `${apiVersion}/${year}.tif`;
 
   // HEAD request to get metadata (size)
   const headObj = await env.MAP_DATA_BUCKET.head(r2key);
   if (!headObj) {
-    return new Response("Not Found", { status: 404, headers: corsHeaders });
+    return new Response("Not Found", { status: 404, headers: errorHeaders });
   }
 
   const rangeParseResult = parseRangeHeader(
@@ -45,14 +57,14 @@ export const mapDataHttpRangeFetchRoute = async (
     range: { offset, length },
   });
   if (!object) {
-    return new Response("Not Found", { status: 404, headers: corsHeaders });
+    return new Response("Not Found", { status: 404, headers: errorHeaders });
   }
 
   const headers = new Headers({
     "Content-Range": `bytes ${start}-${end}/${headObj.size}`,
     "Accept-Ranges": "bytes",
     etag: object.httpEtag,
-    "Cache-Control": `public, max-age=86400`, // Cache 1 day on edge and browser
+    "Cache-Control": `public, max-age=86400`, // Cache 1 day on browser
     Vary: "Accept-Encoding, Range", // Ensure the cache varies based on encoding and range requests
     ...corsHeaders,
   });
