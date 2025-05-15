@@ -3,11 +3,20 @@
 # Exit if any command fails
 set -euo pipefail
 
+# --- Parse input argument ---
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 SOURCE_VERSION"
+    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
+    exit 1
+fi
+
+SOURCE_VERSION="$1"
+
 # Apply color table to sea/land masks
 # Sea -> blue, Land -> transparent
 
-INPUT_FOLDER="../04_sea-level-mask-calculation/sea_land_masks"
-OUTPUT_FOLDER="./sea_land_colored"
+INPUT_FOLDER="../04_sea-level-mask-calculation/sea_land_masks/${SOURCE_VERSION}"
+OUTPUT_FOLDER="./sea_land_colored/${SOURCE_VERSION}"
 PARALLEL_JOBS=8
 
 mkdir -p "$OUTPUT_FOLDER"

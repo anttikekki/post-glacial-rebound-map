@@ -27,7 +27,7 @@ case "$SOURCE_VERSION" in
 esac
 
 
-OUTPUT_FOLDER="./sea_land_masks"
+OUTPUT_FOLDER="./sea_land_masks/${SOURCE_VERSION}"
 PARALLEL_JOBS=8
 
 mkdir -p "$OUTPUT_FOLDER"

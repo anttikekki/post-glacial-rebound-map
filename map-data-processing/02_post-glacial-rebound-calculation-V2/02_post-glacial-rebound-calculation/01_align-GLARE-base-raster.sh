@@ -9,7 +9,7 @@ set -euo pipefail
 
 # Configurations
 VRT_FOLDER="../../01_download-nls-elevation-model-2m/vrt"
-GLARE_BASE_RASTER_SRC="../01_downloada-GLARE-model-data/Base-raster-tm35fin.tif"
+GLARE_BASE_RASTER_SRC="../01_download-GLARE-model-data/Base-raster-tm35fin.tif"
 OUTPUT_FOLDER="./aligned_GLARE_base_rasters"
 PARALLEL_JOBS=8  # Number of parallel gdalwarp processes
 

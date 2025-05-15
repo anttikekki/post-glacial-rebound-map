@@ -1,67 +1,87 @@
 #!/bin/bash
 
-# Exit if any command fails
+# Exit on errors, unset vars, or failed pipes
 set -euo pipefail
 
-# ====== CONFIGURABLE INPUTS ======
+# Configurations
+BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt"
+ALIGNED_BASE_FOLDER="./aligned_GLARE_base_rasters"
+SEA_LEVEL_RASTER="../01_download-GLARE-model-data/sea-level-baltic.tif"
+OUTPUT_ROOT_FOLDER="./calculation_results"
+PARALLEL_JOBS=8
 
-INPUT_RASTER="GEBCO_2024_GLARE.tif"            # Digital Terrain Model (DTM)
-BASE_RASTER="Base_Raster.tif"                  # Raster with uplift parameters (3 bands)
-SEALEVEL_RASTER="Sea_Level.tif"                # Sea-level raster
-YEAR_IN_CE=-10739                              # Target simulation year (e.g. -4000 for 4000 BCE)
-DEM_REFERENCE_YEAR=2023                        # Year when elevation values of INPUT_RASTER are valid
-PIXEL_SIZE=10000                               # Optional: set if using resampling
-CRS="EPSG:4326"                                # Coordinate Reference System
+# NLS elevation model reference year (used in the slow uplift formula)
+DEM_REFERENCE_YEAR=2023
 
-# ====== OUTPUT FILENAMES ======
+# Check for required positional argument: CALENDAR_YEAR
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <CALENDAR_YEAR>"
+    echo "Example: $0 -4000"
+    exit 1
+fi
 
-CONST_YEAR="const_year.tif"
-CONST_SEALEVEL="const_sealevel.tif"
-OUTPUT="glare_output.tif"
+CALENDAR_YEAR="$1"
 
-# ====== STEP 1: Create constant raster for year value ======
+# Define output folder for year
+OUTPUT_FOLDER="$OUTPUT_ROOT_FOLDER/$CALENDAR_YEAR"
 
-gdal_calc.py \
-  -A "$INPUT_RASTER" \
-  --outfile="$CONST_YEAR" \
-  --calc="$YEAR_IN_CE" \
-  --type=Float32 \
-  --extent=intersect \
-  --co="COMPRESS=LZW"
+# Create output folder if needed
+mkdir -p "$OUTPUT_FOLDER"
 
-# ====== STEP 2: Extract sea-level value from raster ======
+# Function to process a single VRT and matching base raster
+process_vrt() {
+    local VRT="$1"
+    local BASENAME=$(basename "$VRT" .vrt)
+    local BASE_ALIGNED="${ALIGNED_BASE_FOLDER}/${BASENAME}_GLARE_base_raster_aligned.tif"
+    local OUTPUT="${OUTPUT_FOLDER}/${BASENAME}.tif"
 
-SEA_LEVEL=$(gdallocationinfo -valonly -geoloc "$SEALEVEL_RASTER" "$YEAR_IN_CE" 0)
+    if [ -f "$OUTPUT" ]; then
+        echo "Output exists for $BASENAME, skipping."
+        return
+    fi
 
-# Create constant raster using sea level
-gdal_calc.py \
-  -A "$INPUT_RASTER" \
-  --outfile="$CONST_SEALEVEL" \
-  --calc="$SEA_LEVEL" \
-  --type=Float32 \
-  --extent=intersect \
-  --co="COMPRESS=LZW"
+    if [ ! -f "$BASE_ALIGNED" ]; then
+        echo "Missing aligned base raster for $BASENAME: $BASE_ALIGNED"
+        return 1
+    fi
 
-# ====== STEP 3: Final calculation using full GLARE formula ======
+    echo "Processing: $BASENAME"
 
-gdal_calc.py \
-  -A "$INPUT_RASTER" \                 # A: User DTM — the base terrain model to adjust
-  -B "$BASE_RASTER" --B_band=1 \       # B: Base Raster Band 1 — maximum ice thickness (h)
-  -C "$BASE_RASTER" --C_band=2 \       # C: Base Raster Band 2 — ice retreat year (r)
-  -D "$CONST_YEAR" \                   # D: Constant raster of selected simulation year (y)
-  -E "$CONST_SEALEVEL" \               # E: Constant raster of sea level for that year
-  -F "$BASE_RASTER" --F_band=3 \       # F: Base Raster Band 3 — current uplift rate (v)
-  --outfile="$OUTPUT" \
-  --type=Float32 \
-  --calc='A - (
-    (2 / 3.14159 * (B * 0.077) * (
-      atan(C / (5 * (B * 0.077) + 590)) -
-      atan((C -1950 + D) / (5 * (B * 0.077) + 590))
-    )) +
-    (((F * 0.075) * (('"$DEM_REFERENCE_YEAR"' - D) / 100)) -
-    (0.5 * (-0.011 * ((F * 0.075) * (('"$DEM_REFERENCE_YEAR"' - D) / 100) ** 2))))
-  ) - E' \
-  --co="COMPRESS=LZW"
+    # Query sea level
+    SEA_LEVEL=$(gdallocationinfo -valonly -geoloc "$SEA_LEVEL_RASTER" "$CALENDAR_YEAR" 0)
+    echo "Sea level for $CALENDAR_YEAR = $SEA_LEVEL"
 
+    gdal_calc \
+      -A "$VRT" \
+      -B "$BASE_ALIGNED" --B_band=1 \
+      -C "$BASE_ALIGNED" --C_band=2 \
+      -F "$BASE_ALIGNED" --F_band=3 \
+      --outfile="$OUTPUT" \
+      --calc="A - (
+        (2 / 3.14159 * (B * 0.077) * (
+          atan(C / (5 * (B * 0.077) + 590)) -
+          atan((C -1950 + $CALENDAR_YEAR) / (5 * (B * 0.077) + 590))
+        )) +
+        ((F * 0.075) * (($DEM_REFERENCE_YEAR - $CALENDAR_YEAR) / 100)) -
+        (0.5 * (-0.011 * ((F * 0.075) * (($DEM_REFERENCE_YEAR - $CALENDAR_YEAR) / 100) ** 2)))
+      ) - $SEA_LEVEL" \
+      --type=Float32 \
+      --NoDataValue=-9999 \
+      --co COMPRESS=DEFLATE \
+      --co PREDICTOR=2 \
+      --co ZLEVEL=9 \
+      --co TILED=YES \
+      --co BLOCKXSIZE=256 \
+      --co BLOCKYSIZE=256 \
+      --co BIGTIFF=YES
 
-echo "GLARE output generated: $OUTPUT"
+    echo "Finished: $OUTPUT"
+}
+
+export -f process_vrt
+export ALIGNED_BASE_FOLDER SEA_LEVEL_RASTER OUTPUT_FOLDER CALENDAR_YEAR DEM_REFERENCE_YEAR
+
+# Run all VRTs in parallel
+find "$BASE_DEM_FOLDER" -name "*.vrt" | xargs -n 1 -P "$PARALLEL_JOBS" bash -c 'process_vrt "$0"'
+
+echo "All DEMs processed with CALENDAR_YEAR = $CALENDAR_YEAR."

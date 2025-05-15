@@ -1,14 +1,30 @@
 #!/bin/bash
 
-# Exit if any command fail
+# Exit on error
 set -euo pipefail
 
-echo "Starting script execution..."
+# JSON file containing an array of years
+YEAR_FILE="../../../common/mapLayerYears.json"
 
-echo "1. Running 01_align-GLARE-base-raster.sh..."
-bash 01_align-GLARE-base-raster.sh
+# Check that file exists
+if [ ! -f "$YEAR_FILE" ]; then
+    echo "Error: $YEAR_FILE not found."
+    exit 1
+fi
 
-echo "2. Running 02_run_glare_model.sh..."
-bash 02_run_glare_model.sh
+# Parse the JSON array into a Bash array using jq
+YEARS=($(jq '.[]' "$YEAR_FILE"))
 
-echo "All scripts executed successfully!"
+echo "------------------------------------------"
+echo "Step 1: Aligning GLARE Base raster..."
+bash ./01_align-GLARE-base-raster.sh
+echo "Alignment complete."
+echo "------------------------------------------"
+
+echo "Step 2: Running land uplift calculations..."
+for YEAR in "${YEARS[@]}"; do
+    echo "Running uplift for year: $YEAR"
+    bash ./02_run_glare_model.sh "$YEAR"
+done
+
+echo "All uplift calculations completed."

@@ -19,12 +19,13 @@ map-data-processing/02_post-glacial-rebound-calculation-V1/02_post-glacial-rebou
 map-data-processing/02_post-glacial-rebound-calculation-V1/02_post-glacial-rebound-calculation/calculation_results
 
 # V2: GLARE model temp files
-map-data-processing/02_post-glacial-rebound-calculation-V2/01_downloada-GLARE-model-data/Base_Raster.tif
-map-data-processing/02_post-glacial-rebound-calculation-V2/01_downloada-GLARE-model-data/sea-level-baltic.tif
-map-data-processing/02_post-glacial-rebound-calculation-V2/01_downloada-GLARE-model-data/Base-raster-tm35fin.tif
+map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/Base_Raster.tif
+map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/sea-level-baltic.tif
+map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/Base-raster-tm35fin.tif
 
 # V2: Post-glacial rebound calculation temp files
 map-data-processing/02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/aligned_GLARE_base_rasters
+map-data-processing/02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/calculation_results
 
 # Sea level calculation temp files
 map-data-processing/04_sea-level-mask-calculation/sea_land_masks

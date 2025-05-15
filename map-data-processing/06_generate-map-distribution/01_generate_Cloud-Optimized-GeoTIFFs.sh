@@ -4,20 +4,33 @@
 set -euo pipefail
 
 # --- Parse input argument ---
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 SOURCE"
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 SOURCE SOURCE_VERSION"
     echo "SOURCE must be one of: MASK, COLORIZED"
+    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
     exit 1
 fi
 
 SOURCE="$1"
+SOURCE_VERSION="$2"
+
+case "$SOURCE_VERSION" in
+  V1|V2)
+    # Valid values, continue
+    ;;
+  *)
+    echo "Error: Invalid SOURCE_VERSION value: '$SOURCE_VERSION'" >&2
+    echo "Valid options are: V1 or V2" >&2
+    exit 1
+    ;;
+esac
 
 case "$SOURCE" in
   MASK)
-    INPUT_BASE="../04_sea-level-mask-calculation/sea_land_masks"
+    INPUT_BASE="../04_sea-level-mask-calculation/sea_land_masks/${SOURCE_VERSION}"
     ;;
   COLORIZED)
-    INPUT_BASE="../05_generate-colorized-sea-raster/sea_land_colored"
+    INPUT_BASE="../05_generate-colorized-sea-raster/sea_land_colored/${SOURCE_VERSION}"
     ;;
   *)
     echo "Invalid SOURCE: $SOURCE"
@@ -27,8 +40,8 @@ case "$SOURCE" in
 esac
 
 # Output folders
-OUTPUT_FOLDER="./result_cog"
-VRT_FOLDER="./source_vrt"
+OUTPUT_FOLDER="./result_cog/${SOURCE_VERSION}"
+VRT_FOLDER="./source_vrt/${SOURCE_VERSION}"
 
 mkdir -p "$OUTPUT_FOLDER"
 mkdir -p "$VRT_FOLDER"
