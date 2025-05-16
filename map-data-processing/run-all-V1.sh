@@ -6,10 +6,11 @@ echo "-------------------------------------"
 
 run_script() {
     DIR="$1"
-    EXTRA_ARG="${2:-}"  # Optional second parameter
-    echo "Running: $DIR/run_all.sh $EXTRA_ARG"
+    EXTRA_ARG_1="${2:-}"  # Optional second parameter
+    EXTRA_ARG_2="${3:-}"  # Optional third parameter
+    echo "Running: $DIR/run_all.sh $EXTRA_ARG_1 $EXTRA_ARG_2"
     pushd "$DIR" > /dev/null
-    ./run_all.sh $EXTRA_ARG
+    ./run_all.sh $EXTRA_ARG_1 $EXTRA_ARG_2
     popd > /dev/null
     echo "Script in $DIR completed"
 }
