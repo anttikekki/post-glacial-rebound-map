@@ -4,11 +4,11 @@ Glacial Land Adjustment Regenerator (Glare) is published by [Aki Hakonen](https:
 
 - Paper: [Introducing the Glacial Land Adjustment Regenerator (Glare) for Simulating the Final Pleistocene/Holocene Geographical Change in North Europe](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4992429), Journal of Archaeological Science, 2024.
 - [GLARE materials](https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO) in Google Drive.
-- [land-uplift-recons](https://github.com/Hakonaki/land-uplift-recons) reposity on GitHub.
+- [land-uplift-recons](https://github.com/Hakonaki/land-uplift-recons) repository on GitHub.
 
-## Step 1: [Download Glare material from Google Drive](./01_download-GLARE-model-data/README.ms)
+## Step 1: [Download Glare material from Google Drive](./01_download-GLARE-model-data/README.md)
 
-## Step 2: [Calculate land uplift with Glare modeloo](./02_post-glacial-rebound-calculation/README.md)
+## Step 2: [Calculate land uplift with Glare model](./02_post-glacial-rebound-calculation/README.md)
 
 ## Commands
 

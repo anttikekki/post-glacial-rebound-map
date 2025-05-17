@@ -21,7 +21,13 @@ The script uses [gdalwarp](https://gdal.org/en/stable/programs/gdalwarp.html) to
 Calculates land uplift with Glare model. Glare formula (from [land-uplift-recons](https://github.com/Hakonaki/land-uplift-recons) reposity):
 
 ```
-"User_DTM@1" - ((2 / 3.14159 * ("Base Raster@1" * 0.077) * (ATAN("Base Raster@2" / (5 * ("Base Raster@1" * 0.077) + 590)) - ATAN(("Base Raster@2" -1950 + [yearCE]) / (5 * ("Base Raster@1" * 0.077) + 590)))) + ((("Base Raster@3" * 0.075) * ((2020 - [yearCE]) / 100)) - (0.5 * (-0.011 * (("Base Raster@3" * 0.075) * ((2020 - [yearCE]) / 100) ^ 2))))) - [sea-level ref]
+"User_DTM@1" - ((2 / 3.14159 * ("Base Raster@1" * 0.077) * (
+  ATAN("Base Raster@2" / (5 * ("Base Raster@1" * 0.077) + 590)) -
+  ATAN(("Base Raster@2" -1950 + [yearCE]) / (5 * ("Base Raster@1" * 0.077) + 590))
+)) +
+((("Base Raster@3" * 0.075) * ((2020 - [yearCE]) / 100)) -
+(0.5 * (-0.011 * (("Base Raster@3" * 0.075) * ((2020 - [yearCE]) / 100) ^ 2)))))
+- [sea-level ref]
 ```
 
 - `User_DTM@1`: Digital Terrain Models (DTM) that contains elevation model. [National land survey of Finland (NLS) elevation model 2m x 2m](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/elevation-model-2-m) is used in these scripts. GeoTIFF data band 1 must be land elevation in meters.
