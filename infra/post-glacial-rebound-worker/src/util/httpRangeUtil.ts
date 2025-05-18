@@ -17,22 +17,9 @@ type ParseRangeHeaderResponse =
   | ParseRangeHeaderFailure;
 
 export const parseRangeHeader = (
-  rangeHeader: string | null,
+  rangeHeader: string,
   fileSizeInBytes: number
 ): ParseRangeHeaderResponse => {
-  if (!rangeHeader) {
-    return {
-      success: false,
-      errorResponse: new Response("No Range header detected", {
-        status: 416, // Range Not Satisfiable
-        headers: {
-          ...corsHeaders,
-          "Content-Range": `bytes */${fileSizeInBytes}`,
-          "Accept-Ranges": "bytes",
-        },
-      }),
-    };
-  }
   // Only 'bytes=' range units are supported
   if (!rangeHeader.startsWith("bytes=")) {
     return {
