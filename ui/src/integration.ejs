@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rajapinnat ja karttadatan lataus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Tutki kartalla jääkauden jälkeistä maannousua Suomeassa."
+    />
+    <meta property="og:title" content="Maannousu.info" />
+    <meta property="og:url" content="http://maannousu.info/" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://maannousu.info/images/favicons/favicon-original.png"
+    />
+    <meta
+      property="og:description"
+      content="Tutki kartalla jääkauden jälkeistä maannousua Suomeassa."
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="images/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="images/favicons/site.webmanifest" />
+    <link rel="shortcut icon" href="images/favicons/favicon.ico" />
+    <link rel="manifest" href="images/favicons/site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="application-name" content="Maannousu.info" />
+  </head>
+  <body>
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Maannousu.info</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1 class="py-4">Rajapinnat ja karttadatan lataus</h1>
+
+      <p>
+        Tämä sivuston laskennallinen maanousun kartta-data on vapaasti kaikkien
+        käytettävissä. Aineiston voi ladata kokonaisuudessaa tai sitä voi
+        käyttää sivuston rajapinnan kautta suoraan.
+      </p>
+
+      <h2>Tiedostoformaatti</h2>
+
+      <p>
+        Kartta-datan jakelumuoto on
+        <a href="https://cogeo.org/">Cloud Optimized GeoTIFF (COG)</a>. Tämä
+        formaatti valittiin, koska sen avulla aineistoa voi jaella ilman WMS/WFS
+        jne. palvelinta suoraan "palvelimen levyltä" eli pilvipalvelun
+        bucketista. Tämä tekee sivuston ylläpidosta huomattavasti halvelmpaa.
+      </p>
+
+      <p>
+        Cloud Optimized GeoTIFF -tiedostomuodossa TIFF-tiedoston sisään on
+        upotettu tiilit eri kartan zoomaustasoille. Tällöin datan käyttäjä voi
+        kysyä HTTP-kutsun
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests"
+          >Range-otsakkeen</a
+        >
+        avulla vain rajatun määrän koko datasta. Tämä mahdollistaa datan käytön
+        suoraan selaimessa ilman koko aineiston lataamista.
+      </p>
+
+      <h2>Projektio</h2>
+
+      <p>
+        Datan projektio on Suomessa yleisesti käytetty
+        <a href="https://epsg.io/3067-1149">EPSG:3067</a> (ETRS-TM35FIN). Tämä
+        mahdollistaa aineiston käytön esim. Maanmittauslaitoksen pohjakarttojen
+        kannsa ilman projektion muunoksia.
+      </p>
+
+      <h2>Lisenssi</h2>
+
+      <p>
+        Maannousulaskennan pohjana on Maanmittauslaitoksen (MML) julkaisema
+        <a
+          href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m"
+          >korkeusmalli 2 m</a
+        >, joka kuvaa 2m x 2m ruudukolla koko Suomen maankorkeuden merenpinnasta
+        vuonna 2023. Aineisto on lisenssi
+        <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+          >CC BY 4.0</a
+        >. Tämän myötä myös laskennan lopputuloksen lisenssi on
+        <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+          >CC BY 4.0</a
+        >.
+      </p>
+
+      <p>Laskennoissa käytetään myös muuta aineistoa:</p>
+
+      <ul>
+        <li>
+          <a href="model-v1.html">Laskentamalli V1</a>: Ruotsin Lantmäteriet
+          -viraston vuonna 2016 julkaisema
+          <a
+            href="https://www.lantmateriet.se/sv/geodata/gps-geodesi-och-swepos/Referenssystem/Landhojning/"
+            >NKG2016LU</a
+          >
+          malli maannoususta Pohjoismaissa.
+        </li>
+        <li>
+          <a href="model-v2.html">Laskentamalli V2</a>:
+          <a href="https://oulu.academia.edu/AkiHakonen">Aki Hakosen</a>
+          julkaisema
+          <a
+            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
+            >Glaren-laskentamallin materiaali</a
+          >.
+        </li>
+      </ul>
+
+      <p>
+        Näissä kummassakaan ei ole määritelty tiettyä lisenssiä aineiston
+        käytölle. Olettaan siis, että viite lähdeaineistoon riittää.
+      </p>
+
+      <p>
+        Nämä kaikki lähteet on mainittava, jos tämän sivuston kartta-aineistoa
+        jakelee eteenpäin.
+      </p>
+
+      <h2>Rajapinnat ja tiedostot</h2>
+
+      <p>
+        Rajapinnat/GeoTIFF-tiedostot on nimetty vuosiluvun mukaan, jonka
+        maankohoamisen tilannetta ne mallintavat. Negatiiviset luvut ovat ennen
+        asjanlaskun alkua (esim. -4000 on 4000 eaa.).
+      </p>
+
+      <p>
+        Rajapinnat ja tiedostot ovat tässä tapauksessa yksi ja sama asia.
+        GeoTIFF aineiston voi ladata kokonaisuudessaan klikkaamalla linkkiä
+        selaimessa tai siitä voi hakea osia HTTP-kutsun
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests"
+          >Range-otsakkeen</a
+        >
+        avulla samasta osoitteesta.
+      </p>
+
+      <p>Tiedostojen koot ovat noin 400 megatavua kappale.</p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Vuosi</th>
+            <th scope="col">Laskentamalli V1 osoite</th>
+            <th scope="col">Laskentamalli V2 osoite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">6000 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-6000"
+                >https://maannousu.info/api/v1/-6000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-6000"
+                >https://maannousu.info/api/v2/-6000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">5500 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-5500"
+                >https://maannousu.info/api/v1/-5500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-5500"
+                >https://maannousu.info/api/v2/-5500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">5000 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-5000"
+                >https://maannousu.info/api/v1/-5000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-5000"
+                >https://maannousu.info/api/v2/-5000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">4500 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-4500"
+                >https://maannousu.info/api/v1/-4500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-4500"
+                >https://maannousu.info/api/v2/-4500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">4000 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-4000"
+                >https://maannousu.info/api/v1/-4000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-4000"
+                >https://maannousu.info/api/v2/-4000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3500 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-3500"
+                >https://maannousu.info/api/v1/-3500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-3500"
+                >https://maannousu.info/api/v2/-3500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3000 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-3000"
+                >https://maannousu.info/api/v1/-3000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-3000"
+                >https://maannousu.info/api/v2/-3000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2500 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-2500"
+                >https://maannousu.info/api/v1/-2500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-2500"
+                >https://maannousu.info/api/v2/-2500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2000 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-2000"
+                >https://maannousu.info/api/v1/-2000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-2000"
+                >https://maannousu.info/api/v2/-2000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">1500 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-1500"
+                >https://maannousu.info/api/v1/-1500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-1500"
+                >https://maannousu.info/api/v2/-1500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">1000 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-1000"
+                >https://maannousu.info/api/v1/-1000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-1000"
+                >https://maannousu.info/api/v2/-1000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">500 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/-500"
+                >https://maannousu.info/api/v1/-500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-500"
+                >https://maannousu.info/api/v2/-500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">0 eaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/0"
+                >https://maannousu.info/api/v1/0</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/0"
+                >https://maannousu.info/api/v2/0</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">500 jaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/500"
+                >https://maannousu.info/api/v1/500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/500"
+                >https://maannousu.info/api/v2/500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">1000 jaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/1000"
+                >https://maannousu.info/api/v1/1000</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/1000"
+                >https://maannousu.info/api/v2/1000</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">1500 jaa.</th>
+            <td>
+              <a href="https://maannousu.info/api/v1/1500"
+                >https://maannousu.info/api/v1/1500</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/1500"
+                >https://maannousu.info/api/v2/1500</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Cross-Origin Resource Sharing (CORS)</h3>
+
+      <p>
+        Sivusto palautaa rajapintojen osoitteille
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS"
+          >Cross-Origin Resource Sharing (CORS)</a
+        >
+        otsakkeet, joiden avulla rajapintoja voi käyttää suoraan toiselta
+        verkkosivulta:
+      </p>
+
+      <p>
+        <code>
+          "Access-Control-Allow-Origin": "*"<br />
+          "Access-Control-Allow-Methods": "GET", "HEAD", "OPTIONS"<br />
+          "Access-Control-Max-Age": "86400"
+        </code>
+      </p>
+    </div>
+  </body>
+</html>

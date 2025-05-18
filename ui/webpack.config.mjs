@@ -15,6 +15,7 @@ export default (env, argv) => {
       root: "./src/index.ts",
       modelv1: "./src/model-v1.ts",
       modelv2: "./src/model-v2.ts",
+      integration: "./src/integration.ts",
       map: "./src/map/map.ts",
     },
     mode: argv.mode || "development",
@@ -30,22 +31,27 @@ export default (env, argv) => {
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
         filename: "index.html",
-        excludeChunks: ["map", "modelv1", "modelv2"],
+        excludeChunks: ["map", "modelv1", "modelv2", "integration"],
       }),
       new HtmlWebpackPlugin({
         template: "src/model-v1.ejs",
         filename: "model-v1.html",
-        excludeChunks: ["root", "map", "modelv2"],
+        excludeChunks: ["root", "map", "modelv2", "integration"],
       }),
       new HtmlWebpackPlugin({
         template: "src/model-v2.ejs",
         filename: "model-v2.html",
-        excludeChunks: ["root", "map", "modelv1"],
+        excludeChunks: ["root", "map", "modelv1", "integration"],
+      }),
+      new HtmlWebpackPlugin({
+        template: "src/integration.ejs",
+        filename: "integration.html",
+        excludeChunks: ["root", "map", "modelv1", "modelv2"],
       }),
       new HtmlWebpackPlugin({
         template: "src/map/map.ejs",
         filename: "map.html",
-        excludeChunks: ["root", "modelv1", "modelv2"],
+        excludeChunks: ["root", "modelv1", "modelv2", "integration"],
       }),
       new CopyWebpackPlugin({
         patterns: [{ from: "src/images", to: "images" }],
