@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import webpack from "webpack";
@@ -45,6 +46,9 @@ export default (env, argv) => {
         template: "src/map/map.ejs",
         filename: "map.html",
         excludeChunks: ["root", "modelv1", "modelv2"],
+      }),
+      new CopyWebpackPlugin({
+        patterns: [{ from: "src/images", to: "images" }],
       }),
     ],
     devtool: "source-map",
