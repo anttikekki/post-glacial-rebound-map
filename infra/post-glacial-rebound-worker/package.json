@@ -12,9 +12,9 @@
   "devDependencies": {
     "@types/range-parser": "^1.2.7",
     "typescript": "5.8.3",
-    "wrangler": "4.14.1"
+    "wrangler": "4.15.2"
   },
   "dependencies": {
-    "range-parser": "^1.2.1"
+    "range-parser": "1.2.1"
   }
 }

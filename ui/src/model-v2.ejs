@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Laskentamalli V2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Laskentamalli V2: Glacial Land Adjustment Regenerator (Glare)</h1>
+
+      <p>
+        <b>Glacial Land Adjustment Regenerator (Glare)</b> on arkeologi
+        <a href="https://oulu.academia.edu/AkiHakonen">Aki Hakosen</a>
+        julkaisema historiallisen maan kohoamisen laskennan tieteellinen malli:
+      </p>
+
+      <ul>
+        <li>
+          Artikkeli:
+          <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4992429"
+            >Introducing the Glacial Land Adjustment Regenerator (Glare) for
+            Simulating the Final Pleistocene/Holocene Geographical Change in
+            North Europe</a
+          >, Aki Hakonen, Journal of Archaeological Science, 2024.
+        </li>
+        <li>
+          <a
+            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
+            >Glaren materiaalit Google Drivessä</a
+          >.
+        </li>
+        <li>
+          <a href="https://github.com/Hakonaki/land-uplift-recons"
+            >Glaren materiaalit GitHubissa</a
+          >.
+        </li>
+      </ul>
+
+      <div class="alert alert-warning" role="alert">
+        <p><b>Varoitus!</b></p>
+
+        <p>
+          Aki Hakonen ei ole mitenkään osallistunut tämän sivuston tekemiseen
+          tai tarkastanut sen kartaa-aineiston oikeellisuutta. Glare mallia on
+          siis voitu hyvinkin tulkita väärin minun toimesta ja sen perusteella
+          tehdyt laskennat voivat olla virheellisia.
+        </p>
+      </div>
+
+      <h2>Tekninen toteutus</h2>
+      <p>
+        <a
+          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/map-data-processing/02_post-glacial-rebound-calculation-V2"
+          >GitHub</a
+        >
+      </p>
+
+      <h2>Aineiston lataus ja rajapinnat</h2>
+      <p>TODO</p>
+
+      <h2>Lähdeaineisto</h2>
+
+      <p>
+        Kartta-aineiston lähdeaineistona on käytetty seuraavia avoimia
+        aineistoja:
+      </p>
+
+      <ul>
+        <li>
+          <a
+            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
+            >Glaren materiaalit Google Drivessä</a
+          >.
+        </li>
+        <li>
+          Maanmittauslaitoksen (MML) julkaisema
+          <a
+            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m"
+            >korkeusmalli 2 m</a
+          >, joka kuvaa 2m x 2m ruudukolla koko Suomen maankorkeuden
+          merenpinnasta vuonna 2023. Aineisto on julkaistu
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+            >CC BY 4.0</a
+          >
+          lisenssillä.
+        </li>
+      </ul>
+
+      <h2>Rajaukset</h2>
+      <p>
+        Tämän laskentamalli kartta-aineisto näyttää vain merenrannan
+        siirtymisen. Siinä ei ole laskettu maanpinnan kallistumisesta johtuvaa
+        järvien siirtymisiä tai niiden lasku-uomien muutoksia.
+      </p>
+
+      <h3>Maanpinnan muutokset</h3>
+      <p>
+        Pohja-aineistona on vuoden 2023 korkeusmalli. Tämän vuoksi kaikki
+        ihmisen tekemät maanpinnan muuutokset vaikuttavat laskentaan: ojitus,
+        kanavat, tiet, rantarakentaminen jne. Laskennallinen merenpinta voi olla
+        näillä muokatun maaston kohdilla pielessä useita metrejä.
+      </p>
+      <p>
+        Myöskään luonnollisia maan- tai merenpinnan muutoksia ei ole huomiotu.
+        Näitä ovat esim. jokien lasku-uomien muutokset, jokien kuljettamien
+        sedimenttien kasaantuminen ja merenpinnan korkeusvaihtelut.
+      </p>
+    </div>
+  </body>
+</html>

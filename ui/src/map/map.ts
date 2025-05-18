@@ -1,11 +1,11 @@
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
-import LoadingAnimation from "./controls/loadingAnimation";
 import { getMapControls } from "./controls/mapControls";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
 import PostGlacialReboundLayer from "./layer/PostGlacialReboundTileLayer";
 import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
 import { initEPSG3067Projection } from "./util/projectionUtil";
+import { PostGlacialReboundApiVersion, Settings } from "./util/settings";
 
 const { projection } = initEPSG3067Projection();
 
@@ -15,11 +15,13 @@ const view = new View({
   enableRotation: false,
   zoom: 5,
 });
-const loadingAnimation = new LoadingAnimation();
-
-const initialYear = -6000;
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
 const userLocationLayer = new UserLocationVectorLayer(view);
+
+const settings = new Settings(-6000, PostGlacialReboundApiVersion.V2);
+settings.addEventListerner({
+  onYearChange: () => PostGlacialReboundLayer.onYearChange(),
+});
 
 const zoom = (zoomChange: number) => {
   const zoom = view.getZoom();
@@ -36,19 +38,16 @@ const map = new OpenLayersMap({
   layers: [nlsBackgroundLayer],
   view,
   controls: getMapControls({
-    initialYear,
-    loadingAnimation,
+    settings,
     centerToCurrentLocation: () => userLocationLayer.centerToCurrentPositions(),
-    changeYear: (nextYear) => PostGlacialReboundLayer.changeYear(nextYear),
     zoomIn: () => zoom(1),
     zoomOut: () => zoom(-1),
   }),
 });
 const postGlacialReboundLayerGroup =
   PostGlacialReboundLayer.initializeLayerGroup({
-    initialYear,
+    settings,
     onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
-    loadingAnimation,
   });
 
 map.addLayer(postGlacialReboundLayerGroup);

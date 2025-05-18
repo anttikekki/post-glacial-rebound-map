@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Laskentamalli V1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        Laskentamalli V1: lineaarinen maannousu NKG2016LU mallin perusteella
+      </h1>
+
+      <p>
+        Tämä yksinkertainen laskentamalli olettaa naiivisti, että maannousu on
+        ollut koko historian ajan sama kuin se on nyt. Käytä mielummin
+        valtavasti kehittyneemmän
+        <a href="model-v2.html"
+          >Laskentamalli V2: Glacial Land Adjustment Regenerator (Glare)</a
+        >
+        tuottamia tuloksia.
+      </p>
+
+      <div class="alert alert-warning" role="alert">
+        <p><b>Varoitus!</b></p>
+
+        <p>
+          Tämä laskentamalli ja sen tekninen toteutus ovat harrastelijaprojekti.
+          Laskentamallin näyttämät tiedot merenpinnan tasosta eri vuosina
+          historiassa ovat epätieteellisiä väittämiä, eikä tätä aineistoa siksi
+          tule käyttää tilanteissa, joissa tarvitaan tieteellistä tarkkuutta.
+        </p>
+
+        <p>
+          Lue lisää aineiston luotettavuudesta osiosta
+          <a href="#aineiston-luotettavuus">Aineiston luotettavuus</a>.
+        </p>
+      </div>
+
+      <h2>Tekninen toteutus</h2>
+      <p>
+        <a
+          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/map-data-processing/02_post-glacial-rebound-calculation-V1"
+          >GitHub</a
+        >
+      </p>
+
+      <h2>Aineiston lataus ja rajapinnat</h2>
+      <p>TODO</p>
+
+      <h2>Lähdeaineisto</h2>
+
+      <p>
+        Kartta-aineiston lähdeaineistona on käytetty seuraavia avoimia
+        aineistoja:
+      </p>
+
+      <ul>
+        <li>
+          Ruotsin Lantmäteriet -viraston vuonna 2016 julkaisema
+          <a
+            href="https://www.lantmateriet.se/sv/geodata/gps-geodesi-och-swepos/Referenssystem/Landhojning/"
+            >NKG2016LU</a
+          >
+          malli maannoususta Pohjoismaissa (<a
+            href="https://www.lantmateriet.se/contentassets/58490c18f7b042e5aa4c38075c9d3af5/nkg2016lu-with-readme.zip"
+            >zip-tiedosto</a
+          >). Malli kertoo millimetreinä maannousun määrä vuodessa eri osissa
+          Pohjoismaita. Aineiston esittely:
+          <a
+            href="https://www.lantmateriet.se/contentassets/58490c18f7b042e5aa4c38075c9d3af5/presentation-av-nkg2016lu.pdf"
+            >NKG2016LU, an improved postglacial land uplift model over the
+            Nordic-Baltic region, 2016</a
+          >.
+        </li>
+        <li>
+          Maanmittauslaitoksen (MML) julkaisema
+          <a
+            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m"
+            >korkeusmalli 2 m</a
+          >, joka kuvaa 2m x 2m ruudukolla koko Suomen maankorkeuden
+          merenpinnasta vuonna 2023. Aineisto on julkaistu
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+            >CC BY 4.0</a
+          >
+          lisenssillä.
+        </li>
+      </ul>
+
+      <h2>Maannousun laskenta</h2>
+
+      <p>
+        NKG2016LU maannousumallista saadaan nykyinen maannousun nopeus eri
+        Suomen alueille. Tämän jälkeen voidaan yksinkertaisesti kertoa tuo
+        muutos sillä vuosimäärällä, jonka merenpinnan korkeus halutaan
+        selvittää. Seuraava kaava lasketaan jokaisella 2m x 2m ruudulle MML:n
+        korkeusmallissa:
+      </p>
+      <p>
+        <code>Maankorkeus (m) + ((Maannousu (mm) * Vuosi) / 1000.0)</code>
+      </p>
+
+      <ul>
+        <li>
+          Maankorkeus (m) = MLL:n korkeusmallin maankorkeus metreinä
+          merenpinnasta vuona 2023.
+        </li>
+        <li>
+          Maannousu (mm) = NKG2016LU mallin maankohoaminen vuodessa
+          milimetreinä.
+        </li>
+        <li>
+          Vuosi = erotus vuosina vuodesta 2023, jonka ajanhetkenä merenpinnan
+          korkeus halutaan laskea. Miinusmerkkiset vuosiluvut laskevat
+          tilannetta historiaan, plusmerkkiset tulevaisuuteen.
+        </li>
+      </ul>
+
+      <h3>Esimerkki</h3>
+
+      <p>
+        Lasketaan yhden 2m x 2m ruudun maankorkeus vuonna 4000 ennen ajanlaskun
+        alkua (eaa.), eli 6023 vuotta taaksepäin vuodesta 2023. Maannousu tässä
+        kohtaa on 6.5 mm vuodessa.
+      </p>
+      <p>
+        <code
+          >1.5 + (6.5 * -6023 / 1000.0) = 1.5 + (-39149,5 / 1000.0) = 1.5 +
+          -39,1495 = -37,6495</code
+        >
+      </p>
+      <p>
+        <b>Lopputulos:</b> kohta, joka on 1.5 metria merenpinnan yläpuolella
+        vuonna 2023 oli noin 37 metriä meren pinnan alapuolella vuonna 4000 eaa.
+        kun maannousu tuossa kohtaa on ollut 6.5 mm vuodessa.
+      </p>
+
+      <h2>Rajaukset</h2>
+      <p>
+        Tämän laskentamalli kartta-aineisto näyttää vain merenrannan
+        siirtymisen. Siinä ei ole laskettu maanpinnan kallistumisesta johtuvaa
+        järvien siirtymisiä tai niiden lasku-uomien muutoksia. Myöskään
+        merenpinnan tason historialisia muutoksia ei ole huomioitu.
+      </p>
+
+      <p>
+        Tällä aineistolla ei edes pyritä mallintamaan jääkauden jään sulamisen
+        aikaisia
+        <a href="https://fi.wikipedia.org/wiki/It%C3%A4meri#Geologia"
+          >Itämeren vaiheita</a
+        >
+        (<a href="https://fi.wikipedia.org/wiki/Baltian_j%C3%A4%C3%A4j%C3%A4rvi"
+          >Baltian jääjärvi</a
+        >,
+        <a href="https://fi.wikipedia.org/wiki/Yoldiameri">Yoldiameri</a> jne.),
+        vaan aineisto keskittyy
+        <a href="https://fi.wikipedia.org/wiki/Litorinameri">Litorinamereen</a>
+        (noin 8 000 - 4 000 vuotta sitten) ja nykyisen Itämeren aikaan.
+      </p>
+
+      <h2>Aineiston luotettavuus</h2>
+      <a name="aineiston-luotettavuus"></a>
+
+      <p>
+        Tämä laskentamalli ja sen toteutus on harrastelijaprojekti. Aineisto voi
+        sisältää tämän vuoksi paljon virheitä. Tämän lisäksi aineistossa on
+        monia ominaisuuksia, jotka laskevat sen luotettavuutta:
+      </p>
+
+      <h3>Maannousun hidastuminen</h3>
+      <p>
+        Tämän sivun kartta-aineisto on tuotettu sellaisella logiikalla, jossa
+        vuoden 2016 vuosittainen maannousu on pysynyt identtisenä vuosituhansia
+        historiaan. Tämä ei pidä paikkaansa, vaan maannousu on ollut heti jään
+        sulamisen jälkeen valtavasti nopeampaa ja hidastunut siitä jokainen
+        vuosi. Aineisto on siis sitä epätarkempaa, mitä kauemmaksi historiaan
+        sitä lasketaan.
+      </p>
+
+      <p>
+        Luotetavampi tapa olisi ottaa huomioon myös geologiset havainnot
+        muinaisista merenrannoista.
+        <a href="model.v2.html">Glacial Land Adjustment Regenerator (Glare)</a>
+        laskentamalli ottaa tämän huomioon.
+      </p>
+
+      <h3>Maanpinnan muutokset</h3>
+      <p>
+        Pohja-aineistona on vuoden 2023 korkeusmalli. Tämän vuoksi kaikki
+        ihmisen tekemät maanpinnan muuutokset vaikuttavat laskentaan: ojitus,
+        kanavat, tiet, rantarakentaminen jne. Laskennallinen merenpinta voi olla
+        näillä muokatun maaston kohdilla pielessä useita metrejä.
+      </p>
+      <p>
+        Myöskään luonnollisia maan- tai merenpinnan muutoksia ei ole huomiotu.
+        Näitä ovat esim. jokien lasku-uomien muutokset, jokien kuljettamien
+        sedimenttien kasaantuminen ja merenpinnan korkeusvaihtelut.
+      </p>
+    </div>
+  </body>
+</html>

@@ -12,6 +12,8 @@ export default (env, argv) => {
   return {
     entry: {
       root: "./src/index.ts",
+      modelv1: "./src/model-v1.ts",
+      modelv2: "./src/model-v2.ts",
       map: "./src/map/map.ts",
     },
     mode: argv.mode || "development",
@@ -20,9 +22,6 @@ export default (env, argv) => {
         "process.env.MAANNOUSU_API_BASE_URL": JSON.stringify(
           process.env.MAANNOUSU_API_BASE_URL
         ),
-        "process.env.MAANNOUSU_API_VERSION": JSON.stringify(
-          process.env.MAANNOUSU_API_VERSION
-        ),
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash].css",
@@ -30,12 +29,22 @@ export default (env, argv) => {
       new HtmlWebpackPlugin({
         template: "src/index.ejs",
         filename: "index.html",
-        excludeChunks: ["map"],
+        excludeChunks: ["map", "modelv1", "modelv2"],
+      }),
+      new HtmlWebpackPlugin({
+        template: "src/model-v1.ejs",
+        filename: "model-v1.html",
+        excludeChunks: ["root", "map", "modelv2"],
+      }),
+      new HtmlWebpackPlugin({
+        template: "src/model-v2.ejs",
+        filename: "model-v2.html",
+        excludeChunks: ["root", "map", "modelv1"],
       }),
       new HtmlWebpackPlugin({
         template: "src/map/map.ejs",
         filename: "map.html",
-        excludeChunks: ["root"],
+        excludeChunks: ["root", "modelv1", "modelv2"],
       }),
     ],
     devtool: "source-map",

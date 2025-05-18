@@ -1,15 +1,15 @@
 import Control from "ol/control/Control";
 import baseYears from "../../../../common/mapLayerYears.json";
+import { Settings } from "../util/settings";
 
 export default class YearMapControls extends Control {
   private readonly years = [...baseYears, new Date().getFullYear()];
-  private readonly changeYear: (year: number) => void;
   private readonly yearSelect: HTMLSelectElement;
   private readonly buttonPrev: HTMLButtonElement;
   private readonly buttonNext: HTMLButtonElement;
-  private year: number;
+  private readonly settings: Settings;
 
-  constructor(changeYear: (year: number) => void, initialYear: number) {
+  constructor(settings: Settings) {
     const years = [...baseYears, new Date().getFullYear()];
     const buttonPrev = createButton("<", "Edellinen vuosi");
     const buttonNext = createButton(">", "Seuraava vuosi");
@@ -26,8 +26,7 @@ export default class YearMapControls extends Control {
     this.yearSelect = yearSelect;
     this.buttonPrev = buttonPrev;
     this.buttonNext = buttonNext;
-    this.changeYear = changeYear;
-    this.year = initialYear;
+    this.settings = settings;
 
     buttonPrev.addEventListener("click", () => {
       this.prevYear();
@@ -45,32 +44,31 @@ export default class YearMapControls extends Control {
   }
 
   private hasPrevYear(): boolean {
-    const prevYearIndex = this.years.indexOf(this.year) - 1;
+    const prevYearIndex = this.years.indexOf(this.settings.getYear()) - 1;
     return prevYearIndex >= 0;
   }
 
   private hasNextYear(): boolean {
-    const nextYearIndex = this.years.indexOf(this.year) + 1;
+    const nextYearIndex = this.years.indexOf(this.settings.getYear()) + 1;
     return nextYearIndex < this.years.length;
   }
 
   private updateYear(year: number) {
-    this.year = year;
     this.yearSelect.value = year.toString();
-    this.changeYear(this.year);
+    this.settings.setYear(year);
     this.buttonPrev.disabled = !this.hasPrevYear();
     this.buttonNext.disabled = !this.hasNextYear();
   }
 
   private prevYear() {
-    const prevYearIndex = this.years.indexOf(this.year) - 1;
+    const prevYearIndex = this.years.indexOf(this.settings.getYear()) - 1;
     if (this.hasPrevYear()) {
       this.updateYear(this.years[prevYearIndex]);
     }
   }
 
   private nextYear() {
-    const nextYearIndex = this.years.indexOf(this.year) + 1;
+    const nextYearIndex = this.years.indexOf(this.settings.getYear()) + 1;
     if (this.hasNextYear()) {
       this.updateYear(this.years[nextYearIndex]);
     }

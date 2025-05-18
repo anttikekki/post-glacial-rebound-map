@@ -2,7 +2,7 @@ import years from "../../../../common/mapLayerYears.json" assert { type: "json" 
 import { corsHeaders } from "../util/corsUtils";
 import { parseRangeHeader } from "../util/httpRangeUtil";
 
-const API_VERSIONS = ["V1"];
+const API_VERSIONS = ["V1", "V2"];
 const errorHeaders = { ...corsHeaders, "Accept-Ranges": "bytes" };
 
 export const mapApiRoute = new URLPattern({ pathname: "/api/:version/:year" });

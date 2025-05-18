@@ -5,6 +5,8 @@ This model (V1) provides simplified and naive uplift model where uplift is expec
 Read more abot the NKG2016LU model from presentation: [NKG2016LU, an improved postglacial land uplift model over the
 Nordic-Baltic region, 2016](https://www.lantmateriet.se/contentassets/58490c18f7b042e5aa4c38075c9d3af5/presentation-av-nkg2016lu.pdf) (pdf).
 
+**These scripts and land uplift calculations are an hobby project and can contain major errors and mismisinterpretations in the land uplift calculation logic or in the source map data processing!**
+
 ## Source data
 
 [01_download-nls-elevation-model-2m/](./../01_download-nls-elevation-model-2m/).

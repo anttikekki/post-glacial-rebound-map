@@ -4,10 +4,8 @@
   "author": "Antti Kekki",
   "license": "MIT",
   "scripts": {
-    "start:dev:v1": "MAANNOUSU_API_BASE_URL=http://localhost:3000 MAANNOUSU_API_VERSION=v1 webpack serve --open  --mode development",
-    "start:dev:v2": "MAANNOUSU_API_BASE_URL=http://localhost:3000 MAANNOUSU_API_VERSION=v2 webpack serve --open  --mode development",
-    "start:prod:v1": "MAANNOUSU_API_BASE_URL=https://maannousu.info MAANNOUSU_API_VERSION=v1 webpack serve --open  --mode production",
-    "start:prod:v2": "MAANNOUSU_API_BASE_URL=https://maannousu.info MAANNOUSU_API_VERSION=v2 webpack serve --open  --mode production",
+    "start:dev": "MAANNOUSU_API_BASE_URL=http://localhost:3000 webpack serve --open  --mode development",
+    "start:prod": "MAANNOUSU_API_BASE_URL=https://maannousu.info webpack serve --open  --mode production",
     "build": "webpack --mode production"
   },
   "dependencies": {

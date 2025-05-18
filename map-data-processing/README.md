@@ -2,6 +2,8 @@
 
 Scripts in this folder downloads open map data and calculates land uplift sea levels for multiple dates in history.
 
+**These scripts and land uplift calculations are an hobby project and can contain major errors and mismisinterpretations in the land uplift calculation logic or in the source map data processing!**
+
 ## Process
 
 1. [Download National land survey of Finland (NLS) elevation model 2m x 2m](./01_download-nls-elevation-model-2m/README.md).

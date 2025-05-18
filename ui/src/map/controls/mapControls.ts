@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Collection } from "ol";
 import { ScaleLine } from "ol/control";
 import "ol/ol.css"; // This is just for ScaleLine styles
+import { Settings } from "../util/settings";
 import InfoButton from "./infoButton";
 import LoadingAnimation from "./loadingAnimation";
 import "./mapControls.css";
@@ -12,19 +13,15 @@ import ZoomInButton from "./zoomInButton";
 import ZoomOutButton from "./zoomOutButton";
 
 export const getMapControls = ({
-  initialYear,
-  changeYear,
+  settings,
   zoomIn,
   zoomOut,
   centerToCurrentLocation,
-  loadingAnimation,
 }: {
-  initialYear: number;
+  settings: Settings;
   zoomIn: () => void;
   zoomOut: () => void;
-  changeYear: (year: number) => void;
   centerToCurrentLocation: () => void;
-  loadingAnimation: LoadingAnimation;
 }) => {
   return new Collection([
     new ZoomInButton(zoomIn),
@@ -32,9 +29,9 @@ export const getMapControls = ({
     new ScaleLine({
       units: "metric",
     }),
-    new YearMapControls(changeYear, initialYear),
+    new YearMapControls(settings),
     new UserLocationButton(centerToCurrentLocation),
     new InfoButton(),
-    loadingAnimation,
+    new LoadingAnimation(settings),
   ]);
 };
