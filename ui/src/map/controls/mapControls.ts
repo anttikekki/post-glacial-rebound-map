@@ -7,6 +7,7 @@ import { Settings } from "../util/settings";
 import InfoButton from "./infoButton";
 import LoadingAnimation from "./loadingAnimation";
 import "./mapControls.css";
+import ModelSelectionButton from "./modelSelectionButton";
 import UserLocationButton from "./userLocationButton";
 import YearMapControls from "./yearMapControls";
 import ZoomInButton from "./zoomInButton";
@@ -32,6 +33,7 @@ export const getMapControls = ({
     new YearMapControls(settings),
     new UserLocationButton(centerToCurrentLocation),
     new InfoButton(),
+    new ModelSelectionButton(settings),
     new LoadingAnimation(settings),
   ]);
 };

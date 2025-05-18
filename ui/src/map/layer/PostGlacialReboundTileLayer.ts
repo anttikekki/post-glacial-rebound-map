@@ -90,11 +90,11 @@ export default class PostGlacialReboundLayer {
   }): LayerGroup {
     this.settings = settings;
     this.onMapRenderCompleteOnce = onMapRenderCompleteOnce;
-    this.onYearChange();
+    this.onYearOrApiVersionChange();
     return this.layerGroup;
   }
 
-  public static onYearChange = (): void => {
+  public static onYearOrApiVersionChange = (): void => {
     const nextYear = this.settings.getYear();
     const apiVersion = this.settings.getApiVersion();
 
@@ -133,7 +133,8 @@ export default class PostGlacialReboundLayer {
     nextLayer.getLayer().setVisible(true);
     this.layers.forEach((prevLayer) => {
       if (
-        prevLayer.getYear() !== nextLayer.getYear() &&
+        (prevLayer.getYear() !== nextLayer.getYear() ||
+          prevLayer.getApiVersion() !== nextLayer.getApiVersion()) &&
         prevLayer.getLayer().isVisible()
       ) {
         prevLayer.getLayer().setVisible(false);

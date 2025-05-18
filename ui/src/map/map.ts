@@ -20,7 +20,8 @@ const userLocationLayer = new UserLocationVectorLayer(view);
 
 const settings = new Settings(-6000, PostGlacialReboundApiVersion.V2);
 settings.addEventListerner({
-  onYearChange: () => PostGlacialReboundLayer.onYearChange(),
+  onYearChange: () => PostGlacialReboundLayer.onYearOrApiVersionChange(),
+  onApiVersionChange: () => PostGlacialReboundLayer.onYearOrApiVersionChange(),
 });
 
 const zoom = (zoomChange: number) => {

@@ -22,6 +22,12 @@
   position: absolute;
 }
 
+.model-selection-button {
+  top: 170px;
+  left: 10px;
+  position: absolute;
+}
+
 .year-buttons {
   bottom: 0.5em;
   left: 50%;
