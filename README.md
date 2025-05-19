@@ -8,4 +8,4 @@ This repository contain code for site [maannousu.info](https://maannousu.info/):
 
 ## Licence
 
-All code & content in this repository is in [MIT License](https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE). Map data source and hence the map data from calculations results are in licence defined by the source.
+All code & content in this repository is in [MIT License](https://github.com/anttikekki/muinaismuistot/blob/master/LICENSE). Map data licence is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en).

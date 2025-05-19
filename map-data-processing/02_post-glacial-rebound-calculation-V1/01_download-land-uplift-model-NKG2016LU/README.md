@@ -2,6 +2,10 @@
 
 The scripts downloads [NKG2016LU](https://www.lantmateriet.se/sv/geodata/gps-geodesi-och-swepos/Referenssystem/Landhojning/) from Swedish goverment [Lantmäteriet](https://www.lantmateriet.se/sv/) organization and processes it to GeoTIFF file that is in finnish [`EPSG:3067`](https://epsg.io/3067-1149) projection.
 
+# Licence
+
+NKG2016LU licence is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
+
 ## Step 1: [01_download_nkg2016lu_model.sh](./01_download_nkg2016lu_model.sh)
 
 Download [nkg2016lu-with-readme.zip](https://www.lantmateriet.se/contentassets/58490c18f7b042e5aa4c38075c9d3af5/nkg2016lu-with-readme.zip) and unzip it.
