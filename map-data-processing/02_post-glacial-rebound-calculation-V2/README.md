@@ -8,6 +8,10 @@ Glacial Land Adjustment Regenerator (Glare) is published by [Aki Hakonen](https:
 
 **These scripts or [maannousu.info](https://maannousu.info/) site is NOT endorsed or validated by Aki Hakonen in any way and can contain major errors on calculations and mismisinterpretations of the Glare model!**
 
+## Source data
+
+[01_download-nls-elevation-model-2m/](./../01_download-nls-elevation-model-2m/).
+
 ## Step 1: [Download Glare material from Google Drive](./01_download-GLARE-model-data/README.md)
 
 ## Step 2: [Calculate land uplift with Glare model](./02_post-glacial-rebound-calculation/README.md)

@@ -80,6 +80,30 @@
         suoraan selaimessa ilman koko aineiston lataamista.
       </p>
 
+      <h2>GeoTIFF:n sisältö</h2>
+
+      <p>
+        Aineisto ei ole käyttövalmis visuaalinen rasteri, vaan GeoTIFF
+        tiedostomuotoa käytetään välittämään tietoa 2m x 2m pikseleinä, että
+        onko pikseli merta vai maata tiedoston tarkasteluvuotena:
+      </p>
+
+      <ul>
+        <li>Arvo <code>0</code>: maata</li>
+        <li>Arvo <code>1</code>: merta</li>
+        <li>
+          Arvo <code>255</code>: ei tietoa (Suomen ulkopuoliset maa-alueet)
+        </li>
+      </ul>
+
+      <p>
+        Tieto on GeoTIFF-tiedoston data band 1 -tiedoissa. TIedostoa ei siis voi
+        renderöidä suoraan visuaalisesti, vaan käyttäjän pitää määrittää
+        renderöintisäännöt käyttämäänsä työkaluun, joka renderöi nämä eri
+        data-arvot halutuilla väreillä. tämä toteutustapa valittiin, koska
+        järjevä "meren väri" vaihtuu käytetyn pohjakartan värityksen mukana.
+      </p>
+
       <h2>Projektio</h2>
 
       <p>
@@ -398,6 +422,87 @@
           "Access-Control-Max-Age": "86400"
         </code>
       </p>
+
+      <h3>Cache</h3>
+
+      <p>
+        Rajapinta palauttaa
+        <code>"Cache-Control": "public, max-age=86400"</code> otsakkeen
+        jokaisella kutsulla, joka sallii cachen selaimessa vuorokaudeksi.
+        Selaimista kuitenkin vain Safari cachettaa tällä hetkellä HTTP
+        Range-kutsuja. Chromella ja siis myös Edgellä selain lataa aina kaiken
+        datan uudestaan.
+      </p>
+
+      <h2>Integraatio-esimerkit</h2>
+
+      <h3>OpenLayers</h3>
+
+      <p>
+        <a href="https://openlayers.org/">OpenLayers</a> on avoimen lähdekoodin
+        JavaScript-kirjasto, joka osaa renderöidä GeoTIFF-tiedostoja selaimessa.
+        Kirjasto osaa hakea tehokkaasti zoomaustason mukaisia tiilejä
+        aineistosta HTTP Range-kutsuilla.
+      </p>
+
+      <pre class="bg-light p-3 rounded"><code>
+        import WebGLTileLayer from "ol/layer/WebGLTile";
+        import { GeoTIFF } from "ol/source";
+
+        const colorLand = [0, 0, 0, 0]; // Invisible
+        const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
+        const noData = [0, 0, 0, 0]; // Invisible
+        const style = {
+          color: [
+            "case",
+            ["==", ["band", 1], 0], // Value 0 = land
+            colorLand,
+            ["==", ["band", 1], 1], // Value 1 = sea
+            colorSea,
+            noData, // Fallback
+          ],
+        };
+
+        const source = new GeoTIFF({
+          sources: [
+            {
+              url: `https://maannousu.info/api/v2/-6000`,
+              bands: [1],
+            },
+          ],
+          convertToRGB: false,
+          normalize: false,
+        });
+
+        const layer = new WebGLTileLayer({
+          source,
+          style,
+        });
+      </code></pre>
+
+      <p>
+        Laajempi esimerkki kokonaisesta OpenLayers-sivustosta löytyy tämän
+        sivuston lähdekoodista
+        <a
+          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/ui"
+          >GitHubista</a
+        >:
+      </p>
+
+      <ul>
+        <li>
+          <a
+            href="https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map/map.ts"
+            >ui/src/map/map.ts</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map/layer/PostGlacialReboundTileLayer.ts"
+            >ui/src/map/layer/PostGlacialReboundTileLayer.ts</a
+          >
+        </li>
+      </ul>
     </div>
   </body>
 </html>

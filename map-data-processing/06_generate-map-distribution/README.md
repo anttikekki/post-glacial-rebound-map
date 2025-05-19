@@ -6,8 +6,11 @@
 
 Source data is:
 
-- mask file from step [04_sea-level-mask-calculation](../04_sea-level-mask-calculation/README.md). This is the default. This generates COG's without visible data but mask data is contained in data band 1. Visualization must be done by the data user.
-- mask file from step [05_generate-colorized-sea-raster](../05_generate-colorized-sea-raster/README.md). This generates COG's with visible raster data but without the data band. It is harder for the data user to change the visualization.
+- Mask file from step [04_sea-level-mask-calculation](../04_sea-level-mask-calculation/README.md). This is the default. This generates COG's without visible data but mask data is contained in data band 1. Visualization must be done by the user based on data values:
+  - Value `0`: land
+  - Value `1`: sea
+  - Value `255`: no source data (lanf area outside Finland)
+- Mask file from step [05_generate-colorized-sea-raster](../05_generate-colorized-sea-raster/README.md). This generates COG's with visible raster data but without the data band. It is harder for the data user to change the visualization.
 
 Source data and source model version is selected with comman line parameters.
 

@@ -17,7 +17,7 @@ Formula:
 ```
 
 - Land elevation <= 0: sea, data band value 1
-- Land elevation > 0: land, fata band value 0
+- Land elevation > 0: land, data band value 0
 - No source data: 255
 
 Script uses [gdal_calc](https://gdal.org/en/stable/programs/gdal_calc.html) to do the calculation per pixel.
