@@ -2,7 +2,7 @@ import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { getMapControls } from "./controls/mapControls";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
-import PostGlacialReboundLayer from "./layer/PostGlacialReboundTileLayer";
+import PostGlacialReboundLayerGroup from "./layer/PostGlacialReboundTileLayerGroup";
 import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
 import { initEPSG3067Projection } from "./util/projectionUtil";
 import { PostGlacialReboundApiVersion, Settings } from "./util/settings";
@@ -17,12 +17,7 @@ const view = new View({
 });
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
 const userLocationLayer = new UserLocationVectorLayer(view);
-
 const settings = new Settings(-6000, PostGlacialReboundApiVersion.V2);
-settings.addEventListerner({
-  onYearChange: () => PostGlacialReboundLayer.onYearOrApiVersionChange(),
-  onApiVersionChange: () => PostGlacialReboundLayer.onYearOrApiVersionChange(),
-});
 
 const zoom = (zoomChange: number) => {
   const zoom = view.getZoom();
@@ -45,11 +40,10 @@ const map = new OpenLayersMap({
     zoomOut: () => zoom(-1),
   }),
 });
-const postGlacialReboundLayerGroup =
-  PostGlacialReboundLayer.initializeLayerGroup({
-    settings,
-    onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
-  });
+const postGlacialReboundLayerGroup = new PostGlacialReboundLayerGroup({
+  settings,
+  onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
+});
 
-map.addLayer(postGlacialReboundLayerGroup);
+map.addLayer(postGlacialReboundLayerGroup.getLayerGroup());
 map.addLayer(userLocationLayer.getLayer());

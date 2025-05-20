@@ -89,9 +89,7 @@ export default class YearMapControls extends Control {
 
   private updateSelectYears() {
     this.yearSelect.innerHTML = "";
-    this.yearSelect.append(
-      ...getSelectOptions(this.settings.getSupportedYears())
-    );
+    this.yearSelect.append(...getSelectOptions(this.years));
   }
 }
 
