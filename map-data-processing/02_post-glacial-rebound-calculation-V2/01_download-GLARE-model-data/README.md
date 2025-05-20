@@ -1,5 +1,9 @@
 # Download Glare material from Google Drive
 
+## Licence
+
+Glare materials licence is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.en).
+
 ## Step 1: [01_download-GLARE-model.sh](./01_download-GLARE-model.sh)
 
 Downloads following Glacial Land Adjustment Regenerator (Glare) material from [GLARE materials](https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO) Google Drive:
