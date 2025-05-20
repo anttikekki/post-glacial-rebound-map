@@ -1,3 +1,6 @@
+import yearsV1 from "../../../../common/mapLayerYearsModelV1.json";
+import yearsV2 from "../../../../common/mapLayerYearsModelV2.json";
+
 export enum PostGlacialReboundApiVersion {
   V1 = "v1",
   V2 = "v2",
@@ -22,6 +25,15 @@ export class Settings {
     this.year = initialYear;
     this.apiVersion = initialApiVersion;
     this.isLoading = false;
+  }
+
+  public getSupportedYears(): number[] {
+    switch (this.apiVersion) {
+      case PostGlacialReboundApiVersion.V1:
+        return yearsV1;
+      case PostGlacialReboundApiVersion.V2:
+        return yearsV2;
+    }
   }
 
   public getYear(): number {
@@ -51,6 +63,12 @@ export class Settings {
       return;
     }
     this.apiVersion = apiVersion;
+
+    // If selected year is nnot allowed for new API version, default to something
+    if (!this.getSupportedYears().includes(this.year)) {
+      this.year = this.getSupportedYears()[0];
+    }
+
     this.eventListerners.forEach((listerner) => {
       listerner.onApiVersionChange?.(apiVersion);
     });

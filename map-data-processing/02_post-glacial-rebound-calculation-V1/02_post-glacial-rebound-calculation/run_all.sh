@@ -3,8 +3,8 @@
 # Exit on error
 set -euo pipefail
 
-# JSON file containing an array of years
-YEAR_FILE="../../../common/mapLayerYears.json"
+# JSON file containing an array of years for model V1
+YEAR_FILE="../../../common/mapLayerYearsModelV1.json"
 
 # Check that file exists
 if [ ! -f "$YEAR_FILE" ]; then

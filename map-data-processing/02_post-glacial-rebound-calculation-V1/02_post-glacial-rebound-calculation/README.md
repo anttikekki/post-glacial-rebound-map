@@ -1,6 +1,6 @@
 # Linear land uplift rate calculation
 
-Calculates linear land elevastion level for all years in [/common/mapLayerYears.json](../../common/mapLayerYears.json) file. Currently in contains following years (negative years are BC, positive AD):
+Calculates linear land elevastion level for all years in [/common/mapLayerYearsModelV1.json](../../../common/mapLayerYearsModelV1.json) file. Currently in contains following years (negative years are BC, positive AD):
 
 ```
 -6000, -5500, -5000, -4500, -4000, -3500, -3000, -2500, -2000, -1500, -1000, -500, 0, 500, 1000, 1500

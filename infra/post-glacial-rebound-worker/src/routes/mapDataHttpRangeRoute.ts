@@ -1,4 +1,5 @@
-import years from "../../../../common/mapLayerYears.json" assert { type: "json" };
+import yearsV1 from "../../../../common/mapLayerYearsModelV1.json" assert { type: "json" };
+import yearsV2 from "../../../../common/mapLayerYearsModelV2.json" assert { type: "json" };
 import { corsHeaders } from "../util/corsUtils";
 import { parseRangeHeader } from "../util/httpRangeUtil";
 
@@ -15,21 +16,31 @@ export const mapDataHttpRangeFetchRoute = async (
   const year = parseInt(url?.pathname.groups.year ?? "");
   const apiVersion = (url?.pathname.groups.version ?? "").toUpperCase();
 
+  if (!API_VERSIONS.includes(apiVersion)) {
+    return new Response(
+      `API version ${apiVersion} is not supported. Supported versions: ${API_VERSIONS.join(
+        ", "
+      )}`,
+      { status: 400, headers: errorHeaders }
+    );
+  }
   if (isNaN(year)) {
     return new Response(
       "Year parameter in path /api/:version/:year is not a number",
       { status: 400, headers: errorHeaders }
     );
   }
-  if (!years.includes(year)) {
+  if (apiVersion === "V1" && !yearsV1.includes(year)) {
     return new Response(
-      `Year ${year} is not supported. Supported years: ${years.join(", ")}`,
+      `Year ${year} is not supported for API version V1. Supported years: ${yearsV1.join(
+        ", "
+      )}`,
       { status: 400, headers: errorHeaders }
     );
   }
-  if (!API_VERSIONS.includes(apiVersion)) {
+  if (apiVersion === "V2" && !yearsV2.includes(year)) {
     return new Response(
-      `API version ${apiVersion} is not supported. Supported versions: ${API_VERSIONS.join(
+      `Year ${year} is not supported for API version V2. Supported years: ${yearsV2.join(
         ", "
       )}`,
       { status: 400, headers: errorHeaders }

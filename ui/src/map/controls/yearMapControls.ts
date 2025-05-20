@@ -1,16 +1,15 @@
 import Control from "ol/control/Control";
-import baseYears from "../../../../common/mapLayerYears.json";
 import { Settings } from "../util/settings";
 
 export default class YearMapControls extends Control {
-  private readonly years = [...baseYears, new Date().getFullYear()];
+  private years: number[];
   private readonly yearSelect: HTMLSelectElement;
   private readonly buttonPrev: HTMLButtonElement;
   private readonly buttonNext: HTMLButtonElement;
   private readonly settings: Settings;
 
   constructor(settings: Settings) {
-    const years = [...baseYears, new Date().getFullYear()];
+    const years = [...settings.getSupportedYears(), new Date().getFullYear()];
     const buttonPrev = createButton("<", "Edellinen vuosi");
     const buttonNext = createButton(">", "Seuraava vuosi");
     const yearSelect = createYearSelectElement(years);
@@ -28,6 +27,17 @@ export default class YearMapControls extends Control {
     this.buttonNext = buttonNext;
     this.settings = settings;
 
+    this.settings.addEventListerner({
+      onApiVersionChange: () => {
+        this.years = [
+          ...settings.getSupportedYears(),
+          new Date().getFullYear(),
+        ];
+        this.updateSelectYears();
+        this.yearSelect.value = this.settings.getYear().toString();
+      },
+    });
+
     buttonPrev.addEventListener("click", () => {
       this.prevYear();
     });
@@ -39,8 +49,7 @@ export default class YearMapControls extends Control {
       this.updateYear(parseInt(selectedValue));
     });
 
-    this.buttonPrev.disabled = !this.hasPrevYear();
-    this.buttonNext.disabled = !this.hasNextYear();
+    this.updateButtonsStatus();
   }
 
   private hasPrevYear(): boolean {
@@ -56,6 +65,10 @@ export default class YearMapControls extends Control {
   private updateYear(year: number) {
     this.yearSelect.value = year.toString();
     this.settings.setYear(year);
+    this.updateButtonsStatus();
+  }
+
+  private updateButtonsStatus() {
     this.buttonPrev.disabled = !this.hasPrevYear();
     this.buttonNext.disabled = !this.hasNextYear();
   }
@@ -73,6 +86,13 @@ export default class YearMapControls extends Control {
       this.updateYear(this.years[nextYearIndex]);
     }
   }
+
+  private updateSelectYears() {
+    this.yearSelect.innerHTML = "";
+    this.yearSelect.append(
+      ...getSelectOptions(this.settings.getSupportedYears())
+    );
+  }
 }
 
 const createButton = (label: string, title: string): HTMLButtonElement => {
@@ -87,8 +107,12 @@ const createYearSelectElement = (years: number[]): HTMLSelectElement => {
   const select = document.createElement("select");
   select.title = "Valitse vuosi";
   select.className = "form-select form-select-sm";
+  select.append(...getSelectOptions(years));
+  return select;
+};
 
-  years.forEach((year) => {
+const getSelectOptions = (years: number[]): HTMLOptionElement[] => {
+  return years.map((year) => {
     const option = document.createElement("option");
     option.value = year.toString();
     option.text = (() => {
@@ -98,7 +122,6 @@ const createYearSelectElement = (years: number[]): HTMLSelectElement => {
         return `${-year} eaa.`;
       }
     })();
-    select.appendChild(option);
+    return option;
   });
-  return select;
 };

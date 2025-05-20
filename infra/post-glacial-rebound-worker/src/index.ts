@@ -2,6 +2,10 @@ import {
   mapApiRoute,
   mapDataHttpRangeFetchRoute,
 } from "./routes/mapDataHttpRangeRoute";
+import {
+  mapDataVersionYearsRoute,
+  mapVersionYearsApiRoute,
+} from "./routes/mapDataVersionYearsRoute";
 import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
@@ -25,6 +29,16 @@ export default {
         });
       }
       return mapDataHttpRangeFetchRoute(request, env);
+    }
+    if (mapVersionYearsApiRoute.test(request.url)) {
+      // Handle API CORS preflight
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: corsHeaders,
+        });
+      }
+      return mapDataVersionYearsRoute(request);
     }
 
     return env.ASSETS.fetch(request);
