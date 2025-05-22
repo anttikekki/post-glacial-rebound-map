@@ -13,6 +13,7 @@ export default class YearMapControls extends Control {
     const buttonPrev = createButton("<", "Edellinen vuosi");
     const buttonNext = createButton(">", "Seuraava vuosi");
     const yearSelect = createYearSelectElement(years);
+    yearSelect.value = settings.getYear().toString();
 
     const element = document.createElement("div");
     element.className = "year-buttons";

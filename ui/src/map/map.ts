@@ -5,19 +5,25 @@ import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
 import PostGlacialReboundLayerGroup from "./layer/PostGlacialReboundTileLayerGroup";
 import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
 import { initEPSG3067Projection } from "./util/projectionUtil";
-import { PostGlacialReboundApiVersion, Settings } from "./util/settings";
+import { Settings } from "./util/settings";
+import {
+  parseSettingsFromUrlHash,
+  updateSettingsToUrlHash,
+} from "./util/urlUtil";
 
 const { projection } = initEPSG3067Projection();
 
 const view = new View({
-  center: [385249.63630000036, 6672695.7579], // Helsinki
+  center: [414553.6179, 6948916.8145],
   projection,
   enableRotation: false,
-  zoom: 5,
+  zoom: 3,
 });
 const nlsBackgroundLayer = createMMLTaustakarttaLayer();
 const userLocationLayer = new UserLocationVectorLayer(view);
-const settings = new Settings(-6000, PostGlacialReboundApiVersion.V2);
+
+const { year, apiVersion } = parseSettingsFromUrlHash();
+const settings = new Settings(year, apiVersion);
 
 const zoom = (zoomChange: number) => {
   const zoom = view.getZoom();
@@ -47,3 +53,8 @@ const postGlacialReboundLayerGroup = new PostGlacialReboundLayerGroup({
 
 map.addLayer(postGlacialReboundLayerGroup.getLayerGroup());
 map.addLayer(userLocationLayer.getLayer());
+
+settings.addEventListerner({
+  onApiVersionChange: () => updateSettingsToUrlHash(settings),
+  onYearChange: () => updateSettingsToUrlHash(settings),
+});

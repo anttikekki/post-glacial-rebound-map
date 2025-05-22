@@ -19,12 +19,22 @@ export class Settings {
   private isLoading: boolean;
 
   public constructor(
-    initialYear: number,
-    initialApiVersion: PostGlacialReboundApiVersion
+    initialYear: number | undefined,
+    initialApiVersion: string | undefined
   ) {
-    this.year = initialYear;
-    this.apiVersion = initialApiVersion;
+    this.year = -6000;
+    this.apiVersion = PostGlacialReboundApiVersion.V2;
     this.isLoading = false;
+
+    if (initialApiVersion && isValidApiVersion(initialApiVersion)) {
+      this.apiVersion = initialApiVersion;
+    }
+    if (
+      initialYear !== undefined &&
+      this.getSupportedYears().includes(initialYear)
+    ) {
+      this.year = initialYear;
+    }
   }
 
   public getSupportedYears(): number[] {
@@ -88,3 +98,10 @@ export class Settings {
     this.eventListerners.push(listener);
   }
 }
+
+const isValidApiVersion = (
+  value: string
+): value is PostGlacialReboundApiVersion =>
+  Object.values(PostGlacialReboundApiVersion).includes(
+    value as PostGlacialReboundApiVersion
+  );
