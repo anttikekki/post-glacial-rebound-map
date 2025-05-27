@@ -1,3 +1,4 @@
+import yearsIce from "../../../../common/iceMapLayerYears.json";
 import yearsV1 from "../../../../common/mapLayerYearsModelV1.json";
 import yearsV2 from "../../../../common/mapLayerYearsModelV2.json";
 
@@ -44,6 +45,10 @@ export class Settings {
       case PostGlacialReboundApiVersion.V2:
         return yearsV2;
     }
+  }
+
+  public getSupportedIceYears(): number[] {
+    return yearsIce;
   }
 
   public getYear(): number {

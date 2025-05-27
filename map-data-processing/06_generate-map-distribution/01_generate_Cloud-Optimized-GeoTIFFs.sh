@@ -3,16 +3,17 @@
 # Exit if any command fails
 set -euo pipefail
 
-# --- Parse input argument ---
+# --- Parse input arguments ---
 if [ $# -ne 2 ]; then
     echo "Usage: $0 SOURCE SOURCE_VERSION"
     echo "SOURCE must be one of: MASK, COLORIZED"
-    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
+    echo "SOURCE_VERSION must be one of: V1, V2"
     exit 1
 fi
 
 SOURCE="$1"
 SOURCE_VERSION="$2"
+PARALLEL_JOBS=8
 
 case "$SOURCE_VERSION" in
   V1|V2)
@@ -39,48 +40,51 @@ case "$SOURCE" in
     ;;
 esac
 
-# Output folders
 OUTPUT_FOLDER="./result_cog/${SOURCE_VERSION}"
 VRT_FOLDER="./source_vrt/${SOURCE_VERSION}"
 
-mkdir -p "$OUTPUT_FOLDER"
-mkdir -p "$VRT_FOLDER"
+mkdir -p "$OUTPUT_FOLDER" "$VRT_FOLDER"
 
-# Loop through year subfolders
-find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
+# Function to process a single year folder
+process_year_folder() {
+    local YEAR_FOLDER="$1"
+    local YEAR
     YEAR=$(basename "$YEAR_FOLDER")
-    echo "Processing year: $YEAR"
 
-    VRT_FILE="$VRT_FOLDER/${YEAR}.vrt"
-    OUTPUT_COG="$OUTPUT_FOLDER/${YEAR}.tif"
+    local VRT_FILE="$VRT_FOLDER/${YEAR}.vrt"
+    local OUTPUT_COG="$OUTPUT_FOLDER/${YEAR}.tif"
 
     if [ -f "$VRT_FILE" ] && [ -f "$OUTPUT_COG" ]; then
-      echo "Files for year $YEAR exists, skipping..."
-      continue
+        echo "Files exist for $YEAR, skipping..."
+        return
     fi
 
-    # Find all TIFs inside the year folder
+    local TIF_LIST
     TIF_LIST=$(find "$YEAR_FOLDER" -type f -name "*.tif")
-
     if [ -z "$TIF_LIST" ]; then
         echo "No .tif files found in $YEAR_FOLDER, skipping..."
-        continue
+        return
     fi
 
-    echo "Building VRT mosaic for year $YEAR..."
+    echo "Building VRT for $YEAR..."
     gdalbuildvrt "$VRT_FILE" $TIF_LIST
 
-    echo "Translating VRT to compressed COG for year $YEAR..."
-    # COG driver docs: https://gdal.org/en/stable/drivers/raster/cog.html
-    gdal_translate \
-      "$VRT_FILE" "$OUTPUT_COG" \
-      -of COG \
-      -co COMPRESS=DEFLATE \
-      -co LEVEL=9 \
-      -co PREDICTOR=2 \
-      -co BLOCKSIZE=512 \
-      -co NUM_THREADS=ALL_CPUS
+    echo "Translating to COG for $YEAR..."
+    gdal_translate "$VRT_FILE" "$OUTPUT_COG" \
+        -of COG \
+        -co COMPRESS=DEFLATE \
+        -co LEVEL=9 \
+        -co PREDICTOR=2 \
+        -co BLOCKSIZE=512
 
-done
+    echo "Done: $YEAR"
+}
+
+export -f process_year_folder
+export VRT_FOLDER OUTPUT_FOLDER
+
+# Run in parallel
+find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | \
+  xargs -I{} -P "$PARALLEL_JOBS" bash -c 'process_year_folder "$@"' _ {}
 
 echo "All COGs generated successfully in $OUTPUT_FOLDER!"

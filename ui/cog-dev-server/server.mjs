@@ -8,30 +8,23 @@ import rangeParser from "range-parser";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const app = express();
-
-// Static files folder
-const COG_DIR = path.join(
+// Static files folders
+const SEA_COG_DIR = path.join(
   __dirname,
   "../../map-data-processing/06_generate-map-distribution/result_cog/"
 );
+const ICE_COG_DIR = path.join(
+  __dirname,
+  "../../map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog/"
+);
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-
-app.use((req, res, next) => {
-  console.info(`Request`, req.method, req.url, "Range", req.headers.range);
-  next();
-});
-
-app.get("/api/:version/:year", (req, res) => {
-  const filePath = path.join(
-    COG_DIR,
-    req.params.version,
-    `${req.params.year}.tif`
-  );
+const createGeoTIFFEndpoint = (dir) => (req, res) => {
+  const filePath = (() => {
+    if (dir === SEA_COG_DIR) {
+      return path.join(dir, req.params.version, `${req.params.year}.tif`);
+    }
+    return path.join(dir, `${req.params.year}.tif`);
+  })();
 
   if (!fs.existsSync(filePath)) {
     console.error(`File ${filePath} not found`);
@@ -70,10 +63,26 @@ app.get("/api/:version/:year", (req, res) => {
   });
 
   file.pipe(res);
+};
+
+const app = express();
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
 });
+
+app.use((req, res, next) => {
+  console.info(`Request`, req.method, req.url, "Range", req.headers.range);
+  next();
+});
+
+app.get("/api/:version/ice/:year", createGeoTIFFEndpoint(ICE_COG_DIR));
+app.get("/api/:version/:year", createGeoTIFFEndpoint(SEA_COG_DIR));
 
 const port = 3000;
 app.listen(port, () => {
   console.log(`COG Dev Server running at http://localhost:${port}`);
-  console.log(`Serving COGs from: ${COG_DIR}`);
+  console.log(`Serving COGs from: ${SEA_COG_DIR}`);
+  console.log(`Serving COGs from: ${ICE_COG_DIR}`);
 });

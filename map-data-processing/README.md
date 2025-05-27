@@ -9,7 +9,7 @@ Scripts in this folder downloads open map data and calculates land uplift sea le
 1. [Download National land survey of Finland (NLS) elevation model 2m x 2m](./01_download-nls-elevation-model-2m/README.md).
 2. Calculate historical land uplift with one of the uplift models for selected years:
    - [V1: simple linear uplift rate model based on NKG2016LU](./02_post-glacial-rebound-calculation-V1/README.md).
-   - [V2: advanced Glacial Land Adjustment Regenerator (Glare) model](./02_post-glacial-rebound-calculation-V2/README.md).
+   - [V2: advanced Glacial Land Adjustment Regenerator (Glare) model v2.2](./02_post-glacial-rebound-calculation-V2/README.md).
 3. [Generate sea level map data base on step 2 data](./04_sea-level-mask-calculation/README.md).
 4. [Generate sea level Cloud Optimized GeoTIFF as final map distribution format](./06_generate-map-distribution/README.md).
 
@@ -27,9 +27,9 @@ Result map data is in [`EPSG:3067`](https://epsg.io/3067-1149) (ETRS-TM35FIN) pr
    - [Node.js](https://en.wikipedia.org/wiki/Node.js) (only for V1 model). All versions are probably ok but tested only on v22.
    - [cURL](https://en.wikipedia.org/wiki/CURL) and [rsync](https://en.wikipedia.org/wiki/Rsync) are already included in all common Linux and MacOS versions.
 4. Quite a lot of free disk space:
-   - About 80 GB for NLS elevation model
-   - About 60 GB per calculation model per year for the temporary and result files
-5. Time :). Single model takes close to 1 hour per selected year to process on MacBook Pro M1 Max. Full model with 16 different years takes about 12 hours. Both models take about 24 hours.
+   - About 230 GB for NLS elevation model
+   - About 200 GB per calculation model per year for the temporary and result files. For example model with 20 target years require 4000 GB disk space.
+5. Time :). Single model takes close to 2 hour per selected year to process on MacBook Pro M1 Max. Full model with 20 different years takes about 40 hours.
 
 ### Required CLI tools installation
 

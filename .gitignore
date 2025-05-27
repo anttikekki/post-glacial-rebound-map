@@ -27,6 +27,11 @@ map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-mod
 map-data-processing/02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/aligned_GLARE_base_rasters
 map-data-processing/02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/calculation_results
 
+# V2: Ice layer
+map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/Base-raster-band2-nodata-tm35fin.vrt
+map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/ice_presence_masks
+map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog
+
 # Sea level calculation temp files
 map-data-processing/04_sea-level-mask-calculation/sea_land_masks
 
