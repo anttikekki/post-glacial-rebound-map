@@ -9,6 +9,7 @@ import LoadingAnimation from "./loadingAnimation";
 import "./mapControls.css";
 import ModelSelectionButton from "./modelSelectionButton";
 import UserLocationButton from "./userLocationButton";
+import WebGLSupportErrorMessage from "./webGLSupportErrorMessage";
 import YearMapControls from "./yearMapControls";
 import ZoomInButton from "./zoomInButton";
 import ZoomOutButton from "./zoomOutButton";
@@ -35,5 +36,6 @@ export const getMapControls = ({
     new InfoButton(),
     new ModelSelectionButton(settings),
     new LoadingAnimation(settings),
+    new WebGLSupportErrorMessage(),
   ]);
 };
