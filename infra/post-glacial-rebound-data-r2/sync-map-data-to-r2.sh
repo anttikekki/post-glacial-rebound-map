@@ -23,3 +23,11 @@ rclone sync \
     r2:post-glacial-rebound-data/$SOURCE_VERSION \
     --include "*.tif" \
     --progress 
+
+if [ "$SOURCE_VERSION" = "V2" ]; then
+  rclone sync \
+    ../../map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog \
+    r2:post-glacial-rebound-data/V2/ice \
+    --include "*.tif" \
+    --progress 
+fi

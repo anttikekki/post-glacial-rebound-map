@@ -32,13 +32,13 @@ export class Settings {
     }
     if (
       initialYear !== undefined &&
-      this.getSupportedYears().includes(initialYear)
+      this.getSupportedSeaYears().includes(initialYear)
     ) {
       this.year = initialYear;
     }
   }
 
-  public getSupportedYears(): number[] {
+  public getSupportedSeaYears(): number[] {
     switch (this.apiVersion) {
       case PostGlacialReboundApiVersion.V1:
         return yearsV1;
@@ -79,9 +79,9 @@ export class Settings {
     }
     this.apiVersion = apiVersion;
 
-    // If selected year is nnot allowed for new API version, default to something
-    if (!this.getSupportedYears().includes(this.year)) {
-      this.year = this.getSupportedYears()[0];
+    // If selected year is not allowed for new API version, default to something
+    if (!this.getSupportedSeaYears().includes(this.year)) {
+      this.year = this.getSupportedSeaYears()[0];
     }
 
     this.eventListerners.forEach((listerner) => {

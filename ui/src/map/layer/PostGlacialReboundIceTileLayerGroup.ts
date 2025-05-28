@@ -1,5 +1,5 @@
 import LayerGroup from "ol/layer/Group";
-import { Settings } from "../util/settings";
+import { PostGlacialReboundApiVersion, Settings } from "../util/settings";
 import PostGlacialReboundIceTileLayer from "./PostGlacialReboundIceTileLayer";
 
 export default class PostGlacialReboundIceTileLayerGroup {
@@ -17,10 +17,11 @@ export default class PostGlacialReboundIceTileLayerGroup {
   }) {
     this.settings = settings;
     this.onMapRenderCompleteOnce = onMapRenderCompleteOnce;
-    this.onYearChange();
+    this.onYearOrApiVersionChange();
 
     this.settings.addEventListerner({
-      onYearChange: () => this.onYearChange(),
+      onYearChange: () => this.onYearOrApiVersionChange(),
+      onApiVersionChange: () => this.onYearOrApiVersionChange(),
     });
   }
 
@@ -28,11 +29,16 @@ export default class PostGlacialReboundIceTileLayerGroup {
     return this.layerGroup;
   }
 
-  public onYearChange = (): void => {
+  public onYearOrApiVersionChange = (): void => {
     const nextYear = this.settings.getYear();
+    const apiVersion = this.settings.getApiVersion();
 
-    // Next year is not supported year for ice, remove layer and return
-    if (!this.settings.getSupportedIceYears().includes(nextYear)) {
+    // Next year is not supported year for ice or api version is not Glare (V2),
+    // remove layer and return
+    if (
+      !this.settings.getSupportedIceYears().includes(nextYear) ||
+      apiVersion !== PostGlacialReboundApiVersion.V2
+    ) {
       if (this.layer) {
         this.layerGroup.getLayers().remove(this.layer.getLayer());
         this.layer = undefined;
@@ -45,8 +51,6 @@ export default class PostGlacialReboundIceTileLayerGroup {
       return;
     }
 
-    this.settings.setIsLoading(true);
-
     const oldLayer = this.layer;
     const newLayer = new PostGlacialReboundIceTileLayer(nextYear);
     this.layer = newLayer;
@@ -56,7 +60,6 @@ export default class PostGlacialReboundIceTileLayerGroup {
         if (oldLayer) {
           this.layerGroup.getLayers().remove(oldLayer?.getLayer());
         }
-        this.settings.setIsLoading(false);
       });
     });
     this.layerGroup.getLayers().push(newLayer.getLayer());

@@ -27,7 +27,7 @@ export default class PostGlacialReboundIceTileLayer {
     this.source = new GeoTIFF({
       sources: [
         {
-          url: `${host}/api/v2/ice/-8500`,
+          url: `${host}/api/v2/ice/${this.year}`,
           bands: [1],
         },
       ],

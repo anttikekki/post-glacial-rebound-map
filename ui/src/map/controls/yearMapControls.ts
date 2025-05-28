@@ -9,7 +9,10 @@ export default class YearMapControls extends Control {
   private readonly settings: Settings;
 
   constructor(settings: Settings) {
-    const years = [...settings.getSupportedYears(), new Date().getFullYear()];
+    const years = [
+      ...settings.getSupportedSeaYears(),
+      new Date().getFullYear(),
+    ];
     const buttonPrev = createButton("<", "Edellinen vuosi");
     const buttonNext = createButton(">", "Seuraava vuosi");
     const yearSelect = createYearSelectElement(years);
@@ -31,7 +34,7 @@ export default class YearMapControls extends Control {
     this.settings.addEventListerner({
       onApiVersionChange: () => {
         this.years = [
-          ...settings.getSupportedYears(),
+          ...settings.getSupportedSeaYears(),
           new Date().getFullYear(),
         ];
         this.updateSelectYears();

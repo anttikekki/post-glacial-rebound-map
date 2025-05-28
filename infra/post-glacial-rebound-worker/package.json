@@ -12,9 +12,9 @@
     "type-check": "npm run generate-types && tsc"
   },
   "devDependencies": {
-    "@types/range-parser": "^1.2.7",
+    "@types/range-parser": "1.2.7",
     "typescript": "5.8.3",
-    "wrangler": "4.15.2"
+    "wrangler": "4.17.0"
   },
   "dependencies": {
     "range-parser": "1.2.1"

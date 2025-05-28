@@ -87,4 +87,4 @@ export VRT_FOLDER OUTPUT_FOLDER
 find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | \
   xargs -I{} -P "$PARALLEL_JOBS" bash -c 'process_year_folder "$@"' _ {}
 
-echo "All COGs generated successfully in $OUTPUT_FOLDER!"
+echo "All COGs generated successfully in $OUTPUT_FOLDER"

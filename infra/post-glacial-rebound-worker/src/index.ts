@@ -1,11 +1,15 @@
 import {
-  mapApiRoute,
-  mapDataHttpRangeFetchRoute,
-} from "./routes/mapDataHttpRangeRoute";
+  iceMapApiPath,
+  iceMapDataHttpRangeFetchRoute,
+  iceMapDataYearsRoute,
+  iceMapYearsApiPath,
+} from "./routes/iceMapRoute";
 import {
-  mapDataVersionYearsRoute,
-  mapVersionYearsApiRoute,
-} from "./routes/mapDataVersionYearsRoute";
+  seaMapApiPath,
+  seaMapDataHttpRangeFetchRoute,
+  seaMapDataVersionYearsRoute,
+  seaMapVersionYearsApiPath,
+} from "./routes/seaMapRoute";
 import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
@@ -20,25 +24,25 @@ export default {
       });
     }
 
-    if (mapApiRoute.test(request.url)) {
-      // Handle API CORS preflight
-      if (request.method === "OPTIONS") {
-        return new Response(null, {
-          status: 204,
-          headers: { ...corsHeaders, "Accept-Ranges": "bytes" },
-        });
-      }
-      return mapDataHttpRangeFetchRoute(request, env);
+    // Handle CORS preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        status: 204,
+        headers: { ...corsHeaders, "Accept-Ranges": "bytes" },
+      });
     }
-    if (mapVersionYearsApiRoute.test(request.url)) {
-      // Handle API CORS preflight
-      if (request.method === "OPTIONS") {
-        return new Response(null, {
-          status: 204,
-          headers: corsHeaders,
-        });
-      }
-      return mapDataVersionYearsRoute(request);
+
+    if (seaMapVersionYearsApiPath.test(request.url)) {
+      return seaMapDataVersionYearsRoute(request);
+    }
+    if (iceMapYearsApiPath.test(request.url)) {
+      return iceMapDataYearsRoute();
+    }
+    if (seaMapApiPath.test(request.url)) {
+      return seaMapDataHttpRangeFetchRoute(request, env);
+    }
+    if (iceMapApiPath.test(request.url)) {
+      return iceMapDataHttpRangeFetchRoute(request, env);
     }
 
     return env.ASSETS.fetch(request);
