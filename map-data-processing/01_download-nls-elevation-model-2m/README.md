@@ -8,20 +8,43 @@ Map data is downloaded with rsync from [Kapsi Internet-users association](https:
 
 ![NLS map sheet division screenshot](./nls-map-sheet-division-screenshot.png "NLS map sheet division screenshot")
 
-These script only download coastal regions to speed up download and processing (see [map-sheets-to-download.txt](./map-sheets-to-download.txt)):
+These script download elevation model for whole Finland (see [map-sheets-to-download-whole-Finland.txt](./map-sheets-to-download-whole-Finland.txt)):
 
 ```
-T4/T41
-T4/T43
+X4/X43
+X5/X51
+X5/X52
+W3/W33
+W4/W41
+W4/W43
+W4/W44
+W5/W51
+W5/W52
+V3/V34
+V4
+V5
+U4
+U5
+T4
+T5
 S4
+S5
 R4
+R5
 Q3
 Q4
+Q5
 P3
-P4/P42
-P4/P41
+P4
+P5
+P6
 N3
+N4
+N5
+N6
 M3
+M4
+M5
 L2
 L3
 L4
@@ -35,6 +58,11 @@ Every map sheet is divided in multiple levels of sub sheets. For example T4 --> 
 ## Script [02_build_nls_vrt.sh](./02_build_nls_vrt.sh)
 
 Script groups files into [GDAL Virtual Format (VRT)](https://gdal.org/en/stable/drivers/raster/vrt.html) files by highest map sheet level (T4, S4, P3 etc.) to `./vrt` folder. This allows to use the files easily in following processings steps. It also provides natural split to parallelize computing.
+
+Script crates two set of VRTs:
+
+- One that contains data for the whole Finland. This required for 6000 BC and beyond calculations.
+- Another that contains only coastal areas of Finland for calcluations for 5500 BC - 1500 AD. This limited set is used to speed up processing and to reduce final file size.
 
 ## Projection
 

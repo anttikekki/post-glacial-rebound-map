@@ -4,7 +4,6 @@
 set -euo pipefail
 
 # Configurations
-BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt"
 ALIGNED_BASE_FOLDER="./aligned_GLARE_base_rasters"
 SEA_LEVEL_RASTER="../01_download-GLARE-model-data/sea-level-baltic.tif"
 OUTPUT_ROOT_FOLDER="./calculation_results"
@@ -18,6 +17,14 @@ if [ "$#" -ne 1 ]; then
 fi
 
 CALENDAR_YEAR="$1"
+
+# Determine BASE_DEM_FOLDER based on calendar year to use smaller data set for years
+# that only uses coastal areas. This speeds up the calculations and results smaller result files.
+if [ "$CALENDAR_YEAR" -lt -5500 ]; then
+    BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt/whole-Finland"
+else
+    BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt/coast-only"
+fi
 
 # Define output folder for year
 OUTPUT_FOLDER="$OUTPUT_ROOT_FOLDER/$CALENDAR_YEAR"

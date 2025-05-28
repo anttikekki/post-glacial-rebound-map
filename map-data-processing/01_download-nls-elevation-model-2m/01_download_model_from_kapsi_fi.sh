@@ -10,7 +10,7 @@ RSYNC_BASE_URL="rsync://tiedostot.kartat.kapsi.fi/mml/korkeusmalli/hila_2m/etrs-
 TARGET_BASE_DIR="./mml/korkeusmalli/hila_2m/etrs-tm35fin-n2000"
 
 # File containing list of folders to download
-FOLDER_LIST_FILE="map-sheets-to-download.txt"
+FOLDER_LIST_FILE="map-sheets-to-download-whole-Finland.txt"
 
 # Make sure base directory exists
 mkdir -p "$TARGET_BASE_DIR"

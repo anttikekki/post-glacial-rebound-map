@@ -7,8 +7,6 @@ set -euo pipefail
 # using calendar years (e.g. -500 = 500 BC, 2025 = future).
 # Uplift is calculated relative to the reference year 2023.
 
-# Configurations
-BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt"          # Folder with VRTs
 CHANGE_FOLDER="./aligned_NKG2016LU_rasters"                 # Folder with aligned NKG2016LU rasters
 OUTPUT_ROOT_FOLDER="./calculation_results"                  # Root output folder
 REFERENCE_YEAR=2023                                         # Source data is from this year
@@ -25,6 +23,14 @@ fi
 
 CALENDAR_YEAR="$1"
 YEARS=$(($CALENDAR_YEAR - $REFERENCE_YEAR))
+
+# Determine BASE_DEM_FOLDER based on calendar year to use smaller data set for years
+# that only uses coastal areas. This speeds up the calculations and results smaller result files.
+if [ "$CALENDAR_YEAR" -lt -5500 ]; then
+    BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt/whole-Finland"
+else
+    BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt/coast-only"
+fi
 
 # Define output folder for year
 OUTPUT_FOLDER="$OUTPUT_ROOT_FOLDER/$CALENDAR_YEAR"

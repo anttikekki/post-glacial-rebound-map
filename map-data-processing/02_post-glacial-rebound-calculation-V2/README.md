@@ -18,6 +18,8 @@ This script uses Glare version 2.2 that was published at 20.5.2025.
 
 ## Step 2: [Calculate land uplift with Glare model](./02_post-glacial-rebound-calculation/README.md)
 
+## Step 3: [Calculate glacial ice area with Glare model](./03_ice_mask_calculation/README.md)
+
 ## Commands
 
 Execute all the scripts by single command:
