@@ -4,7 +4,6 @@
 set -euo pipefail
 
 # Configurations
-ALIGNED_BASE_FOLDER="./aligned_GLARE_base_rasters"
 SEA_LEVEL_RASTER="../01_download-GLARE-model-data/sea-level-baltic.tif"
 OUTPUT_ROOT_FOLDER="./calculation_results"
 PARALLEL_JOBS=8
@@ -22,8 +21,10 @@ CALENDAR_YEAR="$1"
 # that only uses coastal areas. This speeds up the calculations and results smaller result files.
 if [ "$CALENDAR_YEAR" -lt -5500 ]; then
     BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt/whole-Finland"
+    ALIGNED_BASE_FOLDER="./aligned_GLARE_base_rasters/whole-Finland"
 else
     BASE_DEM_FOLDER="../../01_download-nls-elevation-model-2m/vrt/coast-only"
+    ALIGNED_BASE_FOLDER="./aligned_GLARE_base_rasters/coast-only"
 fi
 
 # Define output folder for year

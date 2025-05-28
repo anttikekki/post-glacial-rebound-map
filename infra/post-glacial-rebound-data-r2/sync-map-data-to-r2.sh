@@ -1,3 +1,8 @@
+#!/bin/bash
+
+# Exit if any command fails
+set -euo pipefail
+
 # --- Parse input argument ---
 if [ $# -ne 1 ]; then
     echo "Usage: $0 SOURCE_VERSION"
@@ -18,16 +23,38 @@ case "$SOURCE_VERSION" in
     ;;
 esac
 
-rclone sync \
-    ../../map-data-processing/06_generate-map-distribution/result_cog/$SOURCE_VERSION \
-    r2:post-glacial-rebound-data/$SOURCE_VERSION \
-    --include "*.tif" \
-    --progress 
+# --- Define source and target paths ---
+MAIN_SRC="../../map-data-processing/06_generate-map-distribution/result_cog/$SOURCE_VERSION"
+MAIN_DEST="r2:post-glacial-rebound-data/$SOURCE_VERSION"
 
+# Dry run for main sync
+echo "Running dry run for main sync..."
+rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --dry-run --progress
+
+# If V2, dry run for additional sync
 if [ "$SOURCE_VERSION" = "V2" ]; then
-  rclone sync \
-    ../../map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog \
-    r2:post-glacial-rebound-data/V2/ice \
-    --include "*.tif" \
-    --progress 
+  ICE_SRC="../../map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog"
+  ICE_DEST="r2:post-glacial-rebound-data/V2/ice"
+  echo ""
+  echo "Running dry run for V2 ice mask sync..."
+  rclone sync "$ICE_SRC" "$ICE_DEST" --include "*.tif" --dry-run --progress
 fi
+
+# Ask for user confirmation
+echo ""
+read -p "Do you want to proceed with the actual sync? (y/n): " CONFIRM
+case "$CONFIRM" in
+  [yY][eE][sS]|[yY])
+    echo "Starting sync..."
+    rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --progress
+
+    if [ "$SOURCE_VERSION" = "V2" ]; then
+      rclone sync "$ICE_SRC" "$ICE_DEST" --include "*.tif" --progress
+    fi
+    echo "Sync completed."
+    ;;
+  *)
+    echo "Sync cancelled by user."
+    exit 0
+    ;;
+esac

@@ -56,7 +56,7 @@ process_folder() {
 
     if [ -f "$VRT_OUTPUT" ]; then
         echo "Patching VRT paths and setting relativeToVRT=\"1\": $VRT_OUTPUT"
-        sed -i.bak 's|>./mml/|>../mml/|g' "$VRT_OUTPUT"
+        sed -i.bak 's|>./mml/|>../../mml/|g' "$VRT_OUTPUT"
         sed -i.bak 's|relativeToVRT="0"|relativeToVRT="1"|g' "$VRT_OUTPUT"
         rm -f "${VRT_OUTPUT}.bak"
     fi

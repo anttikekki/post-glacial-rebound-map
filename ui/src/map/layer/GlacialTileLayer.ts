@@ -15,7 +15,7 @@ const style: Style = {
   ],
 };
 
-export default class PostGlacialReboundIceTileLayer {
+export default class GlacialTileLayer {
   private readonly year: number;
   private readonly source: GeoTIFF;
   private readonly layer: WebGLTileLayer;

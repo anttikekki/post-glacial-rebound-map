@@ -1,8 +1,8 @@
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { getMapControls } from "./controls/mapControls";
+import GlacialTileLayerGroup from "./layer/GlacialTileLayerGroup";
 import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
-import PostGlacialReboundIceTileLayerGroup from "./layer/PostGlacialReboundIceTileLayerGroup";
 import PostGlacialReboundLayerGroup from "./layer/PostGlacialReboundTileLayerGroup";
 import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
 import { initEPSG3067Projection } from "./util/projectionUtil";
@@ -51,15 +51,13 @@ const postGlacialReboundLayerGroup = new PostGlacialReboundLayerGroup({
   settings,
   onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
 });
-const postGlacialReboundIceLayerGroup = new PostGlacialReboundIceTileLayerGroup(
-  {
-    settings,
-    onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
-  }
-);
+const glacialTileLayerGroup = new GlacialTileLayerGroup({
+  settings,
+  onMapRenderCompleteOnce: (fn) => map.once("rendercomplete", () => fn()),
+});
 
 map.addLayer(postGlacialReboundLayerGroup.getLayerGroup());
-map.addLayer(postGlacialReboundIceLayerGroup.getLayerGroup());
+map.addLayer(glacialTileLayerGroup.getLayerGroup());
 map.addLayer(userLocationLayer.getLayer());
 
 settings.addEventListerner({

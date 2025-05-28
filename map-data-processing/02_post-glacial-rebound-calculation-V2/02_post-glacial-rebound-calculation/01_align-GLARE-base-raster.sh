@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Exit if any command fails
 set -euo pipefail
 
 # This script warps and aligns the GLARE model base raster
@@ -8,20 +7,18 @@ set -euo pipefail
 # Output will be one compressed and tiled aligned raster per input VRT.
 
 # Configurations
-VRT_FOLDER="../../01_download-nls-elevation-model-2m/vrt"
+VRT_BASE_FOLDER="../../01_download-nls-elevation-model-2m/vrt"
 GLARE_BASE_RASTER_SRC="../01_download-GLARE-model-data/Base-raster-tm35fin.tif"
-OUTPUT_FOLDER="./aligned_GLARE_base_rasters"
+OUTPUT_BASE_FOLDER="./aligned_GLARE_base_rasters"
 PARALLEL_JOBS=8  # Number of parallel gdalwarp processes
 
-# Create output folder if it doesn't exist
-mkdir -p "$OUTPUT_FOLDER"
+# Create output base folder
+mkdir -p "$OUTPUT_BASE_FOLDER"
 
-# Check if input files exist
-if [ ! -d "$VRT_FOLDER" ]; then
-    echo "VRT folder not found: $VRT_FOLDER"
-    exit 1
-fi
+# Input subfolders to process
+INPUT_SUBFOLDERS=("whole-Finland" "coast-only")
 
+# Check required source raster
 if [ ! -f "$GLARE_BASE_RASTER_SRC" ]; then
     echo "Source GLARE base raster not found: $GLARE_BASE_RASTER_SRC"
     exit 1
@@ -30,18 +27,22 @@ fi
 # Function to process a single VRT
 process_vrt() {
     local VRT="$1"
+    local INPUT_SUBDIR="$2"
     local BASENAME
     BASENAME=$(basename "$VRT" .vrt)
-    local ALIGNED_OUTPUT="$OUTPUT_FOLDER/${BASENAME}_GLARE_base_raster_aligned.tif"
+
+    local OUTPUT_DIR="${OUTPUT_BASE_FOLDER}/${INPUT_SUBDIR}"
+    mkdir -p "$OUTPUT_DIR"
+
+    local ALIGNED_OUTPUT="${OUTPUT_DIR}/${BASENAME}_GLARE_base_raster_aligned.tif"
 
     if [ -f "$ALIGNED_OUTPUT" ]; then
       echo "File $ALIGNED_OUTPUT exists, skipping..."
       return
     fi
 
-    echo "Processing VRT: $BASENAME"
+    echo "Processing VRT: $BASENAME ($INPUT_SUBDIR)"
 
-    # Extract extent from VRT
     local EXTENT
     EXTENT=$(gdalinfo "$VRT" | awk '
         /Lower Left/ {gsub("[(),]", "", $0); xmin=$3; ymin=$4}
@@ -49,13 +50,11 @@ process_vrt() {
         END {print xmin, ymin, xmax, ymax}'
     )
 
-    # Extract raster size from VRT
     local SIZE
     SIZE=$(gdalinfo "$VRT" | awk '
         /Size is/ {gsub(",", "", $0); print $3, $4}'
     )
 
-    # Debug: Print extracted values
     echo "Extracted Extent: $EXTENT"
     echo "Extracted Size: $SIZE"
 
@@ -75,9 +74,18 @@ process_vrt() {
 }
 
 export -f process_vrt
-export GLARE_BASE_RASTER_SRC OUTPUT_FOLDER
+export GLARE_BASE_RASTER_SRC OUTPUT_BASE_FOLDER
 
-# Find all VRTs and process them in parallel using xargs
-find "$VRT_FOLDER" -name "*.vrt" | xargs -n 1 -P "$PARALLEL_JOBS" bash -c 'process_vrt "$0"' 
+# Process all VRTs from both input folders
+for SUBDIR in "${INPUT_SUBFOLDERS[@]}"; do
+    INPUT_PATH="${VRT_BASE_FOLDER}/${SUBDIR}"
+    
+    if [ ! -d "$INPUT_PATH" ]; then
+        echo "Input folder not found: $INPUT_PATH"
+        continue
+    fi
+
+    find "$INPUT_PATH" -name "*.vrt" | xargs -n 1 -P "$PARALLEL_JOBS" bash -c 'process_vrt "$0" "'"$SUBDIR"'"'
+done
 
 echo "All VRTs processed."

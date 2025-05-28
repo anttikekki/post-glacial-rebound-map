@@ -1,16 +1,16 @@
 import { LRUCache } from "lru-cache";
 import LayerGroup from "ol/layer/Group";
-import { Settings } from "../util/settings";
+import { PostGlacialReboundApiVersion, Settings } from "../util/settings";
 import { isWebGLSupported } from "../util/webGLUtils";
-import PostGlacialReboundLayer from "./PostGlacialReboundTileLayer";
+import GlacialTileLayer from "./GlacialTileLayer";
 
-export default class PostGlacialReboundLayerGroup {
+export default class GlacialTileLayerGroup {
   private readonly layerGroup = new LayerGroup();
   // Store only 5 layers to save memory. Older mobile devices crash if
   // too many layers are loaded.
   private readonly layers = new LRUCache<
-    string, // "${apiVersion}_${year}"
-    PostGlacialReboundLayer
+    number, // Year
+    GlacialTileLayer
   >({
     max: 5,
     dispose: (layer) => {
@@ -49,26 +49,24 @@ export default class PostGlacialReboundLayerGroup {
     const nextYear = this.settings.getYear();
     const apiVersion = this.settings.getApiVersion();
 
-    // Hide all layers if current calendar year is selected.
-    // This just shows the NLS base map.
-    if (nextYear === new Date().getFullYear()) {
+    // Next year is not supported year for ice or api version is not Glare (V2).
+    // Hide layer and return.
+    if (
+      !this.settings.getSupportedIceYears().includes(nextYear) ||
+      apiVersion !== PostGlacialReboundApiVersion.V2
+    ) {
       this.hideAllLayers();
       return;
     }
 
-    const cacheKey = `${apiVersion}_${nextYear}`;
-
-    this.settings.setIsLoading(false);
-    const nextLayer = this.layers.get(cacheKey);
+    const nextLayer = this.layers.get(nextYear);
     if (!nextLayer) {
-      this.settings.setIsLoading(true);
-      const newLayer = new PostGlacialReboundLayer(nextYear, apiVersion);
-      this.layers.set(cacheKey, newLayer);
+      const newLayer = new GlacialTileLayer(nextYear);
+      this.layers.set(nextYear, newLayer);
 
       newLayer.getSource().once("tileloadend", () => {
         this.onMapRenderCompleteOnce?.(() => {
           this.setLayerVisible(newLayer);
-          this.settings.setIsLoading(false);
         });
       });
       this.layerGroup.getLayers().push(newLayer.getLayer());
@@ -77,12 +75,11 @@ export default class PostGlacialReboundLayerGroup {
     }
   };
 
-  private setLayerVisible = (nextLayer: PostGlacialReboundLayer): void => {
+  private setLayerVisible = (nextLayer: GlacialTileLayer): void => {
     nextLayer.getLayer().setVisible(true);
     this.layers.forEach((prevLayer) => {
       if (
-        (prevLayer.getYear() !== nextLayer.getYear() ||
-          prevLayer.getApiVersion() !== nextLayer.getApiVersion()) &&
+        prevLayer.getYear() !== nextLayer.getYear() &&
         prevLayer.getLayer().isVisible()
       ) {
         prevLayer.getLayer().setVisible(false);
