@@ -25,5 +25,9 @@ This script uses Glare version 2.2 that was published at 20.5.2025.
 Execute all the scripts by single command:
 
 ```bash
+# Calculate land upplift for all years defined in common/mapLayerYearsModelV2.json
 ./run_all.sh
+
+# Calculate land upplift for specific years (minus values are BC)
+./run_all.sh -5000 -7000 1500
 ```

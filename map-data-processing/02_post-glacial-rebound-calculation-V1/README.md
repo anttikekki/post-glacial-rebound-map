@@ -24,5 +24,9 @@ GeoTIFF files in `./02_post-glacial-rebound-calculation/calculation_results` fol
 Execute all the scripts by single command:
 
 ```bash
+# Calculate land upplift for all years defined in common/mapLayerYearsModelV1.json
 ./run_all.sh
+
+# Calculate land upplift for specific years (minus values are BC)
+./run_all.sh -5000 -7000 1500
 ```

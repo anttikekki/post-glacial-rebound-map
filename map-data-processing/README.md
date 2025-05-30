@@ -29,7 +29,7 @@ Result map data is in [`EPSG:3067`](https://epsg.io/3067-1149) (ETRS-TM35FIN) pr
 4. Quite a lot of free disk space:
    - About 230 GB for NLS elevation model
    - About 200 GB per calculation model per year for the temporary and result files. For example model with 20 target years require 4000 GB disk space.
-5. Time :). Single model takes close to 2 hour per selected year to process on MacBook Pro M1 Max. Full model with 20 different years takes about 40 hours.
+5. Time :). Single model takes more than 2 hour per selected year to process on MacBook Pro M1 Max. Full model with 20 different years takes about 40 hours.
 
 ### Required CLI tools installation
 
@@ -54,11 +54,25 @@ sudo apt install -y nodejs npm
 Execute all the scripts by single command:
 
 ```bash
+#########################################
 # Model V1: simple linear uplift model
+#########################################
+
+# Calculate land upplift for all years defined in common/mapLayerYearsModelV1.json
 ./run-all-V1.sh
 
+# Calculate land upplift for specific years (minus values are BC)
+./run-all-V1.sh -5000 -7000 1500
+
+#########################################
 # Model V2: advanced GLARE uplift model
+#########################################
+
+# Calculate land upplift for all years defined in common/mapLayerYearsModelV2.json
 ./run-all-V2.sh
+
+# Calculate land upplift for specific years (minus values are BC)
+./run-all-V2.sh -5000 -7000 1500
 ```
 
 Result files are in `./06_generate-map-distribution/result_cog` folder.

@@ -43,11 +43,9 @@ Script uses [gdal_calc](https://gdal.org/en/stable/programs/gdal_calc.html) to d
 Execute all the scripts by single command:
 
 ```bash
+# Calculate land upplift for all years defined in common/mapLayerYearsModelV2.json
 ./run_all.sh
-```
 
-Run calculation for single year (requires that step 01 is executed already):
-
-```bash
-./02_run_glare_model.sh -6000
+# Calculate land upplift for specific years (minus values are BC)
+./run_all.sh -5000 -7000 1500
 ```

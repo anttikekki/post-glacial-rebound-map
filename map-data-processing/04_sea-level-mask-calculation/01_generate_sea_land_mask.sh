@@ -45,11 +45,11 @@ process_mask() {
     local OUTPUT_FILE="$YEAR_OUTPUT_FOLDER/${OUTPUT_BASENAME}_mask.tif"
 
     if [ -f "$OUTPUT_FILE" ]; then
-      echo "File $OUTPUT_FILE exists, skipping..."
+      echo "Output file $OUTPUT_FILE exists, skipping..."
       return
     fi
 
-    echo "Generating mask for: $INPUT_FILE"
+    echo "Generating mask for year $YEAR"
 
     # Generate binary sea/land masks from uplifted DEMs
     # Land (height > 0) -> 0

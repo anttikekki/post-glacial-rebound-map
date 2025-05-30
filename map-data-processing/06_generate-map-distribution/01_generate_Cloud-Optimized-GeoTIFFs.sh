@@ -54,8 +54,8 @@ find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
     VRT_FILE="$VRT_FOLDER/${YEAR}.vrt"
     OUTPUT_COG="$OUTPUT_FOLDER/${YEAR}.tif"
 
-    if [ -f "$VRT_FILE" ] && [ -f "$OUTPUT_COG" ]; then
-      echo "Files for year $YEAR exists, skipping..."
+    if [ -f "$OUTPUT_COG" ]; then
+      echo "Output file $OUTPUT_COG exists, skipping..."
       continue
     fi
 
