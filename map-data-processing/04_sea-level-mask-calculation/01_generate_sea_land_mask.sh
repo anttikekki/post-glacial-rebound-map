@@ -49,7 +49,7 @@ process_mask() {
       return
     fi
 
-    echo "Generating mask for year $YEAR"
+    echo "Generating mask for year $YEAR $INPUT_FILE"
 
     # Generate binary sea/land masks from uplifted DEMs
     # Land (height > 0) -> 0
@@ -75,9 +75,9 @@ export OUTPUT_FOLDER
 # Process all files
 echo "Searching for uplifted DEM folders in $INPUT_FOLDER..."
 
-find "$INPUT_FOLDER" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
+find "$INPUT_FOLDER" -mindepth 1 -maxdepth 1 -type d | while read -r YEAR_FOLDER; do
     find "$YEAR_FOLDER" -name "*.tif" | \
-        xargs -I{} -P "$PARALLEL_JOBS" bash -c 'process_mask "$1" "$2"' _ "{}" "$YEAR_FOLDER"
+        xargs -I{} -P "$PARALLEL_JOBS" bash -c 'process_mask "$0" "$1"' {} "$YEAR_FOLDER"
 done
 
 echo "Mask generation complete."

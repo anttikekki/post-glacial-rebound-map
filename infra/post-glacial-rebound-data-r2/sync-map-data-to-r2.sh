@@ -29,7 +29,7 @@ MAIN_DEST="r2:post-glacial-rebound-data/$SOURCE_VERSION"
 
 # Dry run for main sync
 echo "Running dry run for main sync..."
-rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --dry-run --progress
+rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --dry-run --progress --max-depth 1
 
 # If V2, dry run for additional sync
 if [ "$SOURCE_VERSION" = "V2" ]; then
@@ -37,7 +37,7 @@ if [ "$SOURCE_VERSION" = "V2" ]; then
   ICE_DEST="r2:post-glacial-rebound-data/V2/ice"
   echo ""
   echo "Running dry run for V2 ice mask sync..."
-  rclone sync "$ICE_SRC" "$ICE_DEST" --include "*.tif" --dry-run --progress
+  rclone sync "$ICE_SRC" "$ICE_DEST" --include "*.tif" --dry-run --progress --max-depth 1
 fi
 
 # Ask for user confirmation
@@ -46,10 +46,10 @@ read -p "Do you want to proceed with the actual sync? (y/n): " CONFIRM
 case "$CONFIRM" in
   [yY][eE][sS]|[yY])
     echo "Starting sync..."
-    rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --progress
+    rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --progress --max-depth 1
 
     if [ "$SOURCE_VERSION" = "V2" ]; then
-      rclone sync "$ICE_SRC" "$ICE_DEST" --include "*.tif" --progress
+      rclone sync "$ICE_SRC" "$ICE_DEST" --include "*.tif" --progress --max-depth 1
     fi
     echo "Sync completed."
     ;;

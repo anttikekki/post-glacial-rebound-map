@@ -1,20 +1,9 @@
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
-import { PostGlacialReboundApiVersion } from "../util/settings";
-
-const colorLand = [0, 0, 0, 0]; // Invisible
-const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
-const noData = [0, 0, 0, 0]; // Invisible
-const style: Style = {
-  color: [
-    "case",
-    ["==", ["band", 1], 0], // Value 0 = land
-    colorLand,
-    ["==", ["band", 1], 1], // Value 1 = sea
-    colorSea,
-    noData, // Fallback
-  ],
-};
+import {
+  NLSBackgroundMap,
+  PostGlacialReboundApiVersion,
+} from "../util/settings";
 
 export default class PostGlacialReboundLayer {
   private readonly year: number;
@@ -22,7 +11,11 @@ export default class PostGlacialReboundLayer {
   private readonly source: GeoTIFF;
   private readonly layer: WebGLTileLayer;
 
-  public constructor(year: number, apiVersion: PostGlacialReboundApiVersion) {
+  public constructor(
+    year: number,
+    apiVersion: PostGlacialReboundApiVersion,
+    backgroundMap: NLSBackgroundMap
+  ) {
     this.year = year;
     this.apiVersion = apiVersion;
 
@@ -47,7 +40,7 @@ export default class PostGlacialReboundLayer {
 
     this.layer = new WebGLTileLayer({
       source: this.source,
-      style,
+      style: this.createStyle(backgroundMap),
       visible: true,
     });
   }
@@ -66,5 +59,40 @@ export default class PostGlacialReboundLayer {
 
   public getSource(): GeoTIFF {
     return this.source;
+  }
+
+  public updateLayerStyle(backgroundMap: NLSBackgroundMap): void {
+    this.layer.setStyle(this.createStyle(backgroundMap));
+  }
+
+  private createStyle(backgroundMap: NLSBackgroundMap): Style {
+    const colorLand = [0, 0, 0, 0]; // Invisible
+    const noData = [0, 0, 0, 0]; // Invisible
+
+    /**
+     * Change sea color based on selected National Land Survey of Finland
+     * background map type.
+     */
+    const colorSea = ((): number[] => {
+      switch (backgroundMap) {
+        case NLSBackgroundMap.TopographicMap:
+          return [177, 252, 254, 1];
+        case NLSBackgroundMap.BackgroundMap:
+          return [201, 236, 250, 1];
+        case NLSBackgroundMap.Orthophotos:
+          return [31, 32, 58, 1];
+      }
+    })();
+
+    return {
+      color: [
+        "case",
+        ["==", ["band", 1], 0], // Value 0 = land
+        colorLand,
+        ["==", ["band", 1], 1], // Value 1 = sea
+        colorSea,
+        noData, // Fallback
+      ],
+    };
   }
 }

@@ -2,7 +2,7 @@ import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { getMapControls } from "./controls/mapControls";
 import GlacialTileLayerGroup from "./layer/GlacialTileLayerGroup";
-import { createMMLTaustakarttaLayer } from "./layer/MaanmittauslaitosTileLayer";
+import { NLSBackgroundMapTileLayer } from "./layer/NLSBackgroundMapTileLayer";
 import PostGlacialReboundLayerGroup from "./layer/PostGlacialReboundTileLayerGroup";
 import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
 import { initEPSG3067Projection } from "./util/projectionUtil";
@@ -20,11 +20,10 @@ const view = new View({
   enableRotation: false,
   zoom: 3,
 });
-const nlsBackgroundLayer = createMMLTaustakarttaLayer();
 const userLocationLayer = new UserLocationVectorLayer(view);
 
-const { year, apiVersion } = parseSettingsFromUrlHash();
-const settings = new Settings(year, apiVersion);
+const settings = new Settings(parseSettingsFromUrlHash());
+const nlsBackgroundLayer = new NLSBackgroundMapTileLayer(settings);
 
 const zoom = (zoomChange: number) => {
   const zoom = view.getZoom();
@@ -38,7 +37,7 @@ const zoom = (zoomChange: number) => {
 
 const map = new OpenLayersMap({
   target: "map",
-  layers: [nlsBackgroundLayer],
+  layers: [nlsBackgroundLayer.getLayer()],
   view,
   controls: getMapControls({
     settings,
@@ -63,4 +62,5 @@ map.addLayer(userLocationLayer.getLayer());
 settings.addEventListerner({
   onApiVersionChange: () => updateSettingsToUrlHash(settings),
   onYearChange: () => updateSettingsToUrlHash(settings),
+  onBackgroundMapChange: () => updateSettingsToUrlHash(settings),
 });

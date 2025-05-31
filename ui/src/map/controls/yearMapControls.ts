@@ -39,6 +39,7 @@ export default class YearMapControls extends Control {
         ];
         this.updateSelectYears();
         this.yearSelect.value = this.settings.getYear().toString();
+        this.updateButtonsStatus();
       },
     });
 

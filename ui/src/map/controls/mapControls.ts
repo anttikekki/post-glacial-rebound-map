@@ -4,6 +4,7 @@ import { Collection } from "ol";
 import { ScaleLine } from "ol/control";
 import "ol/ol.css"; // This is just for ScaleLine styles
 import { Settings } from "../util/settings";
+import BackgoundMapSelectionButton from "./backgoundMapSelectionButton";
 import InfoButton from "./infoButton";
 import LoadingAnimation from "./loadingAnimation";
 import "./mapControls.css";
@@ -35,6 +36,7 @@ export const getMapControls = ({
     new UserLocationButton(centerToCurrentLocation),
     new InfoButton(),
     new ModelSelectionButton(settings),
+    new BackgoundMapSelectionButton(settings),
     new LoadingAnimation(settings),
     new WebGLSupportErrorMessage(),
   ]);

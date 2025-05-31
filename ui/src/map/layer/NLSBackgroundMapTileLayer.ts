@@ -1,34 +1,60 @@
 import WMTSCapabilities from "ol/format/WMTSCapabilities";
 import TileLayer from "ol/layer/Tile";
 import WMTSSource, { optionsFromCapabilities } from "ol/source/WMTS";
+import { NLSBackgroundMap, Settings } from "../util/settings";
 
-export const createMMLTaustakarttaLayer = (): TileLayer => {
-  const parser = new WMTSCapabilities();
-  const capabilities = parser.read(WMTSCapabilitiesResult);
+/**
+ * National land survey of Finland (NLS) backgound map layer
+ */
+export class NLSBackgroundMapTileLayer {
+  private readonly wmtsCapabilities: any;
+  private source: WMTSSource;
+  private layer: TileLayer;
 
-  const taustakarttaOptions = optionsFromCapabilities(capabilities, {
-    layer: "taustakartta",
-    visible: true,
-  });
+  public constructor(settings: Settings) {
+    const parser = new WMTSCapabilities();
+    this.wmtsCapabilities = parser.read(WMTSCapabilitiesResult);
 
-  if (!taustakarttaOptions) {
-    throw new Error(`Expected layers were not found from WMTS Capabilities`);
+    this.source = this.createSource(settings.getBackgroundMap());
+
+    this.layer = new TileLayer({
+      source: this.source,
+    });
+
+    settings.addEventListerner({
+      onBackgroundMapChange: (backgroundMap) => {
+        this.source = this.createSource(backgroundMap);
+        this.layer.setSource(this.source);
+      },
+    });
   }
 
-  const source = new WMTSSource(taustakarttaOptions);
+  public getLayer(): TileLayer {
+    return this.layer;
+  }
 
-  // Add MML api key. This API key is just for avoin-karttakuva.maanmittauslaitos.fi
-  source.setUrls(
-    source
-      .getUrls()
-      ?.map((url) => `${url}api-key=0593cc3c-e12f-489c-b8d6-c9a6965b4bfe&`) ||
-      []
-  );
+  private createSource(backgroundMap: NLSBackgroundMap): WMTSSource {
+    const sourceOptions = optionsFromCapabilities(this.wmtsCapabilities, {
+      layer: backgroundMap,
+      visible: true,
+    });
 
-  return new TileLayer({
-    source,
-  });
-};
+    if (!sourceOptions) {
+      throw new Error(`Expected layers were not found from WMTS Capabilities`);
+    }
+    const source = new WMTSSource(sourceOptions);
+
+    // Add MML api key. This API key is just for the free avoin-karttakuva.maanmittauslaitos.fi
+    source.setUrls(
+      source
+        .getUrls()
+        ?.map((url) => `${url}api-key=0593cc3c-e12f-489c-b8d6-c9a6965b4bfe&`) ||
+        []
+    );
+
+    return source;
+  }
+}
 
 /**
  * Copy of Maanmittauslaitos WMTS Capabilities XML from

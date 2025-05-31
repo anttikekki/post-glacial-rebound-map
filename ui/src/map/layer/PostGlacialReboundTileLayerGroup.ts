@@ -1,6 +1,6 @@
 import { LRUCache } from "lru-cache";
 import LayerGroup from "ol/layer/Group";
-import { Settings } from "../util/settings";
+import { NLSBackgroundMap, Settings } from "../util/settings";
 import { isWebGLSupported } from "../util/webGLUtils";
 import PostGlacialReboundLayer from "./PostGlacialReboundTileLayer";
 
@@ -34,6 +34,8 @@ export default class PostGlacialReboundLayerGroup {
     this.settings.addEventListerner({
       onYearChange: () => this.onYearOrApiVersionChange(),
       onApiVersionChange: () => this.onYearOrApiVersionChange(),
+      onBackgroundMapChange: (backgroundMap) =>
+        this.onNLSBackgroundMapChange(backgroundMap),
     });
   }
 
@@ -48,6 +50,7 @@ export default class PostGlacialReboundLayerGroup {
 
     const nextYear = this.settings.getYear();
     const apiVersion = this.settings.getApiVersion();
+    const backgroundMap = this.settings.getBackgroundMap();
 
     // Hide all layers if current calendar year is selected.
     // This just shows the NLS base map.
@@ -62,7 +65,11 @@ export default class PostGlacialReboundLayerGroup {
     const nextLayer = this.layers.get(cacheKey);
     if (!nextLayer) {
       this.settings.setIsLoading(true);
-      const newLayer = new PostGlacialReboundLayer(nextYear, apiVersion);
+      const newLayer = new PostGlacialReboundLayer(
+        nextYear,
+        apiVersion,
+        backgroundMap
+      );
       this.layers.set(cacheKey, newLayer);
 
       newLayer.getSource().once("tileloadend", () => {
@@ -95,4 +102,10 @@ export default class PostGlacialReboundLayerGroup {
       layer.getLayer().setVisible(false);
     });
   };
+
+  private onNLSBackgroundMapChange(backgroundMap: NLSBackgroundMap) {
+    this.layers.forEach((layer) => {
+      layer.updateLayerStyle(backgroundMap);
+    });
+  }
 }

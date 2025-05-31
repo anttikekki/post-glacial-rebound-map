@@ -17,13 +17,13 @@ export default class ModelSelectionButton extends Control {
 
     const popOverContent = document.createElement("form");
     const v1Input = getModelSelectRadioInput(
-      "Laskentamalli V1: lineaarinen maannousu NKG2016LU mallin perusteella",
+      "lineaarinen maannousu NKG2016LU mallin perusteella",
       PostGlacialReboundApiVersion.V1,
       settings
     );
 
     const v2Input = getModelSelectRadioInput(
-      "Laskentamalli V2: Glacial Land Adjustment Regenerator (Glare)",
+      "Glacial Land Adjustment Regenerator (Glare)",
       PostGlacialReboundApiVersion.V2,
       settings
     );
@@ -64,12 +64,16 @@ const getModelSelectRadioInput = (
   label.htmlFor = inputId;
   label.className = "form-check-label";
 
+  const labelHeading = document.createElement("b");
+  labelHeading.innerText = `Laskentamalli ${apiVersion.toUpperCase()}: `;
+
   const docLink = document.createElement("a");
   docLink.innerText = "lisää tietoa";
   docLink.target = "_blank";
   docLink.href = `model-${apiVersion.toLowerCase()}.html`;
 
   label.append(
+    labelHeading,
     document.createTextNode(`${name} (`),
     docLink,
     document.createTextNode(")")

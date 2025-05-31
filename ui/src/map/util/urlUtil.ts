@@ -4,21 +4,26 @@ import { Settings } from "./settings";
 type UrlSettings = {
   year: number;
   apiVersion: string;
+  backgroundMap: string;
 };
 
 export const updateSettingsToUrlHash = (settings: Settings): void => {
   const params: UrlSettings = {
     year: settings.getYear(),
     apiVersion: settings.getApiVersion(),
+    backgroundMap: settings.getBackgroundMap(),
   };
 
   window.location.hash = `#${queryString.stringify(params)}`;
 };
 
 export const parseSettingsFromUrlHash = (): Partial<UrlSettings> => {
-  const { year, apiVersion } = queryString.parse(window.location.hash, {
-    parseNumbers: true,
-  });
+  const { year, apiVersion, backgroundMap } = queryString.parse(
+    window.location.hash,
+    {
+      parseNumbers: true,
+    }
+  );
 
   let settings: Partial<UrlSettings> = {};
   if (year !== undefined && typeof year === "number") {
@@ -26,6 +31,9 @@ export const parseSettingsFromUrlHash = (): Partial<UrlSettings> => {
   }
   if (apiVersion !== undefined && typeof apiVersion === "string") {
     settings = { ...settings, apiVersion };
+  }
+  if (backgroundMap !== undefined && typeof backgroundMap === "string") {
+    settings = { ...settings, backgroundMap };
   }
   return settings;
 };

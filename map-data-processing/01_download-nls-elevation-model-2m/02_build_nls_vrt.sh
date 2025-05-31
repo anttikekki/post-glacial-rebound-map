@@ -15,10 +15,10 @@ if [ ! -d "$BASE_INPUT_FOLDER" ]; then
     exit 1
 fi
 
-# Read coast-only folder names into array, skipping comments
+# Read coast-only folder names into array from txt, skipping comments
 MAP_SHEETS=()
 if [ -f "$COAST_LIST_FILE" ]; then
-    while IFS= read -r line; do
+    while IFS= read -r line || [ -n "$line" ]; do
         [[ "$line" == \#* || -z "$line" ]] && continue
         MAP_SHEETS+=("$line")
     done < "$COAST_LIST_FILE"

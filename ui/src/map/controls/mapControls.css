@@ -28,6 +28,12 @@
   position: absolute;
 }
 
+.backgound-map-selection-button {
+  top: 210px;
+  left: 10px;
+  position: absolute;
+}
+
 .year-buttons {
   bottom: 0.5em;
   left: 50%;
