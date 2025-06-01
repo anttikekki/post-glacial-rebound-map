@@ -1,3 +1,4 @@
+import { Coordinate } from "ol/coordinate";
 import yearsIce from "../../../../common/iceMapLayerYears.json";
 import yearsV1 from "../../../../common/mapLayerYearsModelV1.json";
 import yearsV2 from "../../../../common/mapLayerYearsModelV2.json";
@@ -21,6 +22,8 @@ export type SettingsEventListner = {
   onApiVersionChange?: (apiVersion: PostGlacialReboundApiVersion) => void;
   onLoadingStatusChange?: (isLoading: boolean) => void;
   onBackgroundMapChange?: (backgroundMap: NLSBackgroundMap) => void;
+  onZoomChange?: (zoom: number) => void;
+  onMapCenterChange?: (mapCenter: Coordinate) => void;
 };
 
 export class Settings {
@@ -29,21 +32,31 @@ export class Settings {
   private apiVersion: PostGlacialReboundApiVersion;
   private isLoading: boolean;
   private backgroundMap: NLSBackgroundMap;
+  private zoom: number;
+  private mapCenter: Coordinate;
 
   public constructor({
     year,
     apiVersion,
     backgroundMap,
+    zoom,
+    mapCenter,
   }: {
     year?: number;
     apiVersion?: string;
     backgroundMap?: string;
+    zoom?: number;
+    mapCenter?: number[];
   }) {
+    // Initial default values, if there no config in URL
     this.year = -6000;
     this.apiVersion = PostGlacialReboundApiVersion.V2;
     this.isLoading = false;
     this.backgroundMap = NLSBackgroundMap.BackgroundMap;
+    this.zoom = 3;
+    this.mapCenter = [414553.6179, 6948916.8145]; // Center area of Finland
 
+    // Validate and set config from URL
     if (apiVersion && isValidApiVersion(apiVersion)) {
       this.apiVersion = apiVersion;
     }
@@ -58,6 +71,43 @@ export class Settings {
     ) {
       this.backgroundMap = backgroundMap as NLSBackgroundMap;
     }
+    if (zoom !== undefined && zoom >= 0) {
+      this.zoom = zoom;
+    }
+    if (mapCenter && mapCenter.length === 2) {
+      this.mapCenter = mapCenter;
+    }
+  }
+
+  public getZoom(): number {
+    return this.zoom;
+  }
+
+  public setZoom(zoom: number) {
+    if (this.zoom === zoom) {
+      return;
+    }
+    this.zoom = zoom;
+    this.eventListerners.forEach((listerner) => {
+      listerner.onZoomChange?.(this.zoom);
+    });
+  }
+
+  public getMapCenter(): Coordinate {
+    return this.mapCenter;
+  }
+
+  public setMapCenter(mapCenter: Coordinate) {
+    if (
+      this.mapCenter[0] === mapCenter[0] &&
+      this.mapCenter[1] === mapCenter[1]
+    ) {
+      return;
+    }
+    this.mapCenter = mapCenter;
+    this.eventListerners.forEach((listerner) => {
+      listerner.onMapCenterChange?.(this.mapCenter);
+    });
   }
 
   public getSupportedSeaYears(): number[] {

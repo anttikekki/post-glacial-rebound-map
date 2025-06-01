@@ -13,16 +13,15 @@ import {
 } from "./util/urlUtil";
 
 const { projection } = initEPSG3067Projection();
+const settings = new Settings(parseSettingsFromUrlHash());
 
 const view = new View({
-  center: [414553.6179, 6948916.8145],
+  center: settings.getMapCenter(),
   projection,
   enableRotation: false,
-  zoom: 3,
+  zoom: settings.getZoom(),
 });
 const userLocationLayer = new UserLocationVectorLayer(view);
-
-const settings = new Settings(parseSettingsFromUrlHash());
 const nlsBackgroundLayer = new NLSBackgroundMapTileLayer(settings);
 
 const zoom = (zoomChange: number) => {
@@ -63,4 +62,18 @@ settings.addEventListerner({
   onApiVersionChange: () => updateSettingsToUrlHash(settings),
   onYearChange: () => updateSettingsToUrlHash(settings),
   onBackgroundMapChange: () => updateSettingsToUrlHash(settings),
+  onZoomChange: () => updateSettingsToUrlHash(settings),
+  onMapCenterChange: () => updateSettingsToUrlHash(settings),
+});
+
+map.on("moveend", () => {
+  const zoom = view.getZoom();
+  if (zoom !== undefined) {
+    settings.setZoom(zoom);
+  }
+
+  const mapCenter = view.getCenter();
+  if (mapCenter) {
+    settings.setMapCenter(mapCenter);
+  }
 });
