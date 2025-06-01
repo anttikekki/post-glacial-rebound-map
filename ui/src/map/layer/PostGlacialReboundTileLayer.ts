@@ -1,8 +1,10 @@
+import { deepEqual } from "fast-equals";
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
 import {
   NLSBackgroundMap,
   PostGlacialReboundApiVersion,
+  Settings,
 } from "../util/settings";
 
 export default class PostGlacialReboundLayer {
@@ -10,11 +12,12 @@ export default class PostGlacialReboundLayer {
   private readonly apiVersion: PostGlacialReboundApiVersion;
   private readonly source: GeoTIFF;
   private readonly layer: WebGLTileLayer;
+  private style: Style;
 
   public constructor(
     year: number,
     apiVersion: PostGlacialReboundApiVersion,
-    backgroundMap: NLSBackgroundMap
+    settings: Settings
   ) {
     this.year = year;
     this.apiVersion = apiVersion;
@@ -38,9 +41,10 @@ export default class PostGlacialReboundLayer {
       normalize: false,
     });
 
+    this.style = this.createStyle(settings);
     this.layer = new WebGLTileLayer({
       source: this.source,
-      style: this.createStyle(backgroundMap),
+      style: this.style,
       visible: true,
     });
   }
@@ -61,30 +65,46 @@ export default class PostGlacialReboundLayer {
     return this.source;
   }
 
-  public updateLayerStyle(backgroundMap: NLSBackgroundMap): void {
-    this.layer.setStyle(this.createStyle(backgroundMap));
+  public updateLayerStyle(settings: Settings): void {
+    const newStyle = this.createStyle(settings);
+
+    if (newStyle !== this.style) {
+      this.style = newStyle;
+      this.layer.setStyle(newStyle);
+    }
   }
 
-  private createStyle(backgroundMap: NLSBackgroundMap): Style {
+  private createStyle(settings: Settings): Style {
     const colorLand = [0, 0, 0, 0]; // Invisible
     const noData = [0, 0, 0, 0]; // Invisible
 
     /**
      * Change sea color based on selected National Land Survey of Finland
-     * background map type.
+     * background map type and zoom level.
      */
     const colorSea = ((): number[] => {
-      switch (backgroundMap) {
-        case NLSBackgroundMap.TopographicMap:
-          return [177, 252, 254, 1];
+      switch (settings.getBackgroundMap()) {
+        case NLSBackgroundMap.TopographicMap: {
+          const zoom = settings.getZoom();
+
+          if (zoom <= 4.6) {
+            return [153, 224, 255, 1];
+          }
+          if (zoom > 4.6 && zoom < 7) {
+            return [153, 255, 255, 1];
+          }
+          if (zoom >= 7) {
+            return [128, 255, 255, 1];
+          }
+        }
         case NLSBackgroundMap.BackgroundMap:
           return [201, 236, 250, 1];
         case NLSBackgroundMap.Orthophotos:
-          return [31, 32, 58, 1];
+          return [0, 0, 52, 1];
       }
     })();
 
-    return {
+    const newStyle: Style = {
       color: [
         "case",
         ["==", ["band", 1], 0], // Value 0 = land
@@ -94,5 +114,12 @@ export default class PostGlacialReboundLayer {
         noData, // Fallback
       ],
     };
+
+    // No changes in style, return the current one
+    if (deepEqual(newStyle, this.style)) {
+      return this.style;
+    }
+
+    return newStyle;
   }
 }
