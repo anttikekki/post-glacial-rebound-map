@@ -1,10 +1,10 @@
 # National land survey of Finland (NLS) elevation model 2m x 2m
 
-## Script [01_download_model_from_kapsi_fi.sh](./01_download_model_from_kapsi_fi.sh)
+## Script [01_download_elevation_model.sh](./01_download_elevation_model.sh)
 
-Script downloads [elevation model 2m x 2m](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/elevation-model-2-m) from [National land survey of Finland (NLS)](https://www.maanmittauslaitos.fi/en) to `./mml` folder.
+Script downloads [elevation model 2m x 2m](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/elevation-model-2-m) from [National land survey of Finland (NLS)](https://www.maanmittauslaitos.fi/en).
 
-Map data is downloaded with rsync from [Kapsi Internet-users association](https://kartat.kapsi.fi/) web page that provides rsync support. It is easier to use in scripts that NLS official [file service](https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu/korkeusmalli?lang=en) (because it requires manual selections in web page UI) or NLS [Web Coverage Service (WCS)](https://avoin-karttakuva.maanmittauslaitos.fi/ortokuvat-ja-korkeusmallit/wcs/v2?service=WCS&request=GetCapabilities) (because it requires logic for tile subset calcuations). Kapsi provices files in NLS [map sheet division](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/map-sheet-division) (see [map](https://kartta.paikkatietoikkuna.fi/?zoomLevel=6&coord=378675.588828541_6674753.274792547&mapLayers=801+100+default,1240+100+default&uuid=90246d84-3958-fd8c-cb2c-2510cccca1d3&noSavedState=true&showIntro=false)):
+Map data is downloaded with rsync from [CSC – IT Center for Science](https://csc.fi/en/) organization [Paituli spatial data download service](https://paituli.csc.fi/files.html). It is easier to use rsync than NLS official [file service](https://asiointi.maanmittauslaitos.fi/karttapaikka/tiedostopalvelu/korkeusmalli?lang=en) (because it requires manual selections in web page UI) or NLS [Web Coverage Service (WCS)](https://avoin-karttakuva.maanmittauslaitos.fi/ortokuvat-ja-korkeusmallit/wcs/v2?service=WCS&request=GetCapabilities) (because it requires custom logic for tile subset calcuations). Paituli provices files in NLS [map sheet division](https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/map-sheet-division) (see [map](https://kartta.paikkatietoikkuna.fi/?zoomLevel=6&coord=378675.588828541_6674753.274792547&mapLayers=801+100+default,1240+100+default&uuid=90246d84-3958-fd8c-cb2c-2510cccca1d3&noSavedState=true&showIntro=false)):
 
 ![NLS map sheet division screenshot](./nls-map-sheet-division-screenshot.png "NLS map sheet division screenshot")
 
@@ -53,7 +53,7 @@ K3
 K4
 ```
 
-Every map sheet is divided in multiple levels of sub sheets. For example T4 --> T43 --> T432 --> T4323 --> T4323C --> T4323C4. Files are downloaded in "T4323C" level.
+Every map sheet is divided in multiple levels of sub sheets. For example T4 --> T43 --> T432 --> T4323 --> T4323C --> T4323C4. Files are downloaded at the lowest level.
 
 ## Script [02_build_nls_vrt.sh](./02_build_nls_vrt.sh)
 

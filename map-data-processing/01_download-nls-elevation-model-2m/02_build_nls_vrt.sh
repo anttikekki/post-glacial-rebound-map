@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-BASE_INPUT_FOLDER="./mml/korkeusmalli/hila_2m/etrs-tm35fin-n2000"
+BASE_INPUT_FOLDER="./tif"
 OUTPUT_FOLDER_WHOLE="./vrt/whole-Finland"
 OUTPUT_FOLDER_COAST="./vrt/coast-only"
 COAST_LIST_FILE="map-sheets-to-download-coast-only.txt"
@@ -56,7 +56,7 @@ process_folder() {
 
     if [ -f "$VRT_OUTPUT" ]; then
         echo "Patching VRT paths and setting relativeToVRT=\"1\": $VRT_OUTPUT"
-        sed -i.bak 's|>./mml/|>../../mml/|g' "$VRT_OUTPUT"
+        sed -i.bak 's|>./tif/|>../../tif/|g' "$VRT_OUTPUT"
         sed -i.bak 's|relativeToVRT="0"|relativeToVRT="1"|g' "$VRT_OUTPUT"
         rm -f "${VRT_OUTPUT}.bak"
     fi

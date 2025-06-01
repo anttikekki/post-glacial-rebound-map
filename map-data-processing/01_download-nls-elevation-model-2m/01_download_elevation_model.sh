@@ -4,10 +4,10 @@
 set -euo pipefail
 
 # Base rsync URL
-RSYNC_BASE_URL="rsync://tiedostot.kartat.kapsi.fi/mml/korkeusmalli/hila_2m/etrs-tm35fin-n2000"
+RSYNC_BASE_URL="rsync://rsync.nic.funet.fi/ftp/pub/sci/geo/geodata/mml/dem2m/2008_latest/"
 
 # Local base target directory
-TARGET_BASE_DIR="./mml/korkeusmalli/hila_2m/etrs-tm35fin-n2000"
+TARGET_BASE_DIR="./tif"
 
 # File containing list of folders to download
 FOLDER_LIST_FILE="map-sheets-to-download-whole-Finland.txt"
