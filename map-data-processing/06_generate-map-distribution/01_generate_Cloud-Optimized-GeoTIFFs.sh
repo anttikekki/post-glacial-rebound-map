@@ -72,13 +72,18 @@ find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
 
     echo "Translating VRT to compressed COG for year $YEAR..."
     # COG driver docs: https://gdal.org/en/stable/drivers/raster/cog.html
+    # Large blocksize decreases initial Image File Directory (IFD) download size in UI.
+    # 512: IFD download ~3200 kb
+    # 1024: IFD download ~900 kb
+    # 2048: IFD download ~450 kb
+    # PREDICTOR=YES is same as PREDICTOR=2
     gdal_translate \
       "$VRT_FILE" "$OUTPUT_COG" \
       -of COG \
       -co COMPRESS=DEFLATE \
       -co LEVEL=9 \
-      -co PREDICTOR=2 \
-      -co BLOCKSIZE=512 \
+      -co PREDICTOR=YES \
+      -co BLOCKSIZE=2048 \
       -co NUM_THREADS=ALL_CPUS
 
 done
