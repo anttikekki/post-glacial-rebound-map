@@ -39,6 +39,7 @@ export default class PostGlacialReboundLayer {
       },
       convertToRGB: false,
       normalize: false,
+      interpolate: false,
     });
 
     this.style = this.createStyle(settings);

@@ -40,6 +40,7 @@ export default class GlacialTileLayer {
       },
       convertToRGB: false,
       normalize: false,
+      interpolate: false,
     });
 
     this.layer = new WebGLTileLayer({
