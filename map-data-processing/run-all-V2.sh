@@ -20,7 +20,7 @@ run_script() {
 # Run steps
 run_script "01_download-nls-elevation-model-2m"
 run_script "02_post-glacial-rebound-calculation-V2" "${YEAR_ARGS[@]}"
-run_script "04_sea-level-mask-calculation" "V2"
-run_script "06_generate-map-distribution" "MASK" "V2"
+run_script "04_sea-level-mask-calculation" "V2" "${YEAR_ARGS[@]}"
+run_script "06_generate-map-distribution" "MASK" "V2" "${YEAR_ARGS[@]}"
 
 echo "All V2 scripts executed."

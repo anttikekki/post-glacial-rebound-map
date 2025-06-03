@@ -25,7 +25,11 @@ process_year() {
     fi
 
     echo "Processing year $CALENDAR_YEAR (BP = $BP_YEAR)..."
-
+    # Input data in band 2: BP (Before present) year when there was glacial before melting.
+    # Output data in band 1:
+    #  0 = no ice
+    #  1 = ice
+    #  255 = NoData
     gdal_calc \
       -A "$VRT_WITH_NODATA" --A_band=2 \
       --calc="A <= $BP_YEAR" \
@@ -46,7 +50,7 @@ process_year() {
 export -f process_year
 export VRT_WITH_NODATA OUTPUT_FOLDER OUTPUT_NODATA
 
-# === Extract years and run in parallel ===
+# Extract years and run in parallel 
 jq '.[]' "$YEAR_LIST_JSON" | \
   xargs -n 1 -P "$PARALLEL_JOBS" -I{} bash -c 'process_year "$@"' _ {}
 

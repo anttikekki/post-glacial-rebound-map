@@ -3,16 +3,18 @@
 # Exit if any command fails
 set -euo pipefail
 
-# --- Parse input argument ---
-if [ $# -ne 2 ]; then
-    echo "Usage: $0 SOURCE SOURCE_VERSION"
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 SOURCE SOURCE_VERSION [YEAR1 YEAR2 ...]"
     echo "SOURCE must be one of: MASK, COLORIZED"
     echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
+    echo "Optional YEAR values can be provided to process specific years."
     exit 1
 fi
 
 SOURCE="$1"
 SOURCE_VERSION="$2"
+shift  # Remove SOURCE from the list of positional arguments
+shift  # Remove SOURCE_VERSION from the list of positional arguments
 
 case "$SOURCE_VERSION" in
   V1|V2)
@@ -27,10 +29,10 @@ esac
 
 case "$SOURCE" in
   MASK)
-    INPUT_BASE="../04_sea-level-mask-calculation/sea_land_masks/${SOURCE_VERSION}"
+    INPUT_FOLDER="../04_sea-level-mask-calculation/sea_land_masks/${SOURCE_VERSION}"
     ;;
   COLORIZED)
-    INPUT_BASE="../05_generate-colorized-sea-raster/sea_land_colored/${SOURCE_VERSION}"
+    INPUT_FOLDER="../05_generate-colorized-sea-raster/sea_land_colored/${SOURCE_VERSION}"
     ;;
   *)
     echo "Invalid SOURCE: $SOURCE"
@@ -39,6 +41,17 @@ case "$SOURCE" in
     ;;
 esac
 
+if [ "$#" -ge 1 ]; then
+    echo "Processing specific years: $*"
+    YEAR_FOLDERS=()
+    for y in "$@"; do
+        YEAR_FOLDERS+=("$INPUT_FOLDER/$y")
+    done
+else
+    YEAR_FOLDERS=($(find "$INPUT_FOLDER" -mindepth 1 -maxdepth 1 -type d))
+    echo "Processing all years in $INPUT_FOLDER"
+fi
+
 # Output folders
 OUTPUT_FOLDER="./result_cog/${SOURCE_VERSION}"
 VRT_FOLDER="./source_vrt/${SOURCE_VERSION}"
@@ -46,8 +59,12 @@ VRT_FOLDER="./source_vrt/${SOURCE_VERSION}"
 mkdir -p "$OUTPUT_FOLDER"
 mkdir -p "$VRT_FOLDER"
 
-# Loop through year subfolders
-find "$INPUT_BASE" -mindepth 1 -maxdepth 1 -type d | while read YEAR_FOLDER; do
+for YEAR_FOLDER in "${YEAR_FOLDERS[@]}"; do
+    if [ ! -d "$YEAR_FOLDER" ]; then
+      echo "$YEAR_FOLDER not found, aborting..."
+      exit 1;
+    fi
+
     YEAR=$(basename "$YEAR_FOLDER")
     echo "Processing year: $YEAR"
 
