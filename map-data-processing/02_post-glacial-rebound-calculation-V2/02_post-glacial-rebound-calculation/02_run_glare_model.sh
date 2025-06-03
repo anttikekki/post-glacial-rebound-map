@@ -109,6 +109,7 @@ process_vrt() {
 
     echo "Processing: $BASENAME"
     
+    # Gdal GeoTIFF driver docs: https://gdal.org/en/stable/drivers/raster/gtiff.html
     gdal_calc \
       -A "$VRT" \
       -B "$BASE_ALIGNED" --B_band=1 \
@@ -122,8 +123,8 @@ process_vrt() {
       --co PREDICTOR=3 \
       --co ZLEVEL=9 \
       --co TILED=YES \
-      --co BLOCKXSIZE=256 \
-      --co BLOCKYSIZE=256 \
+      --co BLOCKXSIZE=512 \
+      --co BLOCKYSIZE=512 \
       --co BIGTIFF=YES
 
     echo "Finished: $OUTPUT"
