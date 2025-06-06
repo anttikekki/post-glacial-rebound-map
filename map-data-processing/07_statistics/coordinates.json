@@ -1,0 +1,24 @@
+[
+  { "name": "Hamina", "x": 510906.2341, "y": 6714794.2756, "mapSheet": "L5" },
+  { "name": "Helsinki", "x": 386487.1388, "y": 6672246.9518, "mapSheet": "L4" },
+  { "name": "Hanko", "x": 273487.5128, "y": 6638619.3404, "mapSheet": "K3" },
+  {
+    "name": "Maarianhamina",
+    "x": 107580.3684,
+    "y": 6683266.968,
+    "mapSheet": "L2"
+  },
+  { "name": "Turku", "x": 240460.6331, "y": 6711046.6297, "mapSheet": "L3" },
+  { "name": "Pori", "x": 222936.1255, "y": 6828302.4566, "mapSheet": "M3" },
+  {
+    "name": "Kristiinankaupunki",
+    "x": 208333.4066,
+    "y": 6917198.0948,
+    "mapSheet": "N3"
+  },
+  { "name": "Vaasa", "x": 228030.991, "y": 7007534.1587, "mapSheet": "P3" },
+  { "name": "Kokkola", "x": 309852.1837, "y": 7084528.9155, "mapSheet": "Q4" },
+  { "name": "Oulu", "x": 427776.3745, "y": 7211251.3808, "mapSheet": "R4" },
+  { "name": "Tornio", "x": 369605.287, "y": 7306152.4385, "mapSheet": "S4" },
+  { "name": "Rovaniemi", "x": 443428.351, "y": 7375625.1972, "mapSheet": "T4" }
+]

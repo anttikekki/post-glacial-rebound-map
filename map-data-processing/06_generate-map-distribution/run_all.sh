@@ -15,11 +15,10 @@ SOURCE="$1"
 SOURCE_VERSION="$2"
 shift  # Remove SOURCE from the list of positional arguments
 shift  # Remove SOURCE_VERSION from the list of positional arguments
-YEAR_OVERRIDE="$*"
 
 echo "Starting script execution..."
 
 echo "1. Running 01_generate_Cloud-Optimized-GeoTIFFs.sh..."
-bash 01_generate_Cloud-Optimized-GeoTIFFs.sh "$SOURCE" "$SOURCE_VERSION" "$YEAR_OVERRIDE"
+bash 01_generate_Cloud-Optimized-GeoTIFFs.sh "$SOURCE" "$SOURCE_VERSION" "$@"
 
 echo "All scripts executed successfully!"
