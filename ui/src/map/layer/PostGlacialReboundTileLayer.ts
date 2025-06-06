@@ -78,6 +78,7 @@ export default class PostGlacialReboundLayer {
   private createStyle(settings: Settings): Style {
     const colorLand = [0, 0, 0, 0]; // Invisible
     const noData = [0, 0, 0, 0]; // Invisible
+    const colorIce = [255, 255, 255, 1]; // White
 
     /**
      * Change sea color based on selected National Land Survey of Finland
@@ -112,6 +113,8 @@ export default class PostGlacialReboundLayer {
         colorLand,
         ["==", ["band", 1], 1], // Value 1 = sea
         colorSea,
+        ["==", ["band", 1], 2], // Value 2 = Glacial ice
+        colorIce,
         noData, // Fallback
       ],
     };
