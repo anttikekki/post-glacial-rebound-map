@@ -13,9 +13,23 @@ Scripts in this folder downloads open map data and calculates land uplift sea le
 3. [Generate sea level map data base on step 2 data](./04_sea-level-mask-calculation/README.md).
 4. [Generate sea level Cloud Optimized GeoTIFF as final map distribution format](./06_generate-map-distribution/README.md).
 
+### Optional steps
+
+- [Raster generation](./05_generate-colorized-sea-raster/): by default the end result is GeoTIFF with mask data in data band 1 (Land = 0, Sea = 1, Glacial = 3) without visible raster. This optional step provides way to generate GeoTIFF raster file with predefined colors.
+- [Statistics](./07_statistics/): calculate statistics of land uplift speed per 250 years.
+
 ### Result
 
 Result map data is in [`EPSG:3067`](https://epsg.io/3067-1149) (ETRS-TM35FIN) projection, that is commonly used in Finland.
+
+Result files are in following folders:
+
+- Elevation model altered by land upplift calculation:
+  - [V1](./02_post-glacial-rebound-calculation-V1/02_post-glacial-rebound-calculation/result_cog)
+  - [V2](./02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/result_cog)
+- Cloud Optimized GeoTIFF:
+  - [V1](./06_generate-map-distribution/result_cog/V1/)
+  - [V2](./06_generate-map-distribution/result_cog/V2/)
 
 ## Requirements
 
@@ -24,7 +38,7 @@ Result map data is in [`EPSG:3067`](https://epsg.io/3067-1149) (ETRS-TM35FIN) pr
 3. Following CLI tools installed:
    - [Geospatial Data Abstraction Library (GDAL)](https://en.wikipedia.org/wiki/GDAL). All versions are probably ok but tested only on v3.10.x.
    - [jq](<https://en.wikipedia.org/wiki/Jq_(programming_language)>). All versions are probably ok.
-   - [Node.js](https://en.wikipedia.org/wiki/Node.js) (only for V1 model). All versions are probably ok but tested only on v22.
+   - [Node.js](https://en.wikipedia.org/wiki/Node.js). All versions are probably ok but tested only on v22.
    - [cURL](https://en.wikipedia.org/wiki/CURL) and [rsync](https://en.wikipedia.org/wiki/Rsync) are already included in all common Linux and MacOS versions.
 4. Quite a lot of free disk space:
    - About 230 GB for NLS elevation model
@@ -74,5 +88,3 @@ Execute all the scripts by single command:
 # Calculate land upplift for specific years (minus values are BC)
 ./run-all-V2.sh -5000 -7000 1500
 ```
-
-Result files are in `./06_generate-map-distribution/result_cog` folder.

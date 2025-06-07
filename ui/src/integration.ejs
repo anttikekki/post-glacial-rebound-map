@@ -262,16 +262,16 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">9500 eaa.</th>
+            <th scope="row">9750 eaa.</th>
             <td></td>
             <td>
-              <a href="https://maannousu.info/api/v2/-9500"
-                >https://maannousu.info/api/v2/-9500</a
+              <a href="https://maannousu.info/api/v2/-9750"
+                >https://maannousu.info/api/v2/-9750</a
               >
             </td>
             <td>
-              <a href="https://maannousu.info/api/v2/ice/-9500"
-                >https://maannousu.info/api/v2/ice/-9500</a
+              <a href="https://maannousu.info/api/v2/ice/-9750"
+                >https://maannousu.info/api/v2/ice/-9750</a
               >
             </td>
           </tr>
@@ -286,6 +286,20 @@
             <td>
               <a href="https://maannousu.info/api/v2/ice/-9500"
                 >https://maannousu.info/api/v2/ice/-9500</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">9250 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-9250"
+                >https://maannousu.info/api/v2/-9250</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/ice/-9250"
+                >https://maannousu.info/api/v2/ice/-9250</a
               >
             </td>
           </tr>
@@ -304,6 +318,20 @@
             </td>
           </tr>
           <tr>
+            <th scope="row">8750 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-8750"
+                >https://maannousu.info/api/v2/-8750</a
+              >
+            </td>
+            <td>
+              <a href="https://maannousu.info/api/v2/ice/-8750"
+                >https://maannousu.info/api/v2/ice/-8750</a
+              >
+            </td>
+          </tr>
+          <tr>
             <th scope="row">8500 eaa.</th>
             <td></td>
             <td>
@@ -318,11 +346,31 @@
             </td>
           </tr>
           <tr>
+            <th scope="row">8250 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-8250"
+                >https://maannousu.info/api/v2/-8250</a
+              >
+            </td>
+            <td></td>
+          </tr>
+          <tr>
             <th scope="row">8000 eaa.</th>
             <td></td>
             <td>
               <a href="https://maannousu.info/api/v2/-8000"
                 >https://maannousu.info/api/v2/-8000</a
+              >
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">7750 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-7750"
+                >https://maannousu.info/api/v2/-7750</a
               >
             </td>
             <td></td>
@@ -338,6 +386,16 @@
             <td></td>
           </tr>
           <tr>
+            <th scope="row">7250 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-7250"
+                >https://maannousu.info/api/v2/-7250</a
+              >
+            </td>
+            <td></td>
+          </tr>
+          <tr>
             <th scope="row">7000 eaa.</th>
             <td></td>
             <td>
@@ -348,11 +406,31 @@
             <td></td>
           </tr>
           <tr>
+            <th scope="row">6750 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-6750"
+                >https://maannousu.info/api/v2/-6750</a
+              >
+            </td>
+            <td></td>
+          </tr>
+          <tr>
             <th scope="row">6500 eaa.</th>
             <td></td>
             <td>
               <a href="https://maannousu.info/api/v2/-6500"
                 >https://maannousu.info/api/v2/-6500</a
+              >
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">6250 eaa.</th>
+            <td></td>
+            <td>
+              <a href="https://maannousu.info/api/v2/-6250"
+                >https://maannousu.info/api/v2/-6250</a
               >
             </td>
             <td></td>
@@ -751,6 +829,7 @@
 
         const colorLand = [0, 0, 0, 0]; // Invisible
         const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
+        const colorIce = [255, 255, 255, 1]; // White
         const noData = [0, 0, 0, 0]; // Invisible
         const style = {
           color: [
@@ -759,6 +838,8 @@
             colorLand,
             ["==", ["band", 1], 1], // Value 1 = sea
             colorSea,
+            ["==", ["band", 1], 2], // Value 2 = Glacial ice
+            colorIce,
             noData, // Fallback
           ],
         };

@@ -1,6 +1,6 @@
 {
   "name": "post-glacial-rebound-worker",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "author": "Antti Kekki",
   "license": "MIT",
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/range-parser": "1.2.7",
     "typescript": "5.8.3",
-    "wrangler": "4.17.0"
+    "wrangler": "4.19.1"
   },
   "dependencies": {
     "range-parser": "1.2.1"
