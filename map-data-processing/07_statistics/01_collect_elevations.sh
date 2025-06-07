@@ -2,13 +2,31 @@
 
 set -euo pipefail
 
-mkdir -p ./results
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 SOURCE_VERSION"
+    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
+    exit 1
+fi
+
+SOURCE_VERSION="$1"
+
+case "$SOURCE_VERSION" in
+  V1|V2)
+    # Valid values, continue
+    ;;
+  *)
+    echo "Error: Invalid SOURCE_VERSION value: '$SOURCE_VERSION'" >&2
+    echo "Valid options are: V1 or V2" >&2
+    exit 1
+    ;;
+esac
+
+mkdir -p ./results/$SOURCE_VERSION
 
 COORDS_FILE="coordinates.json"
 YEARS_FILE="../../common/mapLayerYearsModelV2.json"
-REBOUND_BASE_DIR="../02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/calculation_results"
+REBOUND_BASE_DIR="../02_post-glacial-rebound-calculation-${SOURCE_VERSION}/02_post-glacial-rebound-calculation/calculation_results"
 
-# Check input files
 if [[ ! -f "$COORDS_FILE" ]]; then
   echo "ERROR: Coordinates file not found: $COORDS_FILE"
   exit 1
@@ -19,49 +37,33 @@ if [[ ! -f "$YEARS_FILE" ]]; then
   exit 1
 fi
 
-echo "Starting processing..."
-
-# Load years into array
 YEARS=()
 while read -r year; do
   YEARS+=("$year")
 done < <(jq -r '.[]' "$YEARS_FILE")
 
-# Sort years numerically
 IFS=$'\n' YEARS_SORTED=($(sort -n <<<"${YEARS[*]}"))
 unset IFS
 
-# Process each coordinate
 jq -c '.[]' "$COORDS_FILE" | while read -r location; do
   NAME=$(echo "$location" | jq -r '.name')
   X=$(echo "$location" | jq -r '.x')
   Y=$(echo "$location" | jq -r '.y')
   MAP_SHEET=$(echo "$location" | jq -r '.mapSheet')
-  OUTPUT_FILE="./results/${NAME}.json"
+  OUTPUT_FILE="./results/${SOURCE_VERSION}/${NAME}.json"
 
-  echo "Processing location: $NAME (Map sheet: $MAP_SHEET, X: $X, Y: $Y)"
+  echo "Processing location: $NAME"
 
-  # Load existing result if present
   if [[ -f "$OUTPUT_FILE" ]]; then
     RESULT=$(cat "$OUTPUT_FILE")
   else
     RESULT=$(echo "$location" | jq '{name: .name, x: .x, y: .y, mapSheet: .mapSheet, data: []}')
   fi
 
-  PREV_ELEV=""
-  PREV_YEAR=""
-
   for YEAR in "${YEARS_SORTED[@]}"; do
-    # Skip if year already exists in data
     EXISTS=$(echo "$RESULT" | jq --arg year "$YEAR" '.data[] | select(.year == ($year | tonumber))' | wc -l)
     if [[ "$EXISTS" -gt 0 ]]; then
       echo "  Skipping year $YEAR — already present."
-      # Also update prev_elev and prev_year so deltas remain consistent
-      E=$(echo "$RESULT" | jq --arg year "$YEAR" '.data[] | select(.year == ($year | tonumber)) | .elevation')
-      if [[ -n "$E" ]]; then
-        PREV_ELEV="$E"
-        PREV_YEAR="$YEAR"
-      fi
       continue
     fi
 
@@ -73,26 +75,10 @@ jq -c '.[]' "$COORDS_FILE" | while read -r location; do
 
       if [[ -n "$ELEVATION" ]]; then
         echo "    Elevation at $X,$Y is $ELEVATION"
-        # Calculate delta if previous elevation exists.
-        # Bash does not support floating point numbers so we need to do calculations in awk
-        if [[ -n "$PREV_ELEV" ]]; then
-          DELTA=$(awk -v curr="$ELEVATION" -v prev="$PREV_ELEV" 'BEGIN { printf "%.4f", curr - prev }')
-        else
-          DELTA="null"
-        fi
-
-        # Update result
         RESULT=$(jq --arg year "$YEAR" --arg elev "$ELEVATION" \
-          '.data += [{
-            year: ($year | tonumber),
-            elevation: ($elev | tonumber),
-            delta: '"$DELTA"'
-          }]' <<< "$RESULT")
-
-        PREV_ELEV="$ELEVATION"
-        PREV_YEAR="$YEAR"
+          '.data += [{ year: ($year | tonumber), elevation: ($elev | tonumber) }]' <<< "$RESULT")
       else
-        echo "    WARNING: No elevation value returned for $X,$Y in $TIF_FILE"
+        echo "    WARNING: No elevation found at $X,$Y"
       fi
     else
       echo "    WARNING: File not found: $TIF_FILE"
@@ -103,4 +89,4 @@ jq -c '.[]' "$COORDS_FILE" | while read -r location; do
   echo "  Updated: $OUTPUT_FILE"
 done
 
-echo "Done. Incremental results with elevation deltas saved to ./results/"
+echo "Done collecting elevations."

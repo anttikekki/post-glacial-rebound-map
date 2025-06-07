@@ -2,7 +2,26 @@
 
 set -euo pipefail
 
-RESULTS_DIR="./results"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 SOURCE_VERSION"
+    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
+    exit 1
+fi
+
+SOURCE_VERSION="$1"
+
+case "$SOURCE_VERSION" in
+  V1|V2)
+    # Valid values, continue
+    ;;
+  *)
+    echo "Error: Invalid SOURCE_VERSION value: '$SOURCE_VERSION'" >&2
+    echo "Valid options are: V1 or V2" >&2
+    exit 1
+    ;;
+esac
+
+RESULTS_DIR="./results/${SOURCE_VERSION}"
 OUTPUT_FILE="${RESULTS_DIR}/combined_deltas_pivot.csv"
 
 # Check results directory
