@@ -10,15 +10,24 @@ type UrlSettings = {
   opacity: number;
 };
 
+const defaultSettings = new Settings({});
+
 export const updateSettingsToUrlHash = (settings: Settings): void => {
-  const params: UrlSettings = {
+  let params: Partial<UrlSettings> = {
     year: settings.getYear(),
-    apiVersion: settings.getApiVersion(),
-    backgroundMap: settings.getBackgroundMap(),
     zoom: settings.getZoom(),
     mapCenter: settings.getMapCenter(),
-    opacity: settings.getLayerOpacity(),
   };
+
+  if (defaultSettings.getApiVersion() !== settings.getApiVersion()) {
+    params = { ...params, apiVersion: settings.getApiVersion() };
+  }
+  if (defaultSettings.getBackgroundMap() !== settings.getBackgroundMap()) {
+    params = { ...params, backgroundMap: settings.getBackgroundMap() };
+  }
+  if (defaultSettings.getLayerOpacity() !== settings.getLayerOpacity()) {
+    params = { ...params, opacity: settings.getLayerOpacity() };
+  }
 
   window.location.hash = `#${queryString.stringify(params, {
     arrayFormat: "comma",
