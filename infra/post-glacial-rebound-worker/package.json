@@ -4,6 +4,10 @@
   "private": true,
   "author": "Antti Kekki",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anttikekki/post-glacial-rebound-map.git"
+  },
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",

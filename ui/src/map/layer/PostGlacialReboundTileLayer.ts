@@ -47,6 +47,7 @@ export default class PostGlacialReboundLayer {
       source: this.source,
       style: this.style,
       visible: true,
+      opacity: settings.getLayerOpacity(),
     });
   }
 
@@ -64,6 +65,10 @@ export default class PostGlacialReboundLayer {
 
   public getSource(): GeoTIFF {
     return this.source;
+  }
+
+  public onLayerOpacityChange(settings: Settings) {
+    this.layer.setOpacity(settings.getLayerOpacity());
   }
 
   public updateLayerStyle(settings: Settings): void {

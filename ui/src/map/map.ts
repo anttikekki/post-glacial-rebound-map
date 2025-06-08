@@ -1,3 +1,4 @@
+import debounce from "debounce";
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
 import { getMapControls } from "./controls/mapControls";
@@ -64,6 +65,11 @@ settings.addEventListerner({
   onBackgroundMapChange: () => updateSettingsToUrlHash(settings),
   onZoomChange: () => updateSettingsToUrlHash(settings),
   onMapCenterChange: () => updateSettingsToUrlHash(settings),
+  /**
+   * Debounce URL updates for 500ms. Opacity slider triggers so many updates,
+   * that Firefox starts to throw errors.
+   */
+  onLayerOpacityChange: debounce(() => updateSettingsToUrlHash(settings), 500),
 });
 
 map.on("moveend", () => {

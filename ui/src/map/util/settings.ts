@@ -24,6 +24,7 @@ export type SettingsEventListner = {
   onBackgroundMapChange?: (backgroundMap: NLSBackgroundMap) => void;
   onZoomChange?: (zoom: number) => void;
   onMapCenterChange?: (mapCenter: Coordinate) => void;
+  onLayerOpacityChange?: (layerOpacity: number) => void;
 };
 
 export class Settings {
@@ -34,6 +35,7 @@ export class Settings {
   private backgroundMap: NLSBackgroundMap;
   private zoom: number;
   private mapCenter: Coordinate;
+  private layerOpacity: number;
 
   public constructor({
     year,
@@ -41,12 +43,14 @@ export class Settings {
     backgroundMap,
     zoom,
     mapCenter,
+    opacity,
   }: {
     year?: number;
     apiVersion?: string;
     backgroundMap?: string;
     zoom?: number;
     mapCenter?: number[];
+    opacity?: number;
   }) {
     // Initial default values, if there no config in URL
     this.year = -6000;
@@ -55,6 +59,7 @@ export class Settings {
     this.backgroundMap = NLSBackgroundMap.BackgroundMap;
     this.zoom = 3;
     this.mapCenter = [414553.6179, 6948916.8145]; // Center area of Finland
+    this.layerOpacity = 1;
 
     // Validate and set config from URL
     if (apiVersion && isValidApiVersion(apiVersion)) {
@@ -76,6 +81,9 @@ export class Settings {
     }
     if (mapCenter && mapCenter.length === 2) {
       this.mapCenter = mapCenter;
+    }
+    if (opacity !== undefined && opacity >= 0 && opacity <= 1) {
+      this.layerOpacity = opacity;
     }
   }
 
@@ -187,6 +195,20 @@ export class Settings {
 
   public getBackgroundMap(): NLSBackgroundMap {
     return this.backgroundMap;
+  }
+
+  public setLayerOpacity(layerOpacity: number): void {
+    if (this.layerOpacity === layerOpacity) {
+      return;
+    }
+    this.layerOpacity = layerOpacity;
+    this.eventListerners.forEach((listerner) => {
+      listerner.onLayerOpacityChange?.(layerOpacity);
+    });
+  }
+
+  public getLayerOpacity(): number {
+    return this.layerOpacity;
   }
 
   public addEventListerner(listener: SettingsEventListner) {

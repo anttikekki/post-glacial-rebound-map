@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "author": "Antti Kekki",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anttikekki/post-glacial-rebound-map.git"
+  },
   "scripts": {
     "start:dev": "MAANNOUSU_API_BASE_URL=http://localhost:3000 webpack serve --open  --mode development",
     "start:prod": "MAANNOUSU_API_BASE_URL=https://maannousu.info webpack serve --open  --mode production",
@@ -13,6 +17,7 @@
     "bootstrap-icons": "1.13.1",
     "chart.js": "4.4.9",
     "chartjs-plugin-zoom": "2.2.0",
+    "debounce": "2.2.0",
     "fast-equals": "5.2.2",
     "lru-cache": "11.1.0",
     "ol": "10.5.0",

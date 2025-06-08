@@ -7,6 +7,7 @@ type UrlSettings = {
   backgroundMap: string;
   zoom: number;
   mapCenter: number[];
+  opacity: number;
 };
 
 export const updateSettingsToUrlHash = (settings: Settings): void => {
@@ -16,6 +17,7 @@ export const updateSettingsToUrlHash = (settings: Settings): void => {
     backgroundMap: settings.getBackgroundMap(),
     zoom: settings.getZoom(),
     mapCenter: settings.getMapCenter(),
+    opacity: settings.getLayerOpacity(),
   };
 
   window.location.hash = `#${queryString.stringify(params, {
@@ -24,7 +26,7 @@ export const updateSettingsToUrlHash = (settings: Settings): void => {
 };
 
 export const parseSettingsFromUrlHash = (): Partial<UrlSettings> => {
-  const { year, apiVersion, backgroundMap, zoom, mapCenter } =
+  const { year, apiVersion, backgroundMap, zoom, mapCenter, opacity } =
     queryString.parse(window.location.hash, {
       parseNumbers: true,
       arrayFormat: "comma",
@@ -49,6 +51,9 @@ export const parseSettingsFromUrlHash = (): Partial<UrlSettings> => {
     mapCenter.every((v) => typeof v === "number")
   ) {
     settings = { ...settings, mapCenter };
+  }
+  if (opacity !== undefined && typeof opacity === "number") {
+    settings = { ...settings, opacity };
   }
   return settings;
 };

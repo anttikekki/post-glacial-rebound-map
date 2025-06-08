@@ -28,8 +28,9 @@ export default class ModelSelectionButton extends Control {
       settings
     );
 
-    popOverContent.appendChild(v1Input);
-    popOverContent.appendChild(v2Input);
+    const opacityRange = getTransparencyRangeInput(settings);
+
+    popOverContent.append(v1Input, v2Input, opacityRange);
 
     new Popover(button, {
       content: popOverContent,
@@ -83,4 +84,39 @@ const getModelSelectRadioInput = (
   formCheck.appendChild(label);
 
   return formCheck;
+};
+
+const getTransparencyRangeInput = (settings: Settings): HTMLDivElement => {
+  const transparency = Number((1 - settings.getLayerOpacity()) * 100).toFixed(
+    0
+  );
+  const container = document.createElement("div");
+
+  const label = document.createElement("label");
+  label.htmlFor = "transparency-input";
+  label.className = "form-label";
+  label.innerText = `Läpinäkyvyys (${transparency} %):`;
+
+  const range = document.createElement("input");
+  range.id = "transparency-input";
+  range.type = "range";
+  range.min = "0";
+  range.max = "100";
+  range.step = "1";
+  range.value = transparency;
+  range.className = "form-range";
+  range.addEventListener("input", (event) => {
+    const value = (event.target as HTMLInputElement).value;
+    const transparency = parseInt(value);
+    if (isNaN(transparency)) {
+      return;
+    }
+    const opacity = Number((1 - transparency / 100).toFixed(2));
+    settings.setLayerOpacity(opacity);
+    label.innerText = `Läpinäkyvyys (${transparency} %):`;
+  });
+
+  container.append(label, range);
+
+  return container;
 };

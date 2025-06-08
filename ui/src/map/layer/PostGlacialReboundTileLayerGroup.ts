@@ -36,6 +36,7 @@ export default class PostGlacialReboundLayerGroup {
       onApiVersionChange: () => this.onYearOrApiVersionChange(),
       onBackgroundMapChange: () => this.onNLSBackgroundMapChange(),
       onZoomChange: () => this.onZoomChange(),
+      onLayerOpacityChange: () => this.onLayerOpacityChange(),
     });
   }
 
@@ -111,6 +112,12 @@ export default class PostGlacialReboundLayerGroup {
   private onZoomChange() {
     this.layers.forEach((layer) => {
       layer.updateLayerStyle(this.settings);
+    });
+  }
+
+  private onLayerOpacityChange() {
+    this.layers.forEach((layer) => {
+      layer.onLayerOpacityChange(this.settings);
     });
   }
 }
