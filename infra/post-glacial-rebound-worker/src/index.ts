@@ -5,6 +5,12 @@ import {
   iceMapYearsApiPath,
 } from "./routes/iceMapRoute";
 import {
+  openApiHtmlPath,
+  openApiHtmlRoute,
+  openApiSpecJsonPath,
+  openApiSpecJsonRoute,
+} from "./routes/openApiRoute";
+import {
   seaMapApiPath,
   seaMapDataHttpRangeFetchRoute,
   seaMapDataVersionYearsRoute,
@@ -32,6 +38,12 @@ export default {
       });
     }
 
+    if (openApiHtmlPath.test(request.url)) {
+      return openApiHtmlRoute();
+    }
+    if (openApiSpecJsonPath.test(request.url)) {
+      return openApiSpecJsonRoute();
+    }
     if (seaMapVersionYearsApiPath.test(request.url)) {
       return seaMapDataVersionYearsRoute(request);
     }
