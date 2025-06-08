@@ -1,5 +1,6 @@
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
+import { isMobileDevice } from "../util/deviceDetectionUtil";
 
 const colorNotIce = [0, 0, 0, 0]; // Invisible
 const colorIce = [255, 255, 255, 1]; // White
@@ -33,10 +34,10 @@ export default class GlacialTileLayer {
       ],
       sourceOptions: {
         /**
-         * Decrease cache size from default 100 to 50 tiles to save memory.
-         * Older mobile devices crash if too many layers and tiles are loaded into memory.
+         * Decrease block cache size from default 100 to 25 to save memory. One block is 64 kb.
+         * Older mobile devices crash if too much data is loaded into memory.
          */
-        cacheSize: 50,
+        cacheSize: isMobileDevice() ? 25 : 50,
       },
       convertToRGB: false,
       normalize: false,

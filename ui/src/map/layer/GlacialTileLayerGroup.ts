@@ -1,5 +1,6 @@
 import { LRUCache } from "lru-cache";
 import LayerGroup from "ol/layer/Group";
+import { isMobileDevice } from "../util/deviceDetectionUtil";
 import { PostGlacialReboundApiVersion, Settings } from "../util/settings";
 import { isWebGLSupported } from "../util/webGLUtils";
 import GlacialTileLayer from "./GlacialTileLayer";
@@ -12,7 +13,7 @@ export default class GlacialTileLayerGroup {
     number, // Year
     GlacialTileLayer
   >({
-    max: 5,
+    max: isMobileDevice() ? 5 : 10,
     dispose: (layer) => {
       this.layerGroup.getLayers().remove(layer.getLayer());
     },

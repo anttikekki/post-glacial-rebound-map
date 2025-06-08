@@ -1,5 +1,6 @@
 import { LRUCache } from "lru-cache";
 import LayerGroup from "ol/layer/Group";
+import { isMobileDevice } from "../util/deviceDetectionUtil";
 import { Settings } from "../util/settings";
 import { isWebGLSupported } from "../util/webGLUtils";
 import PostGlacialReboundLayer from "./PostGlacialReboundTileLayer";
@@ -12,7 +13,7 @@ export default class PostGlacialReboundLayerGroup {
     string, // "${apiVersion}_${year}"
     PostGlacialReboundLayer
   >({
-    max: 5,
+    max: isMobileDevice() ? 5 : 10,
     dispose: (layer) => {
       this.layerGroup.getLayers().remove(layer.getLayer());
     },

@@ -1,6 +1,7 @@
 import { deepEqual } from "fast-equals";
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
+import { isMobileDevice } from "../util/deviceDetectionUtil";
 import {
   NLSBackgroundMap,
   PostGlacialReboundApiVersion,
@@ -35,7 +36,7 @@ export default class PostGlacialReboundLayer {
          * Decrease block cache size from default 100 to 25 to save memory. One block is 64 kb.
          * Older mobile devices crash if too much data is loaded into memory.
          */
-        cacheSize: 25,
+        cacheSize: isMobileDevice() ? 25 : 50,
       },
       convertToRGB: false,
       normalize: false,
