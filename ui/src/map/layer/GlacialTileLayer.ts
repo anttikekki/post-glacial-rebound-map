@@ -1,6 +1,7 @@
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
 import { isMobileDevice } from "../util/deviceDetectionUtil";
+import { Settings } from "../util/settings";
 
 const colorNotIce = [0, 0, 0, 0]; // Invisible
 const colorIce = [255, 255, 255, 1]; // White
@@ -21,7 +22,7 @@ export default class GlacialTileLayer {
   private readonly source: GeoTIFF;
   private readonly layer: WebGLTileLayer;
 
-  public constructor(year: number) {
+  public constructor(year: number, settings: Settings) {
     this.year = year;
 
     const host = process.env.MAANNOUSU_API_BASE_URL ?? "https://maannousu.info";
@@ -48,6 +49,7 @@ export default class GlacialTileLayer {
       source: this.source,
       style,
       visible: true,
+      opacity: settings.getLayerOpacity(),
     });
   }
 
@@ -61,5 +63,9 @@ export default class GlacialTileLayer {
 
   public getSource(): GeoTIFF {
     return this.source;
+  }
+
+  public onLayerOpacityChange(settings: Settings) {
+    this.layer.setOpacity(settings.getLayerOpacity());
   }
 }

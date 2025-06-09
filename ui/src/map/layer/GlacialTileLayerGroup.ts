@@ -35,6 +35,7 @@ export default class GlacialTileLayerGroup {
     this.settings.addEventListerner({
       onYearChange: () => this.onYearOrApiVersionChange(),
       onApiVersionChange: () => this.onYearOrApiVersionChange(),
+      onLayerOpacityChange: () => this.onLayerOpacityChange(),
     });
   }
 
@@ -62,7 +63,7 @@ export default class GlacialTileLayerGroup {
 
     const nextLayer = this.layers.get(nextYear);
     if (!nextLayer) {
-      const newLayer = new GlacialTileLayer(nextYear);
+      const newLayer = new GlacialTileLayer(nextYear, this.settings);
       this.layers.set(nextYear, newLayer);
 
       newLayer.getSource().once("tileloadend", () => {
@@ -93,4 +94,10 @@ export default class GlacialTileLayerGroup {
       layer.getLayer().setVisible(false);
     });
   };
+
+  private onLayerOpacityChange() {
+    this.layers.forEach((layer) => {
+      layer.onLayerOpacityChange(this.settings);
+    });
+  }
 }
