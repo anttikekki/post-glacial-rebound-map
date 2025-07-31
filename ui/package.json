@@ -13,21 +13,20 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "bootstrap": "5.3.6",
+    "bootstrap": "5.3.7",
     "bootstrap-icons": "1.13.1",
-    "chart.js": "4.4.9",
+    "chart.js": "4.5.0",
     "chartjs-plugin-zoom": "2.2.0",
     "debounce": "2.2.0",
     "fast-equals": "5.2.2",
     "lru-cache": "11.1.0",
-    "ol": "10.5.0",
-    "proj4": "2.16.2",
-    "query-string": "9.2.0",
+    "ol": "10.6.1",
+    "proj4": "2.19.10",
+    "query-string": "9.2.2",
     "tslib": "2.8.1"
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.2.10",
-    "@types/proj4": "2.5.6",
+    "@types/bootstrap": "5.2.10",
     "copy-webpack-plugin": "13.0.0",
     "css-loader": "7.1.2",
     "html-webpack-plugin": "5.6.3",
@@ -35,8 +34,8 @@
     "style-loader": "4.0.0",
     "ts-loader": "9.5.2",
     "typescript": "5.8.3",
-    "webpack": "5.99.8",
+    "webpack": "5.101.0",
     "webpack-cli": "6.0.1",
-    "webpack-dev-server": "5.2.1"
+    "webpack-dev-server": "5.2.2"
   }
 }
