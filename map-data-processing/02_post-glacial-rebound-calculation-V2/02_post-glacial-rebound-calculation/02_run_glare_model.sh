@@ -44,8 +44,8 @@ echo "Sea level for $CALENDAR_YEAR = $SEA_LEVEL"
 # Glacial Land Adjustment Regenerator (Glare) v2.2 by Aki Hakonen.
 # Paper: 
 #   Introducing the Glacial Land Adjustment Regenerator (Glare) for Simulating the Final Pleistocene/Holocene Geographical Change in North Europe
-#   Journal of Archaeological Science, 2024.
-#   https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4992429
+#   Journal of Archaeological Science, 2025.
+#   https://www.sciencedirect.com/science/article/pii/S0305440325001475
 #
 # GLARE materials:
 #  Google Drive: https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO
