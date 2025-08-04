@@ -4,7 +4,7 @@
 set -euo pipefail
 
 download_if_missing() {
-    FILE_ID="$1"
+    FILE_URL="$1"
     FILE_NAME="$2"
 
     if [ -f "$FILE_NAME" ]; then
@@ -13,9 +13,12 @@ download_if_missing() {
     fi
 
     echo "Downloading $FILE_NAME..."
-    curl -L -o "$FILE_NAME" "https://drive.google.com/uc?export=download&id=${FILE_ID}"
+    curl -L -o "$FILE_NAME" "$FILE_URL"
     echo "Downloaded $FILE_NAME"
 }
 
-download_if_missing "1mIOy3It63Q4rzEPrAdLltdXyhYORONq5" "Base_Raster.tif"
-download_if_missing "1iecBOgDuota3UpJ5am97P4s4FD_jcVUD" "sea-level-baltic.tif"
+# Version: 8.2.2025
+download_if_missing  "https://drive.usercontent.google.com/download?id=1tevVugIi1v4TeatiqYG7QWACurmMm_YT&export=download&authuser=0&confirm=t&uuid=1a4cf95a-7760-4847-af4b-9b9f983d99d2&at=AN8xHorwQbFK55AhjOkl0Aqyyzin%3A1754324272036" "Base_Raster.tif"
+
+# Version: 20.5.2025
+download_if_missing "https://drive.usercontent.google.com/download?id=1guAZXghJH-2deMtG_zj8fq6niepdRORh&export=download&authuser=0" "sea-level-baltic.tif"
