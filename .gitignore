@@ -43,9 +43,8 @@ map-data-processing/06_generate-map-distribution/result_cog
 map-data-processing/06_generate-map-distribution/source_vrt
 
 # Result validation temp files
-map-data-processing/08_result_validation/cropped_gdal_raster
-map-data-processing/08_result_validation/cropped-elevation_model
-map-data-processing/08_result_validation/calculation_results
+map-data-processing/07_statistics/cropped_gdal_raster
+map-data-processing/07_statistics/cropped-elevation_model
 
 # Infra temp files
 infra/post-glacial-rebound-worker/.wrangler

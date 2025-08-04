@@ -13,18 +13,18 @@ import {
 } from "chart.js";
 import zoomPlugin from "chartjs-plugin-zoom";
 
-import hamina from "../../map-data-processing/07_statistics/results/V2/Hamina.json";
-import hanko from "../../map-data-processing/07_statistics/results/V2/Hanko.json";
-import helsinki from "../../map-data-processing/07_statistics/results/V2/Helsinki.json";
-import kokkola from "../../map-data-processing/07_statistics/results/V2/Kokkola.json";
-import kristiinankaupunki from "../../map-data-processing/07_statistics/results/V2/Kristiinankaupunki.json";
-import maarianhamina from "../../map-data-processing/07_statistics/results/V2/Maarianhamina.json";
-import oulu from "../../map-data-processing/07_statistics/results/V2/Oulu.json";
-import pori from "../../map-data-processing/07_statistics/results/V2/Pori.json";
-import rovaniemi from "../../map-data-processing/07_statistics/results/V2/Rovaniemi.json";
-import tornio from "../../map-data-processing/07_statistics/results/V2/Tornio.json";
-import turku from "../../map-data-processing/07_statistics/results/V2/Turku.json";
-import vaasa from "../../map-data-processing/07_statistics/results/V2/Vaasa.json";
+import hamina from "../../map-data-processing/07_statistics/calculation_results/json/Hamina.json";
+import hanko from "../../map-data-processing/07_statistics/calculation_results/json/Hanko.json";
+import helsinki from "../../map-data-processing/07_statistics/calculation_results/json/Helsinki.json";
+import kokkola from "../../map-data-processing/07_statistics/calculation_results/json/Kokkola.json";
+import kristiinankaupunki from "../../map-data-processing/07_statistics/calculation_results/json/Kristiinankaupunki.json";
+import maarianhamina from "../../map-data-processing/07_statistics/calculation_results/json/Maarianhamina.json";
+import oulu from "../../map-data-processing/07_statistics/calculation_results/json/Oulu.json";
+import pori from "../../map-data-processing/07_statistics/calculation_results/json/Pori.json";
+import rovaniemi from "../../map-data-processing/07_statistics/calculation_results/json/Rovaniemi.json";
+import tornio from "../../map-data-processing/07_statistics/calculation_results/json/Tornio.json";
+import turku from "../../map-data-processing/07_statistics/calculation_results/json/Turku.json";
+import vaasa from "../../map-data-processing/07_statistics/calculation_results/json/Vaasa.json";
 
 Chart.register(
   LineController,
