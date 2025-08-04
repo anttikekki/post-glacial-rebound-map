@@ -100,7 +100,7 @@ for YEAR_FOLDER in "${YEAR_FOLDERS[@]}"; do
       -co COMPRESS=DEFLATE \
       -co LEVEL=9 \
       -co PREDICTOR=YES \
-      -co BLOCKSIZE=2048 \
+      -co BLOCKSIZE=1024 \
       -co NUM_THREADS=ALL_CPUS
 
 done
