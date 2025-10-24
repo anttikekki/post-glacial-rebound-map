@@ -113,9 +113,9 @@ new Chart(ctx, {
             });
           },
           label: (context) => {
-            const yearEnd = context.parsed.x;
+            const yearEnd = context.parsed.x!;
             const yearStart = yearEnd - 250;
-            const elevation = context.parsed.y;
+            const elevation = context.parsed.y!;
 
             return [
               `${formatYear(yearStart)} - ${formatYear(yearEnd)}`,
