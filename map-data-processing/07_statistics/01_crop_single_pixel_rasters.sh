@@ -21,7 +21,7 @@ jq -c '.[]' "$COORD_FILE" | while read -r item; do
   mapSheet=$(echo "$item" | jq -r '.mapSheet')
 
   vrt_file="../01_download-nls-elevation-model-2m/vrt/whole-Finland/${mapSheet}.vrt"
-  glare_file="../02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/Base-raster-tm35fin.tif"
+  glare_file="../02_post-glacial-rebound-calculation/01_download-GLARE-model-data/Base-raster-tm35fin.tif"
 
   out_vrt="cropped-elevation_model/${city}.tif"
   out_glare="cropped_gdal_raster/${city}.tif"

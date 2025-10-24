@@ -1,7 +1,7 @@
 import { LRUCache } from "lru-cache";
 import LayerGroup from "ol/layer/Group";
 import { isMobileDevice } from "../util/deviceDetectionUtil";
-import { PostGlacialReboundApiVersion, Settings } from "../util/settings";
+import { Settings } from "../util/settings";
 import { isWebGLSupported } from "../util/webGLUtils";
 import GlacialTileLayer from "./GlacialTileLayer";
 
@@ -30,11 +30,10 @@ export default class GlacialTileLayerGroup {
   }) {
     this.settings = settings;
     this.onMapRenderCompleteOnce = onMapRenderCompleteOnce;
-    this.onYearOrApiVersionChange();
+    this.onYearChange();
 
     this.settings.addEventListerner({
-      onYearChange: () => this.onYearOrApiVersionChange(),
-      onApiVersionChange: () => this.onYearOrApiVersionChange(),
+      onYearChange: () => this.onYearChange(),
       onLayerOpacityChange: () => this.onLayerOpacityChange(),
     });
   }
@@ -43,20 +42,15 @@ export default class GlacialTileLayerGroup {
     return this.layerGroup;
   }
 
-  private onYearOrApiVersionChange = (): void => {
+  private onYearChange = (): void => {
     if (!isWebGLSupported()) {
       return;
     }
 
     const nextYear = this.settings.getYear();
-    const apiVersion = this.settings.getApiVersion();
 
-    // Next year is not supported year for ice or api version is not Glare (V2).
-    // Hide layer and return.
-    if (
-      !this.settings.getSupportedIceYears().includes(nextYear) ||
-      apiVersion !== PostGlacialReboundApiVersion.V2
-    ) {
+    // Next year is not supported year for ice. Hide layer and return.
+    if (!this.settings.getSupportedIceYears().includes(nextYear)) {
       this.hideAllLayers();
       return;
     }

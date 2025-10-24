@@ -2,15 +2,13 @@
 
 Scripts in this folder downloads open map data and calculates land uplift sea levels for multiple dates in history.
 
-**These scripts and land uplift calculations are an hobby project and can contain major errors and mismisinterpretations in the land uplift calculation logic or in the source map data processing!**
+**These scripts and land uplift calculations are an hobby project and can contain major errors and misinterpretations in the land uplift calculation logic or in the source map data processing!**
 
 ## Process
 
 1. [Download National land survey of Finland (NLS) elevation model 2m x 2m](./01_download-nls-elevation-model-2m/README.md).
-2. Calculate historical land uplift with one of the uplift models for selected years:
-   - [V1: simple linear uplift rate model based on NKG2016LU](./02_post-glacial-rebound-calculation-V1/README.md).
-   - [V2: advanced Glacial Land Adjustment Regenerator (Glare) model v2.2](./02_post-glacial-rebound-calculation-V2/README.md).
-3. [Generate sea level map data base on step 2 data](./04_sea-level-mask-calculation/README.md).
+2. Calculate historical land uplift with [Glacial Land Adjustment Regenerator (Glare) model v2.2](./02_post-glacial-rebound-calculation/README.md).
+3. [Generate sea level mask map from step 2 data](./04_sea-level-mask-calculation/README.md).
 4. [Generate sea level Cloud Optimized GeoTIFF as final map distribution format](./06_generate-map-distribution/README.md).
 
 ### Optional steps
@@ -24,12 +22,8 @@ Result map data is in [`EPSG:3067`](https://epsg.io/3067-1149) (ETRS-TM35FIN) pr
 
 Result files are in following folders:
 
-- Elevation model altered by land upplift calculation:
-  - [V1](./02_post-glacial-rebound-calculation-V1/02_post-glacial-rebound-calculation/result_cog)
-  - [V2](./02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/result_cog)
-- Cloud Optimized GeoTIFF:
-  - [V1](./06_generate-map-distribution/result_cog/V1/)
-  - [V2](./06_generate-map-distribution/result_cog/V2/)
+- [Elevation model altered by land upplift calculation](./02_post-glacial-rebound-calculation/02_post-glacial-rebound-calculation/result_cog)
+- [Cloud Optimized GeoTIFF](./06_generate-map-distribution/result_cog)
 
 ## Requirements
 
@@ -65,26 +59,11 @@ sudo apt install -y nodejs npm
 
 ## Commands
 
-Execute all the scripts by single command:
-
 ```bash
-#########################################
-# Model V1: simple linear uplift model
-#########################################
 
-# Calculate land upplift for all years defined in common/mapLayerYearsModelV1.json
-./run-all-V1.sh
+# Calculate land upplift for all years defined in common/seaMapLayerYears.json
+./run-all.sh
 
 # Calculate land upplift for specific years (minus values are BC)
-./run-all-V1.sh -5000 -7000 1500
-
-#########################################
-# Model V2: advanced GLARE uplift model
-#########################################
-
-# Calculate land upplift for all years defined in common/mapLayerYearsModelV2.json
-./run-all-V2.sh
-
-# Calculate land upplift for specific years (minus values are BC)
-./run-all-V2.sh -5000 -7000 1500
+./run-all.sh -5000 -7000 1500
 ```

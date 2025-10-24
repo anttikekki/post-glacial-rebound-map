@@ -6,7 +6,7 @@ The script calculates colorized GeoTIFF mask file that renders visible land tran
 
 ## Source data
 
-Result GeoTIFF files from mask file calculation of step [04_sea-level-mask-calculation](../04_sea-level-mask-calculation/README.md). Source model version is selected with command line parameter.
+Result GeoTIFF files from mask file calculation of step [04_sea-level-mask-calculation](../04_sea-level-mask-calculation/README.md).
 
 ## Mask calculation
 
@@ -26,10 +26,7 @@ Result GeoTIFF files go to `./sea_land_colored` folder to a sub folder by the ta
 Execute all the scripts by single command:
 
 ```bash
-# Calculate colorized mask from V1 model mask result
-./run_all.sh V1
 
-
-# Calculate colorized mask from V2 model mask result
-./run_all.sh V2
+# Calculate colorized mask from mask result
+./run_all.sh
 ```

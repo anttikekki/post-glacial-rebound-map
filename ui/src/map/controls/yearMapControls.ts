@@ -31,18 +31,6 @@ export default class YearMapControls extends Control {
     this.buttonNext = buttonNext;
     this.settings = settings;
 
-    this.settings.addEventListerner({
-      onApiVersionChange: () => {
-        this.years = [
-          ...settings.getSupportedSeaYears(),
-          new Date().getFullYear(),
-        ];
-        this.updateSelectYears();
-        this.yearSelect.value = this.settings.getYear().toString();
-        this.updateButtonsStatus();
-      },
-    });
-
     buttonPrev.addEventListener("click", () => {
       this.prevYear();
     });

@@ -6,7 +6,7 @@ set -euo pipefail
 command -v jq >/dev/null || { echo "This script requires jq but it's not installed."; exit 1; }
 
 # Configuration
-SEA_LEVEL_RASTER="../02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/sea-level-baltic.tif"
+SEA_LEVEL_RASTER="../02_post-glacial-rebound-calculation/01_download-GLARE-model-data/sea-level-baltic.tif"
 BASE_DEM_FOLDER="./cropped-elevation_model"
 ALIGNED_BASE_FOLDER="./cropped_gdal_raster"
 OUTPUT_ROOT_FOLDER="./calculation_results/csv"

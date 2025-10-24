@@ -94,6 +94,31 @@
         </p>
       </div>
 
+      <h2>Maannousu?</h2>
+
+      <p>
+        Maannousu tarkoittaa Pohjois-Euroopassa ja Kanadassa tapahtuvaa
+        maanpinnan hidasta nousua, joka johtuu viimeisimmän jääkauden alaspäin
+        painaman maankuoren noususta takaisin alkuperäiselle korkeudelleen.
+        Maankohoamisen seuraksena merenranta perääntyy Suomen rannikolla noin 9
+        - 3 mm vuodessa. Nopeinta nousu on Vaasan seudulla ja hitainta
+        Etelä-Suomessa. Lue lisää maannoususta:
+      </p>
+
+      <ul>
+        <li>
+          <a
+            href="https://www.maanmittauslaitos.fi/tutkimus/teematietoa/maannousu"
+            >Maanmittauslaitos: Maannousu</a
+          >
+        </li>
+        <li>
+          <a href="https://fi.wikipedia.org/wiki/Maankohoaminen"
+            >Wikipedia: Maankohoaminen</a
+          >
+        </li>
+      </ul>
+
       <h2>Sivuston tarkoitus</h2>
 
       <p>
@@ -106,7 +131,7 @@
       <p>
         Sivustoon kuuluu kartta, jonka avulla aineistoa voi tarkkailla. Meren
         pinnan tasoa voi katsoa 250 - 100 vuoden välein aikajaksolla 10 000
-        ennen ajanjakson alkua - 1750 ajanjakson alun jälkeen. Kartan pitäisi
+        ennen ajanlaskun alkua - 1900 ajanlaskun alun jälkeen. Kartan pitäisi
         toimia hyvin myös kännykän selaimessa, joten maan kohomista voi
         tarkkailla myös maastossa liikkuessa. Kartta näyttä myös myös käyttäjän
         sijainnin kartalla (kunhan vasemmasta reunasta käynnistää paikannuksen
@@ -127,68 +152,119 @@
         laskennan komennot omalla tietokoneellaan ja muokata niitä.
       </p>
 
-      <h2>Maannousu?</h2>
+      <h2>Maannousun laskentamalli</h2>
 
       <p>
-        Maannousu tarkoittaa Pohjois-Euroopassa ja Kanadassa tapahtuvaa
-        maanpinnan hidasta nousua, joka johtuu viimeisimmän jääkauden alaspäin
-        painaman maankuoren noususta takaisin alkuperöiselle korkeudelleen.
-        Maankohoamisen seuraksena merenranta perääntyy Suomen rannikolla noin 9
-        - 3 mm vuodessa. Nopeinta nousu on Vaasan seudulla ja hitainta
-        Etelä-Suomessa. Lue lisää maannoususta:
+        <b>Glacial Land Adjustment Regenerator (Glare)</b> on arkeologi
+        <a href="https://oulu.academia.edu/AkiHakonen">Aki Hakosen</a>
+        julkaisema historiallisen maan kohoamisen laskennan tieteellinen malli:
+      </p>
+
+      <ul>
+        <li>
+          Artikkeli:
+          <a
+            href="https://www.sciencedirect.com/science/article/pii/S0305440325001475"
+            >Introducing the Glacial Land Adjustment Regenerator (Glare) for
+            Simulating the Final Pleistocene/Holocene Geographical Change in
+            North Europe</a
+          >, Aki Hakonen, Journal of Archaeological Science, 2025.
+        </li>
+        <li>
+          <a
+            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
+            >Glaren materiaalit Google Drivessä</a
+          >.
+        </li>
+        <li>
+          <a href="https://github.com/Hakonaki/land-uplift-recons"
+            >Glaren materiaalit GitHubissa</a
+          >.
+        </li>
+      </ul>
+
+      <p>
+        Tämä sivusto käytää Glare-mallista versiota 2.2, joka jullkaistiin
+        20.5.2025. Tällä mallilla lasketaan sekä maannousukartta että
+        mannerjäätikön levinneisyyskartta (10 000 eaa. - 8500 eaa.).
+      </p>
+
+      <h3>Tilasto laskentamallin tuloksista</h3>
+      <canvas id="statisticsChart"></canvas>
+
+      <h3>Tekninen toteutus</h3>
+      <p>
+        Laskentamallin tekninen toteutus, jota tällä sivulla käytetään, löytyy
+        avoimena lähdekoodina
+        <a
+          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/map-data-processing/02_post-glacial-rebound-calculation"
+          >GitHub</a
+        >-palvelusta. >
+      </p>
+
+      <h3>Rajaukset</h3>
+      <p>
+        Tämän laskentamalli kartta-aineisto näyttää vain merenrannan
+        siirtymisen. Siinä ei ole laskettu maanpinnan kallistumisesta johtuvaa
+        järvien siirtymisiä tai niiden lasku-uomien muutoksia.
+      </p>
+
+      <h4>Maanpinnan muutokset</h4>
+      <p>
+        Pohja-aineistona on MML:n ajantasainen korkeusmalli. Tämän vuoksi kaikki
+        ihmisen tekemät maanpinnan muuutokset vaikuttavat laskentaan: ojitus,
+        kanavat, tiet, rantarakentaminen jne. Laskennallinen merenpinta voi olla
+        näillä muokatun maaston kohdilla pielessä useita metrejä.
+      </p>
+      <p>
+        Myöskään luonnollisia maan- tai merenpinnan muutoksia ei ole huomiotu.
+        Näitä ovat esim. soiden pinnan nousu turpeen kerääntymisen seurauksena,
+        jokien lasku-uomien muutokset, jokien kuljettamien sedimenttien
+        kasaantuminen ja merenpinnan korkeusvaihtelut.
+      </p>
+
+      <h2>Lähdeäaineisto ja lisenssit</h2>
+
+      <p>
+        Laskentamallin lähdeaineistona on käytetty seuraavia avoimia aineistoja:
       </p>
 
       <ul>
         <li>
           <a
-            href="https://www.maanmittauslaitos.fi/tutkimus/teematietoa/maannousu"
-            >Maanmittauslaitos: Maannousu</a
+            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
+            >Glaren materiaalit Google Drivessä</a
+          >. Aineisto on julkaistu
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+            >CC BY 4.0</a
           >
+          lisenssillä.
         </li>
         <li>
-          <a href="https://fi.wikipedia.org/wiki/Maankohoaminen"
-            >Wikipedia: Maankohoaminen</a
+          Maanmittauslaitoksen (MML) julkaisema
+          <a
+            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m"
+            >korkeusmalli 2 m</a
+          >, joka kuvaa 2m x 2m ruudukolla koko Suomen maankorkeuden
+          merenpinnasta vuonna 2023. Aineisto on julkaistu
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+            >CC BY 4.0</a
           >
+          lisenssillä.
         </li>
       </ul>
 
-      <h2>Maannousun laskentamallit</h2>
-
-      <p>Sivustolla on käytössä kaksi maannousun laskentamallia:</p>
-
-      <ol>
-        <li>
-          <a href="model-v1.html"
-            >Laskentamalli V1: lineaarinen maannousu NKG2016LU mallin
-            perusteella</a
-          >
-        </li>
-        <li>
-          <a href="model-v2.html"
-            >Laskentamalli V2: Glacial Land Adjustment Regenerator (Glare)</a
-          >
-        </li>
-      </ol>
-
       <p>
-        Laskentamalli V2 (Glare) on paljon parempi kuin naiivi V1, joten se on
-        oletusvalinta tämän sivuston <a href="map.html">kartassa</a>.
+        Tämän myötä myös laskennan lopputuloksen lisenssi on siis
+        <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
+          >CC BY 4.0</a
+        >, koska se on myösa kaiken lähtödatan lisenssi. Nämä lähteet on
+        mainittava, jos tämän sivuston kartta-aineistoa jakelee eteenpäin.
       </p>
 
       <p>
-        Laskentamalleissa käytetty lähtödata ja tekninen toteutus on kuvattu
-        mallien yhteydessä.
-      </p>
-
-      <h2>Rajapinnat ja karttadatan lataus</h2>
-
-      <p><a href="integration.html">Rajapinnat ja karttadatan lataus</a></p>
-
-      <h2>Muu lähdeäaineisto</h2>
-
-      <p>
-        <a href="map.html">Kartasivulla</a> käytetään Suomen pohjakarttana
-        seuraavia Maanmittauslaitoksen (MML) julkaisemia karttoja:
+        <a href="map.html">Kartasivulla</a> käytetään lisäksi Suomen
+        pohjakarttana seuraavia Maanmittauslaitoksen (MML) julkaisemia karttoja:
       </p>
 
       <ul>
@@ -213,7 +289,7 @@
       </ul>
 
       <p>
-        Aineistot on julkaistu
+        MLL:n aineistot on julkaistu
         <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
           >CC BY 4.0</a
         >
@@ -240,67 +316,251 @@
         >.
       </p>
 
-      <h2>Tieteellisiä artikkeleita maannoususta</h2>
+      <h2>Rajapinnat ja karttadatan lataus</h2>
+
       <p>
-        Tieteellistä tietoa maannoususta löytyy esimerkiksi näistä artikkeleista
-        ja niiden lähteistä:
+        Tämä sivuston laskennallinen maanousun ja jäätikön vlevinnäisyyden
+        kartta-data on vapaasti kaikkien käytettävissä. Aineiston voi ladata
+        kokonaisuudessaa tai sitä voi käyttää sivuston rajapinnan kautta
+        suoraan.
+      </p>
+
+      <h3>Tiedostoformaatti</h3>
+
+      <p>
+        Kartta-datan jakelumuoto on
+        <a href="https://cogeo.org/">Cloud Optimized GeoTIFF (COG)</a>. Tämä
+        formaatti valittiin, koska sen avulla aineistoa voi jaella ilman WMS/WFS
+        jne. palvelinta suoraan "palvelimen levyltä" eli pilvipalvelun
+        bucketista. Tämä tekee sivuston ylläpidosta huomattavasti halvempaa.
+      </p>
+
+      <p>
+        Cloud Optimized GeoTIFF -tiedostomuodossa TIFF-tiedoston sisään on
+        upotettu tiilit eri kartan zoomaustasoille. Tällöin datan käyttäjä voi
+        kysyä HTTP-kutsun
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests"
+          >Range-otsakkeen</a
+        >
+        avulla vain rajatun määrän koko datasta. Tämä mahdollistaa datan käytön
+        suoraan selaimessa ilman koko aineiston lataamista.
+      </p>
+
+      <h3>GeoTIFF:n sisältö</h3>
+
+      <h4>Maannousukartta</h4>
+      <p>
+        Aineisto ei ole käyttövalmis visuaalinen rasteri, vaan GeoTIFF
+        tiedostomuotoa käytetään välittämään tietoa 2m x 2m pikseleinä, että
+        onko pikseli merta vai maata tiedoston tarkasteluvuotena:
+      </p>
+
+      <ul>
+        <li>Arvo <code>0</code>: maata</li>
+        <li>Arvo <code>1</code>: merta</li>
+        <li>Arvo <code>2</code>: mannerjäätä</li>
+        <li>
+          Arvo <code>255</code>: ei tietoa (Suomen ulkopuoliset maa-alueet)
+        </li>
+      </ul>
+
+      <p>
+        Tieto on GeoTIFF-tiedoston data band 1 -tiedoissa. Tiedostoa ei siis voi
+        renderöidä suoraan visuaalisesti, vaan käyttäjän pitää määrittää
+        renderöintisäännöt käyttämäänsä työkaluun, joka renderöi nämä eri
+        data-arvot halutuilla väreillä. Tämä toteutustapa valittiin, koska
+        järkevä "meren väri" vaihtuu käytetyn pohjakartan värityksen mukana.
+      </p>
+
+      <h4>Mannerjäätikön levinnäisyyskartta</h4>
+
+      <p>
+        Vastaavasti myös mannerjäätikön levinnäisyyskartta ei ole visuaalinen
+        rasteri, vaan GeoTIFF data band 1 sisältää seuraavat arvot:
+      </p>
+
+      <ul>
+        <li>Arvo <code>0</code>: jää sulanut</li>
+        <li>Arvo <code>1</code>: jäätä</li>
+        <li>Arvo <code>255</code>: ei tietoa</li>
+      </ul>
+
+      <h3>Projektio</h3>
+
+      <p>
+        Datan projektio on Suomessa yleisesti käytetty
+        <a href="https://epsg.io/3067-1149">EPSG:3067</a> (ETRS-TM35FIN). Tämä
+        mahdollistaa aineiston käytön esim. Maanmittauslaitoksen pohjakarttojen
+        kannsa ilman projektion muunoksia.
+      </p>
+
+      <p>
+        Nämä kaikki lähteet on mainittava, jos tämän sivuston kartta-aineistoa
+        jakelee eteenpäin.
+      </p>
+
+      <h2>Rajapinnat ja tiedostot</h2>
+
+      <p class="lead">
+        OpenAPI dokumentaatio löytyy Html-muodossa osoitteesta
+        <a href="api">maannousu.info/api</a> ja JSON-muodossa osoitteesta
+        <a href="api/spec.json">maannousu.info/api/spec.json</a>
+      </p>
+
+      <p>
+        Rajapinnat/GeoTIFF-tiedostot on nimetty vuosiluvun mukaan, jonka
+        maankohoamisen tilannetta ne mallintavat. Negatiiviset luvut ovat ennen
+        ajanlaskun alkua (esim. -4000 on 4000 eaa.).
+      </p>
+
+      <p>
+        Tuettujen vuosien määrä voi muuttua ajan myötä. Ajantasaisen listan voi
+        hakea dynaamisesti JSON-muodossa seuraavista osoitteista:
       </p>
 
       <ul>
         <li>
-          Aki Hakonen: Introducing the Glacial Land Adjustment Regenerator
-          (Glare) for Simulating the Final Pleistocene/Holocene Geographical
-          Change in North Europe, Journal of Archaeological Science, 2025 (<a
-            href="https://www.sciencedirect.com/science/article/pii/S0305440325001475"
-            >papers.ssrn.com</a
-          >)
+          Maannousu:
+          <a href="https://maannousu.info/api/v2"
+            >https://maannousu.info/api/v2</a
+          >
         </li>
         <li>
-          Eronen, M; Gluckert, G; Hatakka, L; Van De Plassche, O; Van Der
-          Plicht, J; Rantala, P: Rates of Holocene isostatic uplift and relative
-          sea-level lowering of the Baltic in SW Finland based on studies of
-          isolation contacts, 2001 (<a
-            href="https://pure.rug.nl/ws/files/6663240/2001BoreasEronen.pdf"
-            >University of Groningen</a
-          >)
+          Mannerjäätikkö:
+          <a href="https://maannousu.info/api/v2/ice"
+            >https://maannousu.info/api/v2/ice</a
+          >
+        </li>
+      </ul>
+
+      <p>
+        Rajapinnat ja tiedostot ovat tässä tapauksessa yksi ja sama asia.
+        GeoTIFF aineiston voi ladata kokonaisuudessaan klikkaamalla linkkiä
+        selaimessa tai siitä voi hakea osia HTTP-kutsun
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests"
+          >Range-otsakkeen</a
+        >
+        avulla samasta osoitteesta.
+      </p>
+
+      <p>
+        Maannousun karttojen tiedostojen koot ovat noin 300 - 600 megatavua
+        kappale. Jään levinnäisyyskartat ovat todella pieniä (alle 1 megatavu).
+      </p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Vuosi</th>
+            <th scope="col">Maannousukartan osoite</th>
+            <th scope="col">Mannerjään levinnäisyyskartan osoite</th>
+          </tr>
+        </thead>
+        <tbody id="apiTableYearsTBody"></tbody>
+      </table>
+
+      <h3>Cross-Origin Resource Sharing (CORS)</h3>
+
+      <p>
+        Sivusto palautaa rajapintojen osoitteille
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS"
+          >Cross-Origin Resource Sharing (CORS)</a
+        >
+        otsakkeet, joiden avulla rajapintoja voi käyttää suoraan toiselta
+        verkkosivulta:
+      </p>
+
+      <p>
+        <code>
+          "Access-Control-Allow-Origin": "*"<br />
+          "Access-Control-Allow-Methods": "GET", "HEAD", "OPTIONS"<br />
+          "Access-Control-Max-Age": "86400"
+        </code>
+      </p>
+
+      <h3>Cache</h3>
+
+      <p>
+        Rajapinta palauttaa
+        <code>"Cache-Control": "public, max-age=86400"</code> otsakkeen
+        jokaisella kutsulla, joka sallii cachen selaimessa vuorokaudeksi.
+        Selaimista kuitenkin vain Safari cachettaa tällä hetkellä HTTP
+        Range-kutsuja. Chromella ja siis myös Edgellä selain lataa aina kaiken
+        datan uudestaan.
+      </p>
+
+      <h3>Integraatio-esimerkit</h3>
+
+      <h4>OpenLayers</h4>
+
+      <p>
+        <a href="https://openlayers.org/">OpenLayers</a> on avoimen lähdekoodin
+        JavaScript-kirjasto, joka osaa renderöidä GeoTIFF-tiedostoja selaimessa.
+        Kirjasto osaa hakea tehokkaasti zoomaustason mukaisia tiilejä
+        aineistosta HTTP Range-kutsuilla.
+      </p>
+
+      <pre class="bg-light p-3 rounded"><code>
+        import WebGLTileLayer from "ol/layer/WebGLTile";
+        import { GeoTIFF } from "ol/source";
+
+        const colorLand = [0, 0, 0, 0]; // Invisible
+        const colorSea = [201, 236, 250, 1]; // National Land Survey of Finland background map sea color
+        const colorIce = [255, 255, 255, 1]; // White
+        const noData = [0, 0, 0, 0]; // Invisible
+        const style = {
+          color: [
+            "case",
+            ["==", ["band", 1], 0], // Value 0 = land
+            colorLand,
+            ["==", ["band", 1], 1], // Value 1 = sea
+            colorSea,
+            ["==", ["band", 1], 2], // Value 2 = Glacial ice
+            colorIce,
+            noData, // Fallback
+          ],
+        };
+
+        const source = new GeoTIFF({
+          sources: [
+            {
+              url: `https://maannousu.info/api/v2/-6000`,
+              bands: [1],
+            },
+          ],
+          convertToRGB: false,
+          normalize: false,
+        });
+
+        const layer = new WebGLTileLayer({
+          source,
+          style,
+        });
+      </code></pre>
+
+      <p>
+        Laajempi esimerkki kokonaisesta OpenLayers-sivustosta löytyy tämän
+        sivuston lähdekoodista
+        <a
+          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/ui"
+          >GitHubista</a
+        >:
+      </p>
+
+      <ul>
+        <li>
+          <a
+            href="https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map.ts"
+            >ui/src/map.ts</a
+          >
         </li>
         <li>
-          Tikkanen, Matti, Juha Oksanen: Late Weichselian and Holocene
-          shoredisplacement history of the Baltic Sea in Finland, 2020 (<a
-            href="https://fennia.journal.fi/article/view/3760/3551"
-            >fennia.journal.fi</a
-          >)
-        </li>
-        <li>
-          Arto Miettinen, Henrik Jansson, Teija Alenius, Georg Haggrén: Late
-          Holocene sea-level changes along the southern coast of Finland, Baltic
-          Sea, 2007 (<a
-            href="https://www.sciencedirect.com/science/article/abs/pii/S0025322706003598"
-            >sciencedirect.com</a
-          >)
-        </li>
-        <li>
-          Viljami Perheentupa, Ville Mäkinen, Hando-Laur Habicht, Juha Oksanen:
-          Animated visualization of post-glacial land uplift and shore
-          displacement from modeled paleotopographic reconstructions, 2020 (<a
-            href="https://www.sciencedirect.com/science/article/pii/S2590197420300240"
-            >sciencedirect.com</a
-          >)
-        </li>
-        <li>
-          Markku Poutanen, Holger Steffen: Land Uplift at Kvarken Archipelago /
-          High Coast UNESCO World Heritage area, 2014 (<a
-            href="https://www.researchgate.net/publication/281717497_Land_uplift_at_Kvarken_Archipelago_high_coast_UNESCO_World_Heritage_area"
-            >researchgate.net</a
-          >)
-        </li>
-        <li>
-          Olav Vestøl, Jonas Ågren, Holger Steffen, Halfdan Kierulf, Lev
-          Tarasov: NKG2016LU: a new land uplift model for Fennoscandia and the
-          Baltic Region, 2019 (<a
-            href="https://link.springer.com/article/10.1007/s00190-019-01280-8#Abs1"
-            >springer.com</a
-          >)
+          <a
+            href="https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map/layer/PostGlacialReboundTileLayer.ts"
+            >ui/src/map/layer/PostGlacialReboundTileLayer.ts</a
+          >
         </li>
       </ul>
     </div>

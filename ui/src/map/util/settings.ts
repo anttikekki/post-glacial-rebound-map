@@ -1,12 +1,6 @@
 import { Coordinate } from "ol/coordinate";
 import yearsIce from "../../../../common/iceMapLayerYears.json";
-import yearsV1 from "../../../../common/mapLayerYearsModelV1.json";
-import yearsV2 from "../../../../common/mapLayerYearsModelV2.json";
-
-export enum PostGlacialReboundApiVersion {
-  V1 = "v1",
-  V2 = "v2",
-}
+import years from "../../../../common/seaMapLayerYears.json";
 
 /**
  * National land survey of Finland (NLS) backgound map layer
@@ -19,7 +13,6 @@ export enum NLSBackgroundMap {
 
 export type SettingsEventListner = {
   onYearChange?: (year: number) => void;
-  onApiVersionChange?: (apiVersion: PostGlacialReboundApiVersion) => void;
   onLoadingStatusChange?: (isLoading: boolean) => void;
   onBackgroundMapChange?: (backgroundMap: NLSBackgroundMap) => void;
   onZoomChange?: (zoom: number) => void;
@@ -30,7 +23,6 @@ export type SettingsEventListner = {
 export class Settings {
   private readonly eventListerners: SettingsEventListner[] = [];
   private year: number;
-  private apiVersion: PostGlacialReboundApiVersion;
   private isLoading: boolean;
   private backgroundMap: NLSBackgroundMap;
   private zoom: number;
@@ -39,14 +31,12 @@ export class Settings {
 
   public constructor({
     year,
-    apiVersion,
     backgroundMap,
     zoom,
     mapCenter,
     opacity,
   }: {
     year?: number;
-    apiVersion?: string;
     backgroundMap?: string;
     zoom?: number;
     mapCenter?: number[];
@@ -54,7 +44,6 @@ export class Settings {
   }) {
     // Initial default values, if there no config in URL
     this.year = -6000;
-    this.apiVersion = PostGlacialReboundApiVersion.V2;
     this.isLoading = false;
     this.backgroundMap = NLSBackgroundMap.BackgroundMap;
     this.zoom = 3;
@@ -62,9 +51,6 @@ export class Settings {
     this.layerOpacity = 1;
 
     // Validate and set config from URL
-    if (apiVersion && isValidApiVersion(apiVersion)) {
-      this.apiVersion = apiVersion;
-    }
     if (year !== undefined && this.getSupportedSeaYears().includes(year)) {
       this.year = year;
     }
@@ -119,12 +105,7 @@ export class Settings {
   }
 
   public getSupportedSeaYears(): number[] {
-    switch (this.apiVersion) {
-      case PostGlacialReboundApiVersion.V1:
-        return yearsV1;
-      case PostGlacialReboundApiVersion.V2:
-        return yearsV2;
-    }
+    return years;
   }
 
   public getSupportedIceYears(): number[] {
@@ -133,10 +114,6 @@ export class Settings {
 
   public getYear(): number {
     return this.year;
-  }
-
-  public getApiVersion(): PostGlacialReboundApiVersion {
-    return this.apiVersion;
   }
 
   public getIsLoading(): boolean {
@@ -150,26 +127,6 @@ export class Settings {
     this.year = year;
     this.eventListerners.forEach((listerner) => {
       listerner.onYearChange?.(year);
-    });
-  }
-
-  public setApiVersion(apiVersion: PostGlacialReboundApiVersion): void {
-    if (this.apiVersion === apiVersion) {
-      return;
-    }
-    this.apiVersion = apiVersion;
-
-    // If selected year is not allowed for new API version, default to closest value
-    if (!this.getSupportedSeaYears().includes(this.year)) {
-      this.year = this.getSupportedSeaYears().reduce((prev, curr) => {
-        return Math.abs(curr - this.year) < Math.abs(prev - this.year)
-          ? curr
-          : prev;
-      });
-    }
-
-    this.eventListerners.forEach((listerner) => {
-      listerner.onApiVersionChange?.(apiVersion);
     });
   }
 
@@ -215,10 +172,3 @@ export class Settings {
     this.eventListerners.push(listener);
   }
 }
-
-const isValidApiVersion = (
-  value: string
-): value is PostGlacialReboundApiVersion =>
-  Object.values(PostGlacialReboundApiVersion).includes(
-    value as PostGlacialReboundApiVersion
-  );

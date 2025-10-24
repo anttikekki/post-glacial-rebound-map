@@ -1,17 +1,17 @@
 import debounce from "debounce";
 import OpenLayersMap from "ol/Map";
 import View from "ol/View";
-import { getMapControls } from "./controls/mapControls";
-import GlacialTileLayerGroup from "./layer/GlacialTileLayerGroup";
-import { NLSBackgroundMapTileLayer } from "./layer/NLSBackgroundMapTileLayer";
-import PostGlacialReboundLayerGroup from "./layer/PostGlacialReboundTileLayerGroup";
-import UserLocationVectorLayer from "./layer/UserLocationVectorLayer";
-import { initEPSG3067Projection } from "./util/projectionUtil";
-import { Settings } from "./util/settings";
+import { getMapControls } from "./map/controls/mapControls";
+import GlacialTileLayerGroup from "./map/layer/GlacialTileLayerGroup";
+import { NLSBackgroundMapTileLayer } from "./map/layer/NLSBackgroundMapTileLayer";
+import PostGlacialReboundLayerGroup from "./map/layer/PostGlacialReboundTileLayerGroup";
+import UserLocationVectorLayer from "./map/layer/UserLocationVectorLayer";
+import { initEPSG3067Projection } from "./map/util/projectionUtil";
+import { Settings } from "./map/util/settings";
 import {
   parseSettingsFromUrlHash,
   updateSettingsToUrlHash,
-} from "./util/urlUtil";
+} from "./map/util/urlUtil";
 
 const { projection } = initEPSG3067Projection();
 const settings = new Settings(parseSettingsFromUrlHash());
@@ -60,7 +60,6 @@ map.addLayer(glacialTileLayerGroup.getLayerGroup());
 map.addLayer(userLocationLayer.getLayer());
 
 settings.addEventListerner({
-  onApiVersionChange: () => updateSettingsToUrlHash(settings),
   onYearChange: () => updateSettingsToUrlHash(settings),
   onBackgroundMapChange: () => updateSettingsToUrlHash(settings),
   onZoomChange: () => updateSettingsToUrlHash(settings),

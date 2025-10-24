@@ -1,22 +1,48 @@
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import webpack from "webpack";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-import CopyWebpackPlugin from "copy-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import webpack from "webpack";
+const languages = ["fi", "en", "sv"];
+const pages = ["index", "map"];
+
+function generateEntryHtmlPlugins() {
+  const plugins = [];
+  for (const page of pages) {
+    for (const lang of languages) {
+      const translations = JSON.parse(
+        fs.readFileSync(`./src/translations/${lang}.json`, "utf8")
+      );
+      const filenameLangSuffix = lang === "fi" ? "" : `_${lang}`;
+
+      plugins.push(
+        new HtmlWebpackPlugin({
+          template: `src/${page}.ejs`,
+          filename: `${page}${filenameLangSuffix}.html`,
+          chunks: [page],
+          templateParameters: {
+            lang,
+            translations,
+          },
+          templateOptions: { root: path.resolve(__dirname, "src") },
+        })
+      );
+    }
+  }
+  return plugins;
+}
 
 export default (env, argv) => {
   return {
     entry: {
-      root: "./src/index.ts",
-      modelv1: "./src/model-v1.ts",
-      modelv2: "./src/model-v2.ts",
-      integration: "./src/integration.ts",
-      map: "./src/map/map.ts",
+      index: "./src/index.ts",
+      map: "./src/map.ts",
     },
     mode: argv.mode || "development",
     plugins: [
@@ -28,31 +54,7 @@ export default (env, argv) => {
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash].css",
       }),
-      new HtmlWebpackPlugin({
-        template: "src/index.ejs",
-        filename: "index.html",
-        excludeChunks: ["map", "modelv1", "modelv2", "integration"],
-      }),
-      new HtmlWebpackPlugin({
-        template: "src/model-v1.ejs",
-        filename: "model-v1.html",
-        excludeChunks: ["root", "map", "modelv2", "integration"],
-      }),
-      new HtmlWebpackPlugin({
-        template: "src/model-v2.ejs",
-        filename: "model-v2.html",
-        excludeChunks: ["root", "map", "modelv1", "integration"],
-      }),
-      new HtmlWebpackPlugin({
-        template: "src/integration.ejs",
-        filename: "integration.html",
-        excludeChunks: ["root", "map", "modelv1", "modelv2"],
-      }),
-      new HtmlWebpackPlugin({
-        template: "src/map/map.ejs",
-        filename: "map.html",
-        excludeChunks: ["root", "modelv1", "modelv2", "integration"],
-      }),
+      ...generateEntryHtmlPlugins(),
       new CopyWebpackPlugin({
         patterns: [{ from: "src/images", to: "images" }],
       }),

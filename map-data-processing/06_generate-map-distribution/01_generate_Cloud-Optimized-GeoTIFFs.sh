@@ -3,36 +3,22 @@
 # Exit if any command fails
 set -euo pipefail
 
-if [ $# -lt 2 ]; then
-    echo "Usage: $0 SOURCE SOURCE_VERSION [YEAR1 YEAR2 ...]"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 SOURCE [YEAR1 YEAR2 ...]"
     echo "SOURCE must be one of: MASK, COLORIZED"
-    echo "Calculation source data SOURCE_VERSION must be one of: V1, V2"
     echo "Optional YEAR values can be provided to process specific years."
     exit 1
 fi
 
 SOURCE="$1"
-SOURCE_VERSION="$2"
 shift  # Remove SOURCE from the list of positional arguments
-shift  # Remove SOURCE_VERSION from the list of positional arguments
-
-case "$SOURCE_VERSION" in
-  V1|V2)
-    # Valid values, continue
-    ;;
-  *)
-    echo "Error: Invalid SOURCE_VERSION value: '$SOURCE_VERSION'" >&2
-    echo "Valid options are: V1 or V2" >&2
-    exit 1
-    ;;
-esac
 
 case "$SOURCE" in
   MASK)
-    INPUT_FOLDER="../04_sea-level-mask-calculation/sea_land_masks/${SOURCE_VERSION}"
+    INPUT_FOLDER="../04_sea-level-mask-calculation/sea_land_masks"
     ;;
   COLORIZED)
-    INPUT_FOLDER="../05_generate-colorized-sea-raster/sea_land_colored/${SOURCE_VERSION}"
+    INPUT_FOLDER="../05_generate-colorized-sea-raster/sea_land_colored"
     ;;
   *)
     echo "Invalid SOURCE: $SOURCE"
@@ -53,8 +39,8 @@ else
 fi
 
 # Output folders
-OUTPUT_FOLDER="./result_cog/${SOURCE_VERSION}"
-VRT_FOLDER="./source_vrt/${SOURCE_VERSION}"
+OUTPUT_FOLDER="./result_cog"
+VRT_FOLDER="./source_vrt"
 
 mkdir -p "$OUTPUT_FOLDER"
 mkdir -p "$VRT_FOLDER"

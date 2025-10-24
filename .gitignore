@@ -5,32 +5,19 @@ node_modules/
 map-data-processing/01_download-nls-elevation-model-2m/tif
 map-data-processing/01_download-nls-elevation-model-2m/vrt
 
-# V1: NKG2016LU model processing temp files
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/nkg2016lu-with-readme.zip
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/nkg2016lu
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/NKG2016LU_lev.csv
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/grid_metadata.txt
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/NKG2016LU_lev.vrt
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/NKG2016LU_lev.tif
-map-data-processing/02_post-glacial-rebound-calculation-V1/01_download-land-uplift-model-NKG2016LU/NKG2016LU_lev_tm35fin.tif
+# GLARE model temp files
+map-data-processing/02_post-glacial-rebound-calculation/01_download-GLARE-model-data/Base_Raster.tif
+map-data-processing/02_post-glacial-rebound-calculation/01_download-GLARE-model-data/sea-level-baltic.tif
+map-data-processing/02_post-glacial-rebound-calculation/01_download-GLARE-model-data/Base-raster-tm35fin.tif
 
-# V1: Post-glacial rebound calculation temp files
-map-data-processing/02_post-glacial-rebound-calculation-V1/02_post-glacial-rebound-calculation/aligned_NKG2016LU_rasters
-map-data-processing/02_post-glacial-rebound-calculation-V1/02_post-glacial-rebound-calculation/calculation_results
+# Post-glacial rebound calculation temp files
+map-data-processing/02_post-glacial-rebound-calculation/02_post-glacial-rebound-calculation/aligned_GLARE_base_rasters
+map-data-processing/02_post-glacial-rebound-calculation/02_post-glacial-rebound-calculation/calculation_results
 
-# V2: GLARE model temp files
-map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/Base_Raster.tif
-map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/sea-level-baltic.tif
-map-data-processing/02_post-glacial-rebound-calculation-V2/01_download-GLARE-model-data/Base-raster-tm35fin.tif
-
-# V2: Post-glacial rebound calculation temp files
-map-data-processing/02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/aligned_GLARE_base_rasters
-map-data-processing/02_post-glacial-rebound-calculation-V2/02_post-glacial-rebound-calculation/calculation_results
-
-# V2: Ice layer
-map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/Base-raster-band2-nodata-tm35fin.vrt
-map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/ice_presence_masks
-map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog
+# Ice layer
+map-data-processing/02_post-glacial-rebound-calculation/03_ice_mask_calculation/Base-raster-band2-nodata-tm35fin.vrt
+map-data-processing/02_post-glacial-rebound-calculation/03_ice_mask_calculation/ice_presence_masks
+map-data-processing/02_post-glacial-rebound-calculation/03_ice_mask_calculation/result_cog
 
 # Sea level calculation temp files
 map-data-processing/04_sea-level-mask-calculation/sea_land_masks

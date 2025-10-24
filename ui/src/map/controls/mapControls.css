@@ -22,14 +22,8 @@
   position: absolute;
 }
 
-.model-selection-button {
-  top: 170px;
-  left: 10px;
-  position: absolute;
-}
-
 .backgound-map-selection-button {
-  top: 210px;
+  top: 170px;
   left: 10px;
   position: absolute;
 }

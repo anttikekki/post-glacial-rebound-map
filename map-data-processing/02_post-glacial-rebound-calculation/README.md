@@ -1,4 +1,4 @@
-# Model V2: advanced Glacial Land Adjustment Regenerator (Glare) model
+# Glacial Land Adjustment Regenerator (Glare) model
 
 Glacial Land Adjustment Regenerator (Glare) is published by [Aki Hakonen](https://oulu.academia.edu/AkiHakonen) at University of Oulu:
 
@@ -25,7 +25,7 @@ This script uses Glare version 2.2 that was published at 20.5.2025.
 Execute all the scripts by single command:
 
 ```bash
-# Calculate land upplift for all years defined in common/mapLayerYearsModelV2.json
+# Calculate land upplift for all years defined in common/seaMapLayerYears.json
 ./run_all.sh
 
 # Calculate land upplift for specific years (minus values are BC)

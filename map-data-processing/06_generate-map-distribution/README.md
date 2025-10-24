@@ -27,11 +27,10 @@ Result Cloud Optimized GeoTIFF files go to `./result_cog` folder to a sub folder
 ```bash
 # Parameters:
 # SOURCE: MASK or COLORIZED
-# SOURCE_VERSION: V1 or V2
 
-# Generate COG from data mask from model V1
-./run_all.sh MASK V1
+# Generate COG from data mask
+./run_all.sh MASK
 
-# Generate COG from colorized raster from model V2
-./run_all.sh COLORIZED V2
+# Generate COG from colorized raster
+./run_all.sh COLORIZED
 ```

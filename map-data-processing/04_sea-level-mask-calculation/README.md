@@ -6,7 +6,7 @@ The result GeoTIFF does not contain visible map data. It is used just to transfe
 
 ## Source data
 
-Result GeoTIFF files from land uplift calculation of model [V1](../02_post-glacial-rebound-calculation-V1/) or [V2](../02_post-glacial-rebound-calculation-V2/) steps. Source is selected with command line parameter.
+Result GeoTIFF files from [land uplift calculation](../02_post-glacial-rebound-calculation/) step.
 
 ## Mask calculation
 
@@ -31,10 +31,6 @@ Result GeoTIFF files go to `./sea_land_masks` folder to a sub folder by the targ
 Execute all the scripts by single command:
 
 ```bash
-# Calculate mask from V1 model result
-./run_all.sh V1
-
-
-# Calculate mask from V2 model result
-./run_all.sh V2
+# Calculate mask from land upplift calculation result
+./run_all.sh
 ```

@@ -3,7 +3,6 @@ import { Settings } from "./settings";
 
 type UrlSettings = {
   year: number;
-  apiVersion: string;
   backgroundMap: string;
   zoom: number;
   mapCenter: number[];
@@ -19,9 +18,6 @@ export const updateSettingsToUrlHash = (settings: Settings): void => {
     mapCenter: settings.getMapCenter(),
   };
 
-  if (defaultSettings.getApiVersion() !== settings.getApiVersion()) {
-    params = { ...params, apiVersion: settings.getApiVersion() };
-  }
   if (defaultSettings.getBackgroundMap() !== settings.getBackgroundMap()) {
     params = { ...params, backgroundMap: settings.getBackgroundMap() };
   }
@@ -35,18 +31,17 @@ export const updateSettingsToUrlHash = (settings: Settings): void => {
 };
 
 export const parseSettingsFromUrlHash = (): Partial<UrlSettings> => {
-  const { year, apiVersion, backgroundMap, zoom, mapCenter, opacity } =
-    queryString.parse(window.location.hash, {
+  const { year, backgroundMap, zoom, mapCenter, opacity } = queryString.parse(
+    window.location.hash,
+    {
       parseNumbers: true,
       arrayFormat: "comma",
-    });
+    }
+  );
 
   let settings: Partial<UrlSettings> = {};
   if (year !== undefined && typeof year === "number") {
     settings = { ...settings, year };
-  }
-  if (apiVersion !== undefined && typeof apiVersion === "string") {
-    settings = { ...settings, apiVersion };
   }
   if (backgroundMap !== undefined && typeof backgroundMap === "string") {
     settings = { ...settings, backgroundMap };

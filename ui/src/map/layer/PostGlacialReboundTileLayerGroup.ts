@@ -10,7 +10,7 @@ export default class PostGlacialReboundLayerGroup {
   // Store only 5 layers to save memory. Older mobile devices crash if
   // too many layers are loaded.
   private readonly layers = new LRUCache<
-    string, // "${apiVersion}_${year}"
+    string, // "year"
     PostGlacialReboundLayer
   >({
     max: isMobileDevice() ? 5 : 10,
@@ -30,11 +30,10 @@ export default class PostGlacialReboundLayerGroup {
   }) {
     this.settings = settings;
     this.onMapRenderCompleteOnce = onMapRenderCompleteOnce;
-    this.onYearOrApiVersionChange();
+    this.onYearChange();
 
     this.settings.addEventListerner({
-      onYearChange: () => this.onYearOrApiVersionChange(),
-      onApiVersionChange: () => this.onYearOrApiVersionChange(),
+      onYearChange: () => this.onYearChange(),
       onBackgroundMapChange: () => this.onNLSBackgroundMapChange(),
       onZoomChange: () => this.onZoomChange(),
       onLayerOpacityChange: () => this.onLayerOpacityChange(),
@@ -45,13 +44,12 @@ export default class PostGlacialReboundLayerGroup {
     return this.layerGroup;
   }
 
-  private onYearOrApiVersionChange = (): void => {
+  private onYearChange = (): void => {
     if (!isWebGLSupported()) {
       return;
     }
 
     const nextYear = this.settings.getYear();
-    const apiVersion = this.settings.getApiVersion();
 
     // Hide all layers if current calendar year is selected.
     // This just shows the NLS base map.
@@ -60,17 +58,13 @@ export default class PostGlacialReboundLayerGroup {
       return;
     }
 
-    const cacheKey = `${apiVersion}_${nextYear}`;
+    const cacheKey = String(nextYear);
 
     this.settings.setIsLoading(false);
     const nextLayer = this.layers.get(cacheKey);
     if (!nextLayer) {
       this.settings.setIsLoading(true);
-      const newLayer = new PostGlacialReboundLayer(
-        nextYear,
-        apiVersion,
-        this.settings
-      );
+      const newLayer = new PostGlacialReboundLayer(nextYear, this.settings);
       this.layers.set(cacheKey, newLayer);
 
       newLayer.getSource().once("tileloadend", () => {
@@ -89,8 +83,7 @@ export default class PostGlacialReboundLayerGroup {
     nextLayer.getLayer().setVisible(true);
     this.layers.forEach((prevLayer) => {
       if (
-        (prevLayer.getYear() !== nextLayer.getYear() ||
-          prevLayer.getApiVersion() !== nextLayer.getApiVersion()) &&
+        prevLayer.getYear() !== nextLayer.getYear() &&
         prevLayer.getLayer().isVisible()
       ) {
         prevLayer.getLayer().setVisible(false);

@@ -2,32 +2,22 @@ import { deepEqual } from "fast-equals";
 import WebGLTileLayer, { Style } from "ol/layer/WebGLTile";
 import { GeoTIFF } from "ol/source";
 import { isMobileDevice } from "../util/deviceDetectionUtil";
-import {
-  NLSBackgroundMap,
-  PostGlacialReboundApiVersion,
-  Settings,
-} from "../util/settings";
+import { NLSBackgroundMap, Settings } from "../util/settings";
 
 export default class PostGlacialReboundLayer {
   private readonly year: number;
-  private readonly apiVersion: PostGlacialReboundApiVersion;
   private readonly source: GeoTIFF;
   private readonly layer: WebGLTileLayer;
   private style: Style;
 
-  public constructor(
-    year: number,
-    apiVersion: PostGlacialReboundApiVersion,
-    settings: Settings
-  ) {
+  public constructor(year: number, settings: Settings) {
     this.year = year;
-    this.apiVersion = apiVersion;
 
     const host = process.env.MAANNOUSU_API_BASE_URL ?? "https://maannousu.info";
     this.source = new GeoTIFF({
       sources: [
         {
-          url: `${host}/api/${this.apiVersion}/${this.year}`,
+          url: `${host}/api/v2/${this.year}`,
           bands: [1],
         },
       ],
@@ -55,10 +45,6 @@ export default class PostGlacialReboundLayer {
 
   public getYear(): number {
     return this.year;
-  }
-
-  public getApiVersion(): PostGlacialReboundApiVersion {
-    return this.apiVersion;
   }
 
   public getLayer(): WebGLTileLayer {

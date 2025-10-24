@@ -3,8 +3,8 @@
 # Exit on error, undefined variables, or failed pipes
 set -euo pipefail
 
-# JSON file containing an array of years for model V2
-YEAR_FILE="../../../common/mapLayerYearsModelV2.json"
+# JSON file containing an array of years
+YEAR_FILE="../../../common/seaMapLayerYears.json"
 
 # Determine whether to use CLI args or JSON file
 if [ "$#" -gt 0 ]; then

@@ -1,6 +1,5 @@
 import iceYears from "../../../../common/iceMapLayerYears.json" assert { type: "json" };
-import yearsV1 from "../../../../common/mapLayerYearsModelV1.json" assert { type: "json" };
-import yearsV2 from "../../../../common/mapLayerYearsModelV2.json" assert { type: "json" };
+import years from "../../../../common/seaMapLayerYears.json" assert { type: "json" };
 
 export const openApiHtmlPath = new URLPattern({ pathname: "/api" });
 export const openApiSpecJsonPath = new URLPattern({
@@ -50,33 +49,17 @@ const spec = {
     },
   ],
   paths: {
-    "/api/{version}/{year}": {
+    "/api/v2/{year}": {
       get: {
-        summary: "Get GeoTIFF for specified version and year",
+        summary: "Get GeoTIFF for specified year",
         parameters: [
-          {
-            name: "version",
-            in: "path",
-            required: true,
-            schema: {
-              type: "string",
-              enum: ["v1", "v2"],
-            },
-          },
           {
             name: "year",
             in: "path",
             required: true,
             schema: {
               type: "integer",
-              oneOf: [
-                {
-                  enum: yearsV1,
-                },
-                {
-                  enum: yearsV2,
-                },
-              ],
+              enum: years,
             },
           },
         ],
@@ -107,26 +90,15 @@ const spec = {
               },
             },
           },
-          "400": { description: "Unsupported version or year" },
+          "400": { description: "Unsupported year" },
           "405": { description: "Method not allowed" },
           "416": { description: "Invalid range header" },
         },
       },
     },
-    "/api/{version}": {
+    "/api/v2": {
       get: {
-        summary: "Get list of supported years for given version",
-        parameters: [
-          {
-            name: "version",
-            in: "path",
-            required: true,
-            schema: {
-              type: "string",
-              enum: ["v1", "v2"],
-            },
-          },
-        ],
+        summary: "Get list of supported years",
         responses: {
           "200": {
             description: "List of supported years",
@@ -142,7 +114,6 @@ const spec = {
               },
             },
           },
-          "400": { description: "Unsupported version" },
           "405": { description: "Method not allowed" },
         },
       },

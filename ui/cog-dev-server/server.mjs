@@ -15,16 +15,11 @@ const SEA_COG_DIR = path.join(
 );
 const ICE_COG_DIR = path.join(
   __dirname,
-  "../../map-data-processing/02_post-glacial-rebound-calculation-V2/03_ice_mask_calculation/result_cog/"
+  "../../map-data-processing/02_post-glacial-rebound-calculation/03_ice_mask_calculation/result_cog/"
 );
 
 const createGeoTIFFEndpoint = (dir) => (req, res) => {
-  const filePath = (() => {
-    if (dir === SEA_COG_DIR) {
-      return path.join(dir, req.params.version, `${req.params.year}.tif`);
-    }
-    return path.join(dir, `${req.params.year}.tif`);
-  })();
+  const filePath = path.join(dir, `${req.params.year}.tif`);
 
   if (!fs.existsSync(filePath)) {
     console.error(`File ${filePath} not found`);
@@ -50,7 +45,7 @@ const createGeoTIFFEndpoint = (dir) => (req, res) => {
     return res.status(400).send("Malformed Range header");
   }
 
-  const { start, end } = ranges[0]; // assume a single range (most common)
+  const { start, end } = ranges[0]; // assume a single range
 
   const chunkSize = end - start + 1;
   const file = fs.createReadStream(filePath, { start, end });
@@ -77,8 +72,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/api/:version/ice/:year", createGeoTIFFEndpoint(ICE_COG_DIR));
-app.get("/api/:version/:year", createGeoTIFFEndpoint(SEA_COG_DIR));
+app.get("/api/v2/ice/:year", createGeoTIFFEndpoint(ICE_COG_DIR));
+app.get("/api/v2/:year", createGeoTIFFEndpoint(SEA_COG_DIR));
 
 const port = 3000;
 app.listen(port, () => {
