@@ -1,5 +1,6 @@
 import { Popover } from "bootstrap";
 import Control from "ol/control/Control";
+import { mapTrans } from "../translations";
 import { NLSBackgroundMap, Settings } from "../util/settings";
 
 export default class BackgoundMapSelectionButton extends Control {
@@ -8,7 +9,7 @@ export default class BackgoundMapSelectionButton extends Control {
     icon.className = "bi bi-layers";
 
     const button = document.createElement("button");
-    button.title = "Valitse Maanmittauslaitoksen taustakartta";
+    button.title = mapTrans.backgroundMapButton.title;
     button.className = "backgound-map-selection-button btn btn-info btn-sm";
     button.setAttribute("data-bs-toggle", "popover");
     button.appendChild(icon);
@@ -16,17 +17,17 @@ export default class BackgoundMapSelectionButton extends Control {
     super({ element: button });
 
     const backgroundMap = getBackgoundMapRadioInput(
-      "Taustakartta",
+      mapTrans.backgroundMapButton.mmlBackgroundMap,
       NLSBackgroundMap.BackgroundMap,
       settings
     );
     const topographicMap = getBackgoundMapRadioInput(
-      "Maastokartta",
+      mapTrans.backgroundMapButton.mmlTopographicMap,
       NLSBackgroundMap.TopographicMap,
       settings
     );
     const orthophotos = getBackgoundMapRadioInput(
-      "Ortokuva",
+      mapTrans.backgroundMapButton.mmlOrthophoto,
       NLSBackgroundMap.Orthophotos,
       settings
     );

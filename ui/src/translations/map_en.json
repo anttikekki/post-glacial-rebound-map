@@ -1,0 +1,21 @@
+{
+  "backgroundMapButton": {
+    "title": "Select National Land Survey Background Map",
+    "mmlBackgroundMap": "Background Map",
+    "mmlTopographicMap": "Topographic Map",
+    "mmlOrthophoto": "Orthophoto"
+  },
+  "infoButton": {
+    "title": "More Information About the Site",
+    "mainPageLink": "index_en.html"
+  },
+  "userLocationButtonTitle": "Center Map on Current Location",
+  "webGlErrorMessage": "Your browser does not support WebGL technology, which is required to display the maps on this site. Unfortunately, the site will not work on your device.",
+  "yearControls": {
+    "prevYear": "Previous Year",
+    "nextYear": "Next Year",
+    "selectTitle": "Select Year"
+  },
+  "zoomIn": "Zoom In",
+  "zoomOut": "Zoom Out"
+}

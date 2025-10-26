@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="<%= lang %>">
   <head>
     <meta charset="utf-8" />
-    <title>Maannousu.info</title>
+    <title><%= meta.title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Tutki kartalla jääkauden jälkeistä maannousua Suomeassa."
-    />
+    <meta name="description" content="<%= meta.description %>" />
     <meta property="og:title" content="Maannousu.info" />
     <meta property="og:url" content="http://maannousu.info/" />
     <meta property="og:type" content="website" />
@@ -15,10 +12,7 @@
       property="og:image"
       content="https://maannousu.info/images/favicons/favicon-original.png"
     />
-    <meta
-      property="og:description"
-      content="Tutki kartalla jääkauden jälkeistä maannousua Suomeassa."
-    />
+    <meta property="og:description" content="<%= meta.description %>" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -40,43 +34,74 @@
     <link rel="shortcut icon" href="images/favicons/favicon.ico" />
     <link rel="manifest" href="images/favicons/site.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="application-name" content="Maannousu.info" />
+    <meta name="application-name" content="<%= meta.applicationName %>" />
   </head>
   <body>
-    <nav class="navbar bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Maannousu.info</a>
+        <a class="navbar-brand" href="index.html"><%= navbar.brand %></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <%= langUppercase %>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/">suomeksi (FI)</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="index_sv.html"
+                    >på svenska (SV)</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="index_en.html"
+                    >in english (EN)</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
     <div class="px-4 py-5 my-5 text-center">
-      <h1 class="display-5 fw-bold text-body-emphasis">Maannousu.info</h1>
+      <h1 class="display-5 fw-bold text-body-emphasis"><%= hero.heading %></h1>
       <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">
-          Maannousu.info sivusto on tarkoitettu Suomessa jääkauden jälkeen
-          tapahtuneen maannousun aiheuttaman merenrannan siirtymisen ja
-          jääkauden mannerjään levinneisyyden visualisointiin. Kartan kautta
-          pystyy katsomaan merenpinnan tason eri vuosituhansina historiassa.
-          Kartta-aineisto on vapaasti käytettävissä.
-        </p>
+        <p class="lead mb-4"><%= hero.lead %></p>
         <div class="d-grid gap-2 mb-4 d-sm-flex justify-content-sm-center">
-          <a href="map.html" class="btn btn-primary btn-lg px-4 gap-3">
-            Siirry karttaan
+          <a href="<%= mapLink %>" class="btn btn-primary btn-lg px-4 gap-3">
+            <%= hero.buttonMap %>
           </a>
         </div>
-        <p class="lead mb-4">
-          Samat maannousukartat ovat nähtävillä myös
-          <a href="https://muinaismuistot.info/">muinaismuistot.info</a>
-          sivustolla, jossa samalle kartalle saa Museoviraston ja Ahvenanmaan
-          paikallishallinnon rekistereiden kiinteät muinaisjäännökset.
-        </p>
+        <p class="lead mb-4"><%= hero.text %></p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <a
             href="https://muinaismuistot.info/#maannousuEnabled=true"
             target="_blank"
             class="btn btn-primary btn-lg px-4 gap-3"
           >
-            Siirry muinaismuistot.info sivustolle
+            <%= hero.buttonMuinaismuistot %>
           </a>
         </div>
       </div>
@@ -84,394 +109,134 @@
 
     <div class="container">
       <div class="alert alert-warning" role="alert">
-        <p><b>Varoitus!</b></p>
-
-        <p>
-          Tämä sivusto ja sen kartta-aineisto ovat harrastelijaprojekti.
-          Sivuston näyttämät tiedot merenpinnan tasosta eri vuosina historiassa
-          voivat olla virheellisiä, eikä tätä aineistoa siksi tule käyttää
-          tilanteissa, joissa tarvitaan tieteellistä tarkkuutta.
-        </p>
+        <p><b><%= alert.title %></b></p>
+        <p><%= alert.body %></p>
       </div>
 
-      <h2>Maannousu?</h2>
-
-      <p>
-        Maannousu tarkoittaa Pohjois-Euroopassa ja Kanadassa tapahtuvaa
-        maanpinnan hidasta nousua, joka johtuu viimeisimmän jääkauden alaspäin
-        painaman maankuoren noususta takaisin alkuperäiselle korkeudelleen.
-        Maankohoamisen seuraksena merenranta perääntyy Suomen rannikolla noin 9
-        - 3 mm vuodessa. Nopeinta nousu on Vaasan seudulla ja hitainta
-        Etelä-Suomessa. Lue lisää maannoususta:
-      </p>
+      <h2><%= whatIs.title %></h2>
+      <p><%= whatIs.text %></p>
 
       <ul>
-        <li>
-          <a
-            href="https://www.maanmittauslaitos.fi/tutkimus/teematietoa/maannousu"
-            >Maanmittauslaitos: Maannousu</a
-          >
-        </li>
-        <li>
-          <a href="https://fi.wikipedia.org/wiki/Maankohoaminen"
-            >Wikipedia: Maankohoaminen</a
-          >
-        </li>
+        <li><%= whatIs.linkMaanmittauslaitos %></li>
+        <li><%= whatIs.linkWikipedia %></li>
       </ul>
 
-      <h2>Sivuston tarkoitus</h2>
+      <h2><%= purpose.title %></h2>
 
-      <p>
-        Sivuston tarkoituksena on tuottaa helposti käytettävä visualisaatio
-        Itämeren merenpinnan muutoksista historiassa ja jääkauden jäätikön
-        levinnäisyydestä. Tällaista aineistoa ei ole ollut helposti saatavilla
-        koko Suomen rannikosta ja monelta eri vuosituhannelta.
-      </p>
+      <p><%= purpose.text1 %></p>
+      <p><%= purpose.text2 %></p>
+      <p><%= purpose.text3 %></p>
+      <p><%= purpose.text4 %></p>
 
-      <p>
-        Sivustoon kuuluu kartta, jonka avulla aineistoa voi tarkkailla. Meren
-        pinnan tasoa voi katsoa 250 - 100 vuoden välein aikajaksolla 10 000
-        ennen ajanlaskun alkua - 1900 ajanlaskun alun jälkeen. Kartan pitäisi
-        toimia hyvin myös kännykän selaimessa, joten maan kohomista voi
-        tarkkailla myös maastossa liikkuessa. Kartta näyttä myös myös käyttäjän
-        sijainnin kartalla (kunhan vasemmasta reunasta käynnistää paikannuksen
-        ja antaa siihen luvan).
-      </p>
-
-      <p>
-        Sivuston toisena tarkoituksena on jakaa tätä laskennallista
-        kartta-aineistoa vapaasti muidenkin käyttöön. Aineistoa voi käyttää
-        suoraan ilmaiseksi muillakin nettisivuilla rajapinnan kautta tai sen voi
-        ladata itselleen kokonaisuutena.
-      </p>
-
-      <p>
-        Laskennassa käytetyt tekniset komennot on automatisoitu skripteiksi ja
-        nämä on jaeltu avoimena lähdekoodina. Kaikki käytetty lähdeaineisto on
-        ilmaista ja vaapasti saatavilla netistä, joten kuka tahansa voi ajaa
-        laskennan komennot omalla tietokoneellaan ja muokata niitä.
-      </p>
-
-      <h2>Maannousun laskentamalli</h2>
-
-      <p>
-        <b>Glacial Land Adjustment Regenerator (Glare)</b> on arkeologi
-        <a href="https://oulu.academia.edu/AkiHakonen">Aki Hakosen</a>
-        julkaisema historiallisen maan kohoamisen laskennan tieteellinen malli:
-      </p>
+      <h2><%= calculationModel.title %></h2>
+      <p><%= calculationModel.intro %></p>
 
       <ul>
-        <li>
-          Artikkeli:
-          <a
-            href="https://www.sciencedirect.com/science/article/pii/S0305440325001475"
-            >Introducing the Glacial Land Adjustment Regenerator (Glare) for
-            Simulating the Final Pleistocene/Holocene Geographical Change in
-            North Europe</a
-          >, Aki Hakonen, Journal of Archaeological Science, 2025.
-        </li>
-        <li>
-          <a
-            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
-            >Glaren materiaalit Google Drivessä</a
-          >.
-        </li>
-        <li>
-          <a href="https://github.com/Hakonaki/land-uplift-recons"
-            >Glaren materiaalit GitHubissa</a
-          >.
-        </li>
+        <li><%= calculationModel.linkGlareArticle %></li>
+        <li><%= calculationModel.linkGlareDrive %></li>
+        <li><%= calculationModel.linkGlareGithub %></li>
       </ul>
 
-      <p>
-        Tämä sivusto käytää Glare-mallista versiota 2.2, joka jullkaistiin
-        20.5.2025. Tällä mallilla lasketaan sekä maannousukartta että
-        mannerjäätikön levinneisyyskartta (10 000 eaa. - 8500 eaa.).
-      </p>
+      <p><%= calculationModel.versionText %></p>
 
-      <h3>Tilasto laskentamallin tuloksista</h3>
+      <h3><%= calculationModel.statisticsTitle %></h3>
       <canvas id="statisticsChart"></canvas>
 
-      <h3>Tekninen toteutus</h3>
-      <p>
-        Laskentamallin tekninen toteutus, jota tällä sivulla käytetään, löytyy
-        avoimena lähdekoodina
-        <a
-          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/map-data-processing/02_post-glacial-rebound-calculation"
-          >GitHub</a
-        >
-        -palvelusta.
-      </p>
+      <h3><%= calculationModel.technical.title %></h3>
+      <p><%= calculationModel.technical.text %></p>
 
-      <h3>Rajaukset</h3>
-      <p>
-        Tämän laskentamalli kartta-aineisto näyttää vain merenrannan
-        siirtymisen. Siinä ei ole laskettu maanpinnan kallistumisesta johtuvaa
-        järvien siirtymisiä tai niiden lasku-uomien muutoksia.
-      </p>
+      <h3><%= calculationModel.limitations.title %></h3>
+      <p><%= calculationModel.limitations.text1 %></p>
 
-      <h4>Maanpinnan muutokset</h4>
-      <p>
-        Pohja-aineistona on MML:n ajantasainen korkeusmalli. Tämän vuoksi kaikki
-        ihmisen tekemät maanpinnan muuutokset vaikuttavat laskentaan: ojitus,
-        kanavat, tiet, rantarakentaminen jne. Laskennallinen merenpinta voi olla
-        näillä muokatun maaston kohdilla pielessä useita metrejä.
-      </p>
-      <p>
-        Myöskään luonnollisia maan- tai merenpinnan muutoksia ei ole huomiotu.
-        Näitä ovat esim. soiden pinnan nousu turpeen kerääntymisen seurauksena,
-        jokien lasku-uomien muutokset, jokien kuljettamien sedimenttien
-        kasaantuminen ja merenpinnan korkeusvaihtelut.
-      </p>
+      <h4><%= calculationModel.limitations.changes.title %></h4>
+      <p><%= calculationModel.limitations.changes.text1 %></p>
+      <p><%= calculationModel.limitations.changes.text2 %></p>
 
-      <h2>Lähdeäaineisto ja lisenssit</h2>
-
-      <p>
-        Laskentamallin lähdeaineistona on käytetty seuraavia avoimia aineistoja:
-      </p>
+      <h2><%= sourceDataAndLicence.title %></h2>
+      <p><%= sourceDataAndLicence.intro %></p>
 
       <ul>
-        <li>
-          <a
-            href="https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO"
-            >Glaren materiaalit Google Drivessä</a
-          >. Aineisto on julkaistu
-          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
-            >CC BY 4.0</a
-          >
-          lisenssillä.
-        </li>
-        <li>
-          Maanmittauslaitoksen (MML) julkaisema
-          <a
-            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m"
-            >korkeusmalli 2 m</a
-          >, joka kuvaa 2m x 2m ruudukolla koko Suomen maankorkeuden
-          merenpinnasta vuonna 2023. Aineisto on julkaistu
-          <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
-            >CC BY 4.0</a
-          >
-          lisenssillä.
-        </li>
+        <li><%= sourceDataAndLicence.linkGlareDrive %></li>
+        <li><%= sourceDataAndLicence.linkMML %></li>
       </ul>
 
-      <p>
-        Tämän myötä myös laskennan lopputuloksen lisenssi on siis
-        <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
-          >CC BY 4.0</a
-        >, koska se on myösa kaiken lähtödatan lisenssi. Nämä lähteet on
-        mainittava, jos tämän sivuston kartta-aineistoa jakelee eteenpäin.
-      </p>
-
-      <p>
-        <a href="map.html">Kartasivulla</a> käytetään lisäksi Suomen
-        pohjakarttana seuraavia Maanmittauslaitoksen (MML) julkaisemia karttoja:
-      </p>
+      <p><%= sourceDataAndLicence.finalLicence %></p>
+      <p><%= sourceDataAndLicence.mapMMLIntro %></p>
 
       <ul>
-        <li>
-          <a
-            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/taustakarttasarja-rasteri"
-            >Taustakartta</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/maastokarttasarja-rasteri"
-            >Maastokartta</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/ortokuva"
-            >Ortokuva</a
-          >
-        </li>
+        <li><%= sourceDataAndLicence.mmlBackgroundMap %></li>
+        <li><%= sourceDataAndLicence.mmlTopographicMap %></li>
+        <li><%= sourceDataAndLicence.mmlOrthophoto %></li>
       </ul>
 
-      <p>
-        MLL:n aineistot on julkaistu
-        <a href="https://creativecommons.org/licenses/by/4.0/deed.fi"
-          >CC BY 4.0</a
-        >
-        lisenssillä. Aineistoja käytetään suoraan MML:n
-        <a
-          href="https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/karttojen-rajapintapalvelut/karttakuvapalvelu-wms-0"
-          >avoimen karttarajapinnan</a
-        >
-        kautta (avoin-karttakuva.maanmittauslaitos.fi).
-      </p>
+      <p><%= sourceDataAndLicence.mmlMapLicence %></p>
 
-      <h2>Yhteystiedot</h2>
+      <h2><%= contact.title %></h2>
+      <p><%= contact.text %></p>
 
-      <p>
-        Antti Kekki<br />
-        antti.kekki@gmail.com
-      </p>
+      <h2><%= sourceCode.title %></h2>
+      <p><%= sourceCode.text %></p>
 
-      <h2>Tekninen toteutus ja lähdekoodi</h2>
-      <p>
-        Sivuston toteutus on avointa lähdekoodia ja on saatavilla
-        <a href="https://github.com/anttikekki/post-glacial-rebound-map"
-          >GitHubista</a
-        >.
-      </p>
+      <h2><%= api.title %></h2>
+      <p><%= api.text %></p>
 
-      <h2>Rajapinnat ja karttadatan lataus</h2>
+      <h3><%= api.fileFormat.title %></h3>
+      <p><%= api.fileFormat.text1 %></p>
+      <p><%= api.fileFormat.text2 %></p>
 
-      <p>
-        Tämä sivuston laskennallinen maanousun ja jäätikön vlevinnäisyyden
-        kartta-data on vapaasti kaikkien käytettävissä. Aineiston voi ladata
-        kokonaisuudessaa tai sitä voi käyttää sivuston rajapinnan kautta
-        suoraan.
-      </p>
+      <h3><%= api.geoTiffContent.title %></h3>
 
-      <h3>Tiedostoformaatti</h3>
-
-      <p>
-        Kartta-datan jakelumuoto on
-        <a href="https://cogeo.org/">Cloud Optimized GeoTIFF (COG)</a>. Tämä
-        formaatti valittiin, koska sen avulla aineistoa voi jaella ilman WMS/WFS
-        jne. palvelinta suoraan "palvelimen levyltä" eli pilvipalvelun
-        bucketista. Tämä tekee sivuston ylläpidosta huomattavasti halvempaa.
-      </p>
-
-      <p>
-        Cloud Optimized GeoTIFF -tiedostomuodossa TIFF-tiedoston sisään on
-        upotettu tiilit eri kartan zoomaustasoille. Tällöin datan käyttäjä voi
-        kysyä HTTP-kutsun
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests"
-          >Range-otsakkeen</a
-        >
-        avulla vain rajatun määrän koko datasta. Tämä mahdollistaa datan käytön
-        suoraan selaimessa ilman koko aineiston lataamista.
-      </p>
-
-      <h3>GeoTIFF:n sisältö</h3>
-
-      <h4>Maannousukartta</h4>
-      <p>
-        Aineisto ei ole käyttövalmis visuaalinen rasteri, vaan GeoTIFF
-        tiedostomuotoa käytetään välittämään tietoa 2m x 2m pikseleinä, että
-        onko pikseli merta vai maata tiedoston tarkasteluvuotena:
-      </p>
+      <h4><%= api.geoTiffContent.landUplift.title %></h4>
+      <p><%= api.geoTiffContent.landUplift.text1 %></p>
 
       <ul>
-        <li>Arvo <code>0</code>: maata</li>
-        <li>Arvo <code>1</code>: merta</li>
-        <li>Arvo <code>2</code>: mannerjäätä</li>
-        <li>
-          Arvo <code>255</code>: ei tietoa (Suomen ulkopuoliset maa-alueet)
-        </li>
+        <li><%= api.geoTiffContent.landUplift.valueLand %></li>
+        <li><%= api.geoTiffContent.landUplift.valueSea %></li>
+        <li><%= api.geoTiffContent.landUplift.valueIce %></li>
+        <li><%= api.geoTiffContent.landUplift.valueUnknown %></li>
       </ul>
 
-      <p>
-        Tieto on GeoTIFF-tiedoston data band 1 -tiedoissa. Tiedostoa ei siis voi
-        renderöidä suoraan visuaalisesti, vaan käyttäjän pitää määrittää
-        renderöintisäännöt käyttämäänsä työkaluun, joka renderöi nämä eri
-        data-arvot halutuilla väreillä. Tämä toteutustapa valittiin, koska
-        järkevä "meren väri" vaihtuu käytetyn pohjakartan värityksen mukana.
-      </p>
+      <p><%= api.geoTiffContent.landUplift.text2 %></p>
 
-      <h4>Mannerjäätikön levinnäisyyskartta</h4>
-
-      <p>
-        Vastaavasti myös mannerjäätikön levinnäisyyskartta ei ole visuaalinen
-        rasteri, vaan GeoTIFF data band 1 sisältää seuraavat arvot:
-      </p>
+      <h4><%= api.geoTiffContent.glacier.title %></h4>
+      <p><%= api.geoTiffContent.glacier.text1 %></p>
 
       <ul>
-        <li>Arvo <code>0</code>: jää sulanut</li>
-        <li>Arvo <code>1</code>: jäätä</li>
-        <li>Arvo <code>255</code>: ei tietoa</li>
+        <li><%= api.geoTiffContent.glacier.valueIceMelted %></li>
+        <li><%= api.geoTiffContent.glacier.valueIce %></li>
+        <li><%= api.geoTiffContent.glacier.valueUnknown %></li>
       </ul>
 
-      <h3>Projektio</h3>
+      <h3><%= api.projection.title %></h3>
+      <p><%= api.projection.text %></p>
 
-      <p>
-        Datan projektio on Suomessa yleisesti käytetty
-        <a href="https://epsg.io/3067-1149">EPSG:3067</a> (ETRS-TM35FIN). Tämä
-        mahdollistaa aineiston käytön esim. Maanmittauslaitoksen pohjakarttojen
-        kannsa ilman projektion muunoksia.
-      </p>
+      <h3><%= api.api.title %></h3>
+      <p><%= api.api.textOpenAPI %></p>
+      <p><%= api.api.textYear %></p>
 
-      <p>
-        Nämä kaikki lähteet on mainittava, jos tämän sivuston kartta-aineistoa
-        jakelee eteenpäin.
-      </p>
-
-      <h3>Rajapinnat</h3>
-
-      <p>
-        OpenAPI dokumentaatio löytyy Html-muodossa osoitteesta
-        <a href="api">maannousu.info/api</a> ja JSON-muodossa osoitteesta
-        <a href="api/spec.json">maannousu.info/api/spec.json</a>
-      </p>
-
-      <p>
-        Rajapinnat/GeoTIFF-tiedostot on nimetty vuosiluvun mukaan, jonka
-        maankohoamisen tilannetta ne mallintavat. Negatiiviset luvut ovat ennen
-        ajanlaskun alkua (esim. -4000 on 4000 eaa.).
-      </p>
-
-      <p>
-        Tuettujen vuosien määrä voi muuttua ajan myötä. Ajantasaisen listan voi
-        hakea dynaamisesti JSON-muodossa seuraavista osoitteista:
-      </p>
+      <p><%= api.api.textYearApi %></p>
 
       <ul>
-        <li>
-          Maannousu:
-          <a href="https://maannousu.info/api/v2"
-            >https://maannousu.info/api/v2</a
-          >
-        </li>
-        <li>
-          Mannerjäätikkö:
-          <a href="https://maannousu.info/api/v2/ice"
-            >https://maannousu.info/api/v2/ice</a
-          >
-        </li>
+        <li><%= api.api.linkLandUpliftApi %></li>
+        <li><%= api.api.linkGlacierApi %></li>
       </ul>
 
-      <p>
-        Rajapinnat ja tiedostot ovat tässä tapauksessa yksi ja sama asia.
-        GeoTIFF aineiston voi ladata kokonaisuudessaan klikkaamalla linkkiä
-        selaimessa tai siitä voi hakea osia HTTP-kutsun
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests"
-          >Range-otsakkeen</a
-        >
-        avulla samasta osoitteesta.
-      </p>
-
-      <p>
-        Maannousun karttojen tiedostojen koot ovat noin 300 - 600 megatavua
-        kappale. Jään levinnäisyyskartat ovat todella pieniä (alle 1 megatavu).
-      </p>
+      <p><%= api.api.textRangeAndDownload %></p>
+      <p><%= api.api.textFilesize %></p>
 
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Vuosi</th>
-            <th scope="col">Maannousukartan osoite</th>
-            <th scope="col">Mannerjään levinnäisyyskartan osoite</th>
+            <th scope="col"><%= api.api.tableColYear %></th>
+            <th scope="col"><%= api.api.tableColLandUpliftApi %></th>
+            <th scope="col"><%= api.api.tableColGlacierApi %></th>
           </tr>
         </thead>
         <tbody id="apiTableYearsTBody"></tbody>
       </table>
 
-      <h3>Cross-Origin Resource Sharing (CORS)</h3>
-
-      <p>
-        Sivusto palautaa rajapintojen osoitteille
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS"
-          >Cross-Origin Resource Sharing (CORS)</a
-        >
-        otsakkeet, joiden avulla rajapintoja voi käyttää suoraan toiselta
-        verkkosivulta:
-      </p>
+      <h3><%= api.cors.title %></h3>
+      <p><%= api.cors.text %></p>
 
       <p>
         <code>
@@ -481,27 +246,13 @@
         </code>
       </p>
 
-      <h3>Cache</h3>
+      <h3><%= api.cache.title %></h3>
+      <p><%= api.cache.text %></p>
 
-      <p>
-        Rajapinta palauttaa
-        <code>"Cache-Control": "public, max-age=86400"</code> otsakkeen
-        jokaisella kutsulla, joka sallii cachen selaimessa vuorokaudeksi.
-        Selaimista kuitenkin vain Safari cachettaa tällä hetkellä HTTP
-        Range-kutsuja. Chromella ja siis myös Edgellä selain lataa aina kaiken
-        datan uudestaan.
-      </p>
+      <h3><%= api.integrationExample.title %></h3>
 
-      <h3>Integraatio-esimerkit</h3>
-
-      <h4>OpenLayers</h4>
-
-      <p>
-        <a href="https://openlayers.org/">OpenLayers</a> on avoimen lähdekoodin
-        JavaScript-kirjasto, joka osaa renderöidä GeoTIFF-tiedostoja selaimessa.
-        Kirjasto osaa hakea tehokkaasti zoomaustason mukaisia tiilejä
-        aineistosta HTTP Range-kutsuilla.
-      </p>
+      <h4><%= api.integrationExample.openLayers.title %></h4>
+      <p><%= api.integrationExample.openLayers.intro %></p>
 
       <pre class="bg-light p-3 rounded"><code>
         import WebGLTileLayer from "ol/layer/WebGLTile";
@@ -541,28 +292,11 @@
         });
       </code></pre>
 
-      <p>
-        Laajempi esimerkki kokonaisesta OpenLayers-sivustosta löytyy tämän
-        sivuston lähdekoodista
-        <a
-          href="https://github.com/anttikekki/post-glacial-rebound-map/tree/main/ui"
-          >GitHubista</a
-        >:
-      </p>
+      <p><%= api.integrationExample.openLayers.textLinkToSource %></p>
 
       <ul>
-        <li>
-          <a
-            href="https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map.ts"
-            >ui/src/map.ts</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map/layer/PostGlacialReboundTileLayer.ts"
-            >ui/src/map/layer/PostGlacialReboundTileLayer.ts</a
-          >
-        </li>
+        <li><%= api.integrationExample.openLayers.linkSourceMap %></li>
+        <li><%= api.integrationExample.openLayers.linkSourceLayer %></li>
       </ul>
     </div>
   </body>

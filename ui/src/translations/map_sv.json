@@ -1,0 +1,21 @@
+{
+  "backgroundMapButton": {
+    "title": "Välj Lantmäteriverkets bakgrundskarta",
+    "mmlBackgroundMap": "Bakgrundskarta",
+    "mmlTopographicMap": "Terrängkarta",
+    "mmlOrthophoto": "Ortofoto"
+  },
+  "infoButton": {
+    "title": "Mer information om webbplatsen",
+    "mainPageLink": "index_sv.html"
+  },
+  "userLocationButtonTitle": "Centrera kartan till aktuell position",
+  "webGlErrorMessage": "Din webbläsare stöder inte WebGL-tekniken som krävs för att visa kartorna på denna webbplats. Tyvärr fungerar webbplatsen inte på din enhet.",
+  "yearControls": {
+    "prevYear": "Föregående år",
+    "nextYear": "Nästa år",
+    "selectTitle": "Välj år"
+  },
+  "zoomIn": "Zooma in",
+  "zoomOut": "Zooma ut"
+}

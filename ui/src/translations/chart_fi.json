@@ -1,0 +1,8 @@
+{
+  "title": "Glare-malli: Maankohoamisen kaupungeittain siitä päivästä lähtien, kun paikka tuli esiin jään alta",
+  "subtitle": "Kuvaajaa voi zoomata hiiren rullalla tai kosketusnäytön nipistyksellä.",
+  "tooltip": "Maankohoaminen verrattuna hetkeen, jolloin paikka tuli esiin jään alta:",
+  "meters": "metriä",
+  "xAxis": "Vuosi",
+  "yAxis": "Maankohoaminen verrattuna hetkeen, jolloin paikka tuli esiin jään alta (m)"
+}

@@ -1,0 +1,21 @@
+{
+  "backgroundMapButton": {
+    "title": "Valitse Maanmittauslaitoksen taustakartta",
+    "mmlBackgroundMap": "Taustakartta",
+    "mmlTopographicMap": "Maastokartta",
+    "mmlOrthophoto": "Ortokuva"
+  },
+  "infoButton": {
+    "title": "Lisätietoa sivustosta",
+    "mainPageLink": "/"
+  },
+  "userLocationButtonTitle": "Keskitä kartta nykyiseen sijaintiin",
+  "webGlErrorMessage": "Selaimesi ei tue WebGL-teknologiaa, jota tarvitaan tämän sivuston karttojen näyttämisessä. Sivusto ei valitettavasti toimi laitteellasi.",
+  "yearControls": {
+    "prevYear": "Edellinen vuosi",
+    "nextYear": "Seuraava vuosi",
+    "selectTitle": "Valitse vuosi"
+  },
+  "zoomIn": "Lähennä",
+  "zoomOut": "Loitonna"
+}

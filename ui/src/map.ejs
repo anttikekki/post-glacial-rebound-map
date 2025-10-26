@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="<%= lang %>">
   <head>
     <meta charset="utf-8" />
-    <title>Maannousu.info kartta</title>
+    <title><%= meta.titleMap %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <meta
-      name="description"
-      content="Tutki kartalla jääkauden jälkeistä maannousua Suomeassa."
-    />
+    <meta name="description" content="<%= meta.description %>" />
     <meta property="og:title" content="Maannousu.info" />
     <meta property="og:url" content="http://maannousu.info/" />
     <meta property="og:type" content="website" />
@@ -16,10 +12,7 @@
       property="og:image"
       content="https://maannousu.info/images/favicons/favicon-original.png"
     />
-    <meta
-      property="og:description"
-      content="Tutki kartalla jääkauden jälkeistä maannousua Suomeassa."
-    />
+    <meta property="og:description" content="<%= meta.description %>" />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -41,7 +34,7 @@
     <link rel="shortcut icon" href="images/favicons/favicon.ico" />
     <link rel="manifest" href="images/favicons/site.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
-    <meta name="application-name" content="Maannousu.info" />
+    <meta name="application-name" content="<%= meta.applicationName %>" />
     <style>
       html,
       body,

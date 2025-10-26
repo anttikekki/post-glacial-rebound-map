@@ -1,3 +1,141 @@
 {
-  "title": "Maannousu.info"
+  "mapLink": "map_sv.html",
+  "meta": {
+    "title": "Maannousu.info",
+    "titleMap": "Maannousu.info kartan",
+    "description": "Utforska landhöjningen i Finland efter istiden på kartan.",
+    "applicationName": "Maannousu.info"
+  },
+  "navbar": {
+    "brand": "Maannousu.info"
+  },
+  "hero": {
+    "heading": "Maannousu.info",
+    "lead": "Webbplatsen Maannousu.info är avsedd för att visualisera hur havsstranden har förändrats i Finland på grund av landhöjningen efter istiden samt för att visa inlandsisens utbredning. Genom kartan kan du se havsnivån under olika årtusenden i historien. Kartmaterialet är fritt att använda.",
+    "buttonMap": "Gå till kartan",
+    "text": "Samma landhöjningskartor finns också på <a href='https://muinaismuistot.info/' target='_blank'>muinaismuistot.info</a>, där fasta fornlämningar från Museiverkets och Ålands lokalförvaltnings register kan visas på samma karta.",
+    "buttonMuinaismuistot": "Gå till muinaismuistot.info"
+  },
+  "alert": {
+    "title": "Varning!",
+    "body": "Denna webbplats och dess kartmaterial är ett hobbyprojekt. Uppgifterna om havsnivåer vid olika tidpunkter i historien kan innehålla fel och materialet bör därför inte användas i sammanhang där vetenskaplig noggrannhet krävs."
+  },
+  "whatIs": {
+    "title": "Landhöjning?",
+    "text": "Landhöjning innebär att jordskorpan långsamt stiger i norra Europa och Kanada, som en följd av att marken återhämtar sig från trycket av inlandsisen under den senaste istiden. Som ett resultat drar sig strandlinjen i Finland tillbaka med cirka 9–3 mm per år. Höjningen är snabbast i Vasaregionen och långsammast i södra Finland.",
+    "linkMaanmittauslaitos": "<a href='https://www.maanmittauslaitos.fi/sv/forskning/teman/maannousu' target='_blank'>Lantmäteriverket: Landhöjning</a>",
+    "linkWikipedia": "<a href='https://sv.wikipedia.org/wiki/Landh%C3%B6jning' target='_blank'>Wikipedia: Landhöjning</a>"
+  },
+  "purpose": {
+    "title": "Syftet med webbplatsen",
+    "text1": "Syftet med webbplatsen är att tillhandahålla en lättanvänd visualisering av förändringar i Östersjöns havsnivå genom historien och av inlandsisens utbredning under istiden. Sådant omfattande material för hela Finlands kust och över flera årtusenden har inte tidigare varit lättillgängligt.",
+    "text2": "Webbplatsen innehåller en interaktiv karta som gör det möjligt att undersöka materialet. Havsnivån kan ses med intervaller på 250–100 år mellan 10 000 f.Kr. och 1900 e.Kr. Kartan fungerar även bra i mobilens webbläsare, så att man kan följa landhöjningen även ute i terrängen. Kartan kan också visa användarens aktuella position (när platsdelning aktiveras från vänstra panelen och tillstånd ges).",
+    "text3": "Ett annat syfte med webbplatsen är att fritt dela detta beräknade kartmaterial för andra att använda. Materialet kan användas direkt gratis via ett API eller laddas ner i sin helhet.",
+    "text4": "De tekniska kommandon som används i beräkningarna har automatiserats som skript och publicerats som öppen källkod. Allt källmaterial som används är gratis och fritt tillgängligt på nätet, så att vem som helst kan köra och ändra beräkningarna på sin egen dator."
+  },
+  "calculationModel": {
+    "title": "Beräkningsmodell för landhöjning",
+    "intro": "<b>Glacial Land Adjustment Regenerator (Glare)</b> är en vetenskaplig modell för att beräkna historisk landhöjning, publicerad av arkeologen <a href='https://oulu.academia.edu/AkiHakonen' target='_blank'>Aki Hakonen</a>:",
+    "linkGlareArticle": "Artikel: <a href='https://www.sciencedirect.com/science/article/pii/S0305440325001475' target='_blank'>Introducing the Glacial Land Adjustment Regenerator (Glare) for Simulating the Final Pleistocene/Holocene Geographical Change in North Europe</a>, Aki Hakonen, Journal of Archaeological Science, 2025.",
+    "linkGlareDrive": "<a href='https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO' target='_blank'>Glare-material på Google Drive</a>.",
+    "linkGlareGithub": "<a href='https://github.com/Hakonaki/land-uplift-recons' target='_blank'>Glare-material på GitHub</a>.",
+    "versionText": "Denna webbplats använder version 2.2 av Glare-modellen, som publicerades den 20 maj 2025. Modellen används för att beräkna både landhöjningskartan och inlandsisens utbredningskarta (10 000 f.Kr. – 8500 f.Kr.).",
+    "statisticsTitle": "Statistik över beräkningsmodellens resultat",
+    "technical": {
+      "title": "Teknisk genomföring",
+      "text1": "Den tekniska genomföringen av beräkningsmodellen som används på denna sida finns som öppen källkod på <a href='https://github.com/anttikekki/post-glacial-rebound-map/tree/main/map-data-processing/02_post-glacial-rebound-calculation' target='_blank'>GitHub</a>."
+    },
+    "limitations": {
+      "title": "Begränsningar",
+      "text1": "Denna beräkningsmodell och kartdata visar endast hur strandlinjen har förändrats. Den inkluderar inte beräkningar av sjöars förflyttningar eller förändringar i avvattningskanaler som orsakas av markens lutning.",
+      "changes": {
+        "title": "Förändringar i markytan",
+        "text1": "Grundmaterialet är Lantmäteriverkets aktuella höjdmodell. Därför påverkar alla mänskliga förändringar i terrängen beräkningarna: dikning, kanaler, vägar, strandbyggnation osv. Den beräknade havsnivån kan på sådana platser med modifierad terräng avvika med flera meter.",
+        "text2": "Naturliga förändringar i mark- eller havsytan har inte heller beaktats. Dessa inkluderar till exempel torvbildning som höjer myrars yta, förändringar i flodernas lopp, sedimentansamling från floder och variationer i havsnivån."
+      }
+    }
+  },
+  "sourceDataAndLicence": {
+    "title": "Källdata och licenser",
+    "intro": "Följande öppna datamaterial har använts som källdata för beräkningsmodellen:",
+    "linkGlareDrive": "<a href='https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO' target='_blank'>Glare-material på Google Drive</a>. Materialet är publicerat under licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>CC BY 4.0</a>.",
+    "linkMML": "<a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/tuotekuvaukset/korkeusmalli-2-m' target='_blank'>Höjdmodell 2 m</a> publicerad av Lantmäteriverket (MML), som visar Finlands höjd över havet i ett rutnät på 2 m x 2 m år 2023. Materialet är publicerat under licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>CC BY 4.0</a>.",
+    "finalLicence": "Därmed är även slutresultatet av beräkningarna licensierat under <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>CC BY 4.0</a>, eftersom detta också gäller allt källdata. Dessa källor måste anges när kartmaterialet från denna webbplats sprids vidare.",
+    "mapMMLIntro": "På <a href='map_sv.html'>kartsidan</a> används dessutom följande kartor från Lantmäteriverket (MML) som bakgrundskartor:",
+    "mmlBackgroundMap": "<a href='https://www.maanmittauslaitos.fi/sv/kartor-och-geodata/datamaterial-och-granssnitt/produktbeskrivningar/bakgrundskartserie-raster' target='_blank'>Bakgrundskarta</a>",
+    "mmlTopographicMap": "<a href='https://www.maanmittauslaitos.fi/sv/kartor-och-geodata/datamaterial-och-granssnitt/produktbeskrivningar/terrangkartserie-raster' target='_blank'>Terrängkarta</a>",
+    "mmlOrthophoto": "<a href='https://www.maanmittauslaitos.fi/sv/kartor-och-geodata/datamaterial-och-granssnitt/produktbeskrivningar/ortofoton' target='_blank'>Ortofoto</a>",
+    "mmlMapLicence": "MML:s datamaterial är publicerade under licensen <a href='https://creativecommons.org/licenses/by/4.0/deed.sv' target='_blank'>CC BY 4.0</a>. Data används direkt i realtid via MML:s gränssnitt <a href='https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/aineistot-ja-rajapinnat/karttojen-rajapintapalvelut/karttakuvapalvelu-wms-0' target='_blank'>avoin-karttakuva.maanmittauslaitos.fi</a>."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "text": "Antti Kekki<br />antti.kekki@gmail.com"
+  },
+  "sourceCode": {
+    "title": "Källkod",
+    "text": "Webbplatsens implementation är öppen källkod och finns tillgänglig på <a href='https://github.com/anttikekki/post-glacial-rebound-map' target='_blank'>GitHub</a>."
+  },
+  "api": {
+    "title": "Gränssnitt och nedladdning av kartdata",
+    "text": "Det beräknade kartmaterialet över landhöjning och inlandsisens utbredning på denna webbplats är fritt tillgängligt för alla. Materialet kan laddas ner i sin helhet eller användas direkt via webbplatsens API.",
+    "fileFormat": {
+      "title": "Filformat",
+      "text1": "Kartdatan distribueras i formatet <a href='https://cogeo.org/' target='_blank'>Cloud Optimized GeoTIFF (COG)</a>. Detta format valdes eftersom det gör det möjligt att tillhandahålla data direkt från en molnlagringsbucket utan behov av en WMS/WFS-server. Detta gör underhållet av webbplatsen betydligt billigare.",
+      "text2": "I Cloud Optimized GeoTIFF-formatet är kakel för olika zoomnivåer inbäddade direkt i TIFF-filen. På så sätt kan användaren begära endast en begränsad del av datan via HTTP-<a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests' target='_blank'>Range-huvudet</a>. Detta möjliggör användning av datan direkt i webbläsaren utan att hela materialet behöver laddas ner."
+    },
+    "geoTiffContent": {
+      "title": "Innehållet i GeoTIFF-filen",
+      "landUplift": {
+        "title": "Landhöjningskarta",
+        "text1": "Materialet är inte ett färdigt visuellt raster. GeoTIFF-formatet används istället för att överföra information i 2 m x 2 m pixlar som anger om varje pixel representerar land, hav eller is vid den aktuella tidpunkten:",
+        "valueLand": "Värde <code>0</code>: land",
+        "valueSea": "Värde <code>1</code>: hav",
+        "valueIce": "Värde <code>2</code>: inlandsis",
+        "valueUnknown": "Värde <code>255</code>: ingen data (områden utanför Finland)",
+        "text2": "Informationen finns i band 1 i GeoTIFF-filen. Filen kan därför inte visas direkt som ett raster; användaren måste definiera renderingsregler i det verktyg som används för att visa dessa datavärden i önskade färger. Detta tillvägagångssätt valdes eftersom lämplig havsfärg varierar beroende på vilken bakgrundskarta som används."
+      },
+      "glacier": {
+        "title": "Karta över inlandsisens utbredning",
+        "text1": "På samma sätt är även kartan över inlandsisens utbredning inte ett visuellt raster. Band 1 i GeoTIFF-filen innehåller följande värden:",
+        "valueIceMelted": "Värde <code>0</code>: is smält",
+        "valueIce": "Värde <code>1</code>: is",
+        "valueUnknown": "Värde <code>255</code>: ingen data"
+      }
+    },
+    "projection": {
+      "title": "Projektion",
+      "text": "Datan använder det vanligt förekommande finska koordinatsystemet <a href='https://epsg.io/3067-1149' target='_blank'>EPSG:3067</a> (ETRS-TM35FIN). Detta möjliggör användning tillsammans med Lantmäteriverkets bakgrundskartor utan behov av projektionstransformeringar."
+    },
+    "api": {
+      "title": "API:er",
+      "textOpenAPI": "OpenAPI-dokumentationen finns tillgänglig i HTML-format på <a href='api' target='_blank'>maannousu.info/api</a> och i JSON-format på <a href='api/spec.json' target='_blank'>maannousu.info/api/spec.json</a>.",
+      "textYear": "API-slutpunkterna och GeoTIFF-filerna är namngivna efter det år som de representerar i landhöjningsmodellen. Negativa tal anger år före vår tideräkning (t.ex. -4000 betyder 4000 f.Kr.).",
+      "textYearApi": "Antalet stödda år kan ändras över tid. Den aktuella listan kan hämtas dynamiskt i JSON-format från följande adresser:",
+      "linkLandUpliftApi": "Landhöjning: <a href='https://maannousu.info/api/v2' target='_blank'>https://maannousu.info/api/v2</a>",
+      "linkGlacierApi": "Inlandsis: <a href='https://maannousu.info/api/v2/ice' target='_blank'>https://maannousu.info/api/v2/ice</a>",
+      "textRangeAndDownload": "I detta fall är API-slutpunkterna och filerna samma sak. GeoTIFF-datan kan laddas ner i sin helhet genom att öppna länken i webbläsaren, eller delvis via HTTP-<a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests' target='_blank'>Range-huvuden</a> från samma adress.",
+      "textFilesize": "Landhöjningskartorna är ungefär 300–600 MB styck. Kartorna över inlandsisens utbredning är mycket små (under 1 MB).",
+      "tableColYear": "År",
+      "tableColLandUpliftApi": "URL till landhöjningskarta",
+      "tableColGlacierApi": "URL till inlandsisens utbredningskarta"
+    },
+    "cors": {
+      "title": "Cross-Origin Resource Sharing (CORS)",
+      "text": "API:erna returnerar <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS' target='_blank'>Cross-Origin Resource Sharing (CORS)</a>-huvuden, vilket gör det möjligt att använda gränssnitten direkt från en annan webbplats i webbläsaren:"
+    },
+    "cache": {
+      "title": "Cache",
+      "text": "API-svaren innehåller huvudet <code>\"Cache-Control\": \"public, max-age=86400\"</code> för varje anrop, vilket tillåter att webbläsare cachelagrar data i ett dygn. För närvarande cachelagrar dock endast Safari HTTP Range-anrop. Chrome och därmed även Edge laddar alltid ner all data på nytt."
+    },
+    "integrationExample": {
+      "title": "Integrations­exempel",
+      "openLayers": {
+        "title": "OpenLayers",
+        "intro": "<a href='https://openlayers.org/' target='_blank'>OpenLayers</a> är ett JavaScript-bibliotek med öppen källkod som kan rendera GeoTIFF-filer direkt i webbläsaren. Biblioteket hämtar effektivt kakel för olika zoomnivåer från materialet med HTTP Range-anrop.",
+        "textLinkToSource": "Ett mer omfattande exempel på en komplett OpenLayers-baserad webbplats finns i projektets källkod på <a href='https://github.com/anttikekki/post-glacial-rebound-map/tree/main/ui' target='_blank'>GitHub</a>:",
+        "linkSourceMap": "<a href='https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map.ts' target='_blank'>ui/src/map.ts</a>",
+        "linkSourceLayer": "<a href='https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map/layer/PostGlacialReboundTileLayer.ts' target='_blank'>ui/src/map/layer/PostGlacialReboundTileLayer.ts</a>"
+      }
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import Control from "ol/control/Control";
+import { mapTrans } from "../translations";
 
 export default class UserLocationButton extends Control {
   public constructor(centerToCurrentLocation: () => void) {
@@ -6,7 +7,7 @@ export default class UserLocationButton extends Control {
     icon.className = "bi bi-crosshair";
 
     const button = document.createElement("button");
-    button.title = "Keskitä kartta nykyiseen sijaintiin";
+    button.title = mapTrans.userLocationButtonTitle;
     button.className = "user-location-button btn btn-info btn-sm";
     button.appendChild(icon);
 

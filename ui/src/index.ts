@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import {
   CategoryScale,
   Chart,
@@ -27,6 +28,25 @@ import rovaniemi from "../../map-data-processing/07_statistics/calculation_resul
 import tornio from "../../map-data-processing/07_statistics/calculation_results/json/Tornio.json";
 import turku from "../../map-data-processing/07_statistics/calculation_results/json/Turku.json";
 import vaasa from "../../map-data-processing/07_statistics/calculation_results/json/Vaasa.json";
+
+import chartEn from "./translations/chart_en.json";
+import chartFi from "./translations/chart_fi.json";
+import chartSv from "./translations/chart_sv.json";
+import eraEn from "./translations/era_en.json";
+import eraFi from "./translations/era_fi.json";
+import eraSv from "./translations/era_sv.json";
+
+const [chartTrans, eraTrans] = (() => {
+  switch (document.documentElement.lang) {
+    case "sv":
+      return [chartSv, eraSv];
+    case "en":
+      return [chartEn, eraEn];
+    case "fi":
+    default:
+      return [chartFi, eraFi];
+  }
+})();
 
 Chart.register(
   LineController,
@@ -73,7 +93,9 @@ const datasets = [
 }));
 
 const formatYear = (year: number) =>
-  year < 0 ? `${Math.abs(year).toFixed(0)} eaa.` : `${year.toFixed(0)} jaa.`;
+  year < 0
+    ? `${Math.abs(year).toFixed(0)} ${eraTrans.bce}`
+    : `${year.toFixed(0)} ${eraTrans.ce}`;
 
 const canvas = document.getElementById("statisticsChart") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
@@ -87,7 +109,7 @@ new Chart(ctx, {
     plugins: {
       title: {
         display: true,
-        text: "Glare-malli: Maankohoamisen kaupungeittain siitä päivästä lähtien, kun paikka tuli esiin jään alta",
+        text: chartTrans.title,
         font: {
           size: 18,
           weight: "bold",
@@ -95,7 +117,7 @@ new Chart(ctx, {
       },
       subtitle: {
         display: true,
-        text: "Kuvaajaa voi zoomata hiiren rullalla tai kosketusnäytön nipistyksellä.",
+        text: chartTrans.subtitle,
       },
       legend: {
         display: true,
@@ -120,8 +142,8 @@ new Chart(ctx, {
 
             return [
               formatYear(year),
-              `Maankohoaminen verrattuna hetkeen, jolloin paikka tuli esiin jään alta:`,
-              `+${elevation.toFixed(1)} metriä`,
+              chartTrans.tooltip,
+              `+${elevation.toFixed(1)} ${chartTrans.meters}`,
             ];
           },
         },
@@ -151,7 +173,7 @@ new Chart(ctx, {
         type: "linear",
         title: {
           display: true,
-          text: "Vuosi",
+          text: chartTrans.xAxis,
           font: {
             weight: "bold",
           },
@@ -166,7 +188,7 @@ new Chart(ctx, {
       y: {
         title: {
           display: true,
-          text: "Maankohoaminen verrattuna hetkeen, jolloin paikka tuli esiin jään alta (m)",
+          text: chartTrans.yAxis,
           font: {
             weight: "bold",
           },
@@ -200,9 +222,9 @@ for (const year of years) {
   const th = document.createElement("th");
   th.innerHTML = (() => {
     if (year >= 0) {
-      return `${year} jaa.`;
+      return `${year} ${eraTrans.ce}`;
     } else {
-      return `${-year} eaa.`;
+      return `${-year} ${eraTrans.bce}`;
     }
   })();
   tr.append(th);

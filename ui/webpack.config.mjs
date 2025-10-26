@@ -28,7 +28,8 @@ function generateEntryHtmlPlugins() {
           chunks: [page],
           templateParameters: {
             lang,
-            translations,
+            langUppercase: lang.toUpperCase(),
+            ...translations,
           },
           templateOptions: { root: path.resolve(__dirname, "src") },
         })

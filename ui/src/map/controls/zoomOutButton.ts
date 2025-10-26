@@ -1,4 +1,5 @@
 import Control from "ol/control/Control";
+import { mapTrans } from "../translations";
 
 export default class ZoomOutButton extends Control {
   public constructor(zoomOut: () => void) {
@@ -6,7 +7,7 @@ export default class ZoomOutButton extends Control {
     icon.className = "bi bi-zoom-out";
 
     const button = document.createElement("button");
-    button.title = "Loitonna";
+    button.title = mapTrans.zoomOut;
     button.className = "zoom-out-button btn btn-info btn-sm";
     button.appendChild(icon);
 

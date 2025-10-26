@@ -1,4 +1,5 @@
 import Control from "ol/control/Control";
+import { eraTrans, mapTrans } from "../translations";
 import { Settings } from "../util/settings";
 
 export default class YearMapControls extends Control {
@@ -13,8 +14,8 @@ export default class YearMapControls extends Control {
       ...settings.getSupportedSeaYears(),
       new Date().getFullYear(),
     ];
-    const buttonPrev = createButton("<", "Edellinen vuosi");
-    const buttonNext = createButton(">", "Seuraava vuosi");
+    const buttonPrev = createButton("<", mapTrans.yearControls.prevYear);
+    const buttonNext = createButton(">", mapTrans.yearControls.nextYear);
     const yearSelect = createYearSelectElement(years);
     yearSelect.value = settings.getYear().toString();
 
@@ -96,7 +97,7 @@ const createButton = (label: string, title: string): HTMLButtonElement => {
 
 const createYearSelectElement = (years: number[]): HTMLSelectElement => {
   const select = document.createElement("select");
-  select.title = "Valitse vuosi";
+  select.title = mapTrans.yearControls.selectTitle;
   select.className = "form-select form-select-sm";
   select.append(...getSelectOptions(years));
   return select;
@@ -108,9 +109,9 @@ const getSelectOptions = (years: number[]): HTMLOptionElement[] => {
     option.value = year.toString();
     option.text = (() => {
       if (year >= 0) {
-        return `${year} jaa.`;
+        return `${year} ${eraTrans.ce}`;
       } else {
-        return `${-year} eaa.`;
+        return `${-year} ${eraTrans.bce}`;
       }
     })();
     return option;

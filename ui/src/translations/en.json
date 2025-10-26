@@ -1,3 +1,142 @@
 {
-  "title": "Maannousu.info"
+  "mapLink": "map_en.html",
+  "meta": {
+    "title": "Maannousu.info",
+    "titleMap": "Maannousu.info map",
+    "description": "Explore post-glacial land uplift in Finland on the map.",
+    "applicationName": "Maannousu.info"
+  },
+  "navbar": {
+    "brand": "Maannousu.info"
+  },
+  "hero": {
+    "heading": "Maannousu.info",
+    "lead": "The Maannousu.info site is intended for visualizing shoreline changes caused by post-glacial land uplift in Finland, as well as the extent of the ice sheet during the last Ice Age. Through the map, you can view sea levels during different millennia in history. The map data is freely available for use.",
+    "buttonMap": "Go to map",
+    "text": "The same land uplift maps are also available on <a href='https://muinaismuistot.info/' target='_blank'>muinaismuistot.info</a>, where you can view fixed ancient monuments from the registers of the Finnish Heritage Agency and the Åland local administration on the same map.",
+    "buttonMuinaismuistot": "Go to muinaismuistot.info site"
+  },
+  "alert": {
+    "title": "Warning!",
+    "body": "This website and its map data are an amateur project. The sea level data shown for different years in history may contain errors, and therefore this material should not be used in situations that require scientific accuracy."
+  },
+  "whatIs": {
+    "title": "Land uplift?",
+    "text": "Land uplift refers to the slow rise of the Earth's crust occurring in Northern Europe and Canada, caused by the rebound of the Earth's crust that was depressed under the weight of the last Ice Age glacier. As a result of land uplift, the shoreline retreats on the Finnish coast by approximately 9–3 mm per year. The uplift is fastest in the Vaasa region and slowest in Southern Finland.",
+    "linkMaanmittauslaitos": "<a href='https://www.maanmittauslaitos.fi/en/research/interesting-topics/land-uplift' target='_blank'>National Land Survey of Finland: Land uplift</a>",
+    "linkWikipedia": "<a href='https://en.wikipedia.org/wiki/Post-glacial_rebound' target='_blank'>Wikipedia: Post-glacial rebound</a>"
+  },
+  "purpose": {
+    "title": "Purpose of the site",
+    "text1": "The purpose of this site is to provide an easy-to-use visualization of the historical changes in the Baltic Sea’s sea level and the extent of the Ice Age glacier. Such comprehensive data for the entire Finnish coast across multiple millennia has not previously been easily available.",
+    "text2": "The site includes an interactive map that allows users to explore the data. Sea level can be viewed in 250–100 year intervals from 10,000 BCE to 1900 CE. The map works well on mobile browsers, allowing observation of land uplift even while outdoors. The map can also show the user’s current location (once location tracking is activated and permission granted from the left-side panel).",
+    "text3": "Another purpose of the site is to freely share this computed map data for others to use. The data can be accessed directly via a free API or downloaded in full.",
+    "text4": "The technical commands used in the calculations have been automated as scripts and released as open-source code. All source data used is free and publicly available online, allowing anyone to run or modify the calculations on their own computer."
+  },
+  "calculationModel": {
+    "title": "Land Uplift Calculation Model",
+    "intro": "<b>Glacial Land Adjustment Regenerator (Glare)</b> is a scientific model for calculating historical land uplift, published by archaeologist <a href='https://oulu.academia.edu/AkiHakonen' target='_blank'>Aki Hakonen</a>:",
+    "linkGlareArticle": "Article: <a href='https://www.sciencedirect.com/science/article/pii/S0305440325001475' target='_blank'>Introducing the Glacial Land Adjustment Regenerator (Glare) for Simulating the Final Pleistocene/Holocene Geographical Change in North Europe</a>, Aki Hakonen, Journal of Archaeological Science, 2025.",
+    "linkGlareDrive": "<a href='https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO' target='_blank'>Glare materials on Google Drive</a>.",
+    "linkGlareGithub": "<a href='https://github.com/Hakonaki/land-uplift-recons' target='_blank'>Glare materials on GitHub</a>.",
+    "versionText": "This site uses version 2.2 of the Glare model, released on May 20, 2025. This model is used to calculate both the land uplift map and the glacier extent map (10,000 BCE – 8500 BCE).",
+    "statisticsTitle": "Statistics of the Calculation Model Results",
+    "technical": {
+      "title": "Technical Implementation",
+      "text1": "The technical implementation of the calculation model used on this site is available as open-source code on <a href='https://github.com/anttikekki/post-glacial-rebound-map/tree/main/map-data-processing/02_post-glacial-rebound-calculation' target='_blank'>GitHub</a>."
+    },
+    "limitations": {
+      "title": "Limitations",
+      "text1": "This calculation model and map data show only shoreline movement. It does not include calculations for lake shifts or drainage changes caused by land surface tilting.",
+      "changes": {
+        "title": "Surface Changes",
+        "text1": "The base dataset is the up-to-date elevation model from the National Land Survey of Finland (MML). Therefore, all human-made land modifications affect the calculations: drainage, canals, roads, shoreline construction, etc. The calculated sea level in such modified terrain may be off by several meters.",
+        "text2": "Natural changes in land or sea level have also not been taken into account. These include, for example, peat accumulation raising bog surfaces, river channel changes, sediment deposition by rivers, and sea level fluctuations."
+      }
+    }
+  },
+  "sourceDataAndLicence": {
+    "title": "Source Data and Licences",
+    "intro": "The following open datasets have been used as source data for the calculation model:",
+    "linkGlareDrive": "<a href='https://drive.google.com/drive/folders/184nPIZuX83gr3Yd6tVBGXCkpUysNY-CO' target='_blank'>Glare materials on Google Drive</a>. The dataset is published under the <a href='https://creativecommons.org/licenses/by/4.0/deed.en' target='_blank'>CC BY 4.0</a> licence.",
+    "linkMML": "The <a href='https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/elevation-model-2-m' target='_blank'>2 m elevation model</a> published by the National Land Survey of Finland (MML), representing Finland’s land elevation above sea level in a 2 m x 2 m grid as of 2023. The dataset is published under the <a href='https://creativecommons.org/licenses/by/4.0/deed.en' target='_blank'>CC BY 4.0</a> licence.",
+    "finalLicence": "Accordingly, the licence for the final calculation results is also <a href='https://creativecommons.org/licenses/by/4.0/deed.en' target='_blank'>CC BY 4.0</a>, as this is the licence of all source data. These sources must be cited when redistributing the map data from this site.",
+    "mapMMLIntro": "On the <a href='map_en.html'>map page</a>, the following maps published by the National Land Survey of Finland (MML) are also used as base maps:",
+    "mmlBackgroundMap": "<a href='https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/background-map-series-raster' target='_blank'>Background Map</a>",
+    "mmlTopographicMap": "<a href='https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/topographic-map-series-raster' target='_blank'>Topographic Map</a>",
+    "mmlOrthophoto": "<a href='https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/product-descriptions/orthophotos' target='_blank'>Orthophoto</a>",
+    "mmlMapLicence": "The datasets from MML are published under the <a href='https://creativecommons.org/licenses/by/4.0/deed.en' target='_blank'>CC BY 4.0</a> licence. The data are used directly in real time through MML’s <a href='https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/datasets-and-interfaces/map-interface-services/map-image-service-wms-wmts' target='_blank'>avoin-karttakuva.maanmittauslaitos.fi</a> interface."
+  },
+  "contact": {
+    "title": "Contact",
+    "text": "Antti Kekki<br />antti.kekki@gmail.com"
+  },
+  "sourceCode": {
+    "title": "Source Code",
+    "text": "The site implementation is open-source and available on <a href='https://github.com/anttikekki/post-glacial-rebound-map' target='_blank'>GitHub</a>."
+  },
+  "api": {
+    "title": "APIs and Map Data Download",
+    "text": "The computed map data of land uplift and glacier extent on this site is freely available for everyone. The dataset can be downloaded in full or accessed directly through the site’s API.",
+    "fileFormat": {
+      "title": "File Format",
+      "text1": "The map data is distributed in the <a href='https://cogeo.org/' target='_blank'>Cloud Optimized GeoTIFF (COG)</a> format. This format was chosen because it allows data to be served directly from a cloud storage bucket — without requiring a WMS/WFS or other map server. This makes maintaining the site significantly cheaper.",
+      "text2": "In the Cloud Optimized GeoTIFF format, tiles for different map zoom levels are embedded directly inside the TIFF file. This allows a user to request only a small portion of the data via an HTTP <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests' target='_blank'>Range header</a>. This enables using the data directly in a browser without downloading the entire dataset."
+    },
+    "geoTiffContent": {
+      "title": "Contents of the GeoTIFF",
+      "landUplift": {
+        "title": "Land Uplift Map",
+        "text1": "The dataset is not a ready-to-use visual raster. Instead, the GeoTIFF format is used to encode information in 2 m x 2 m pixels that indicate whether each pixel represents land, sea, or ice at the given time:",
+        "valueLand": "Value <code>0</code>: land",
+        "valueSea": "Value <code>1</code>: sea",
+        "valueIce": "Value <code>2</code>: glacier ice",
+        "valueUnknown": "Value <code>255</code>: no data (areas outside Finland)",
+        "text2": "This information is stored in data band 1 of the GeoTIFF file. The file cannot be directly visualized as a raster; the user must define rendering rules in their software to display these data values in desired colors. This approach was chosen because appropriate sea colors vary depending on the base map used."
+      },
+      "glacier": {
+        "title": "Glacier Extent Map",
+        "text1": "Similarly, the glacier extent map is not a visual raster. Instead, data band 1 of the GeoTIFF file contains the following values:",
+        "valueIceMelted": "Value <code>0</code>: ice melted",
+        "valueIce": "Value <code>1</code>: ice present",
+        "valueUnknown": "Value <code>255</code>: no data"
+      }
+    },
+    "projection": {
+      "title": "Projection",
+      "text": "The data uses the commonly used Finnish coordinate system <a href='https://epsg.io/3067-1149' target='_blank'>EPSG:3067</a> (ETRS-TM35FIN). This allows the dataset to be used together with the National Land Survey of Finland’s base maps without any projection conversions."
+    },
+
+    "api": {
+      "title": "APIs",
+      "textOpenAPI": "OpenAPI documentation is available in HTML format at <a href='api' target='_blank'>maannousu.info/api</a> and in JSON format at <a href='api/spec.json' target='_blank'>maannousu.info/api/spec.json</a>.",
+      "textYear": "The API endpoints and GeoTIFF files are named by the year they represent in the land uplift model. Negative numbers indicate years before the Common Era (e.g., -4000 means 4000 BCE).",
+      "textYearApi": "The number of supported years may change over time. The current list can be fetched dynamically in JSON format from the following URLs:",
+      "linkLandUpliftApi": "Land uplift: <a href='https://maannousu.info/api/v2' target='_blank'>https://maannousu.info/api/v2</a>",
+      "linkGlacierApi": "Glacier: <a href='https://maannousu.info/api/v2/ice' target='_blank'>https://maannousu.info/api/v2/ice</a>",
+      "textRangeAndDownload": "In this case, the API endpoints and files are the same. The GeoTIFF data can be downloaded in full by opening the link in a browser, or partial data can be retrieved using HTTP <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Range_requests' target='_blank'>Range headers</a> from the same URL.",
+      "textFilesize": "The land uplift map files are approximately 300–600 MB each. The glacier extent maps are very small (under 1 MB).",
+      "tableColYear": "Year",
+      "tableColLandUpliftApi": "Land Uplift Map URL",
+      "tableColGlacierApi": "Glacier Extent Map URL"
+    },
+    "cors": {
+      "title": "Cross-Origin Resource Sharing (CORS)",
+      "text": "The APIs return <a href='https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS' target='_blank'>Cross-Origin Resource Sharing (CORS)</a> headers, allowing the interfaces to be used directly from another website within a browser:"
+    },
+    "cache": {
+      "title": "Cache",
+      "text": "The API responses include the header <code>\"Cache-Control\": \"public, max-age=86400\"</code> for every request, allowing browsers to cache data for one day. However, currently only Safari caches HTTP Range requests. Chrome and therefore also Edge always re-download the data."
+    },
+    "integrationExample": {
+      "title": "Integration Examples",
+      "openLayers": {
+        "title": "OpenLayers",
+        "intro": "<a href='https://openlayers.org/' target='_blank'>OpenLayers</a> is an open-source JavaScript library capable of rendering GeoTIFF files directly in the browser. It efficiently fetches zoom-level tiles from the dataset using HTTP Range requests.",
+        "textLinkToSource": "A more complete example of a full OpenLayers-based site can be found in this project’s source code on <a href='https://github.com/anttikekki/post-glacial-rebound-map/tree/main/ui' target='_blank'>GitHub</a>:",
+        "linkSourceMap": "<a href='https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map.ts' target='_blank'>ui/src/map.ts</a>",
+        "linkSourceLayer": "<a href='https://github.com/anttikekki/post-glacial-rebound-map/blob/main/ui/src/map/layer/PostGlacialReboundTileLayer.ts' target='_blank'>ui/src/map/layer/PostGlacialReboundTileLayer.ts</a>"
+      }
+    }
+  }
 }

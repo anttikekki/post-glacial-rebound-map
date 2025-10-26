@@ -1,0 +1,8 @@
+{
+  "title": "Glare Model: Land Uplift by City Since the Area Emerged from Under the Ice",
+  "subtitle": "You can zoom the chart with the mouse wheel or by pinching on a touch screen.",
+  "tooltip": "Land uplift compared to the moment when the area emerged from under the ice:",
+  "meters": "meters",
+  "xAxis": "Year",
+  "yAxis": "Land uplift compared to the moment when the area emerged from under the ice (m)"
+}
