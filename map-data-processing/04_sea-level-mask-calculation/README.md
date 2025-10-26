@@ -31,6 +31,6 @@ Result GeoTIFF files go to `./sea_land_masks` folder to a sub folder by the targ
 Execute all the scripts by single command:
 
 ```bash
-# Calculate mask from land upplift calculation result
+# Calculate mask from land uplift calculation result
 ./run_all.sh
 ```

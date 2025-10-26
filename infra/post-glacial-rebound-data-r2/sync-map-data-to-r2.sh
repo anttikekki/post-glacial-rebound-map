@@ -7,7 +7,7 @@ set -euo pipefail
 MAIN_SRC="../../map-data-processing/06_generate-map-distribution/result_cog"
 MAIN_DEST="r2:post-glacial-rebound-data/V2"
 
-# Dry run for main land upplift map sync
+# Dry run for main land uplift map sync
 echo "Running dry run for main sync..."
 rclone sync "$MAIN_SRC" "$MAIN_DEST" --include "*.tif" --dry-run --progress --max-depth 1
 

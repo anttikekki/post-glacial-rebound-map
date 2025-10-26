@@ -5,7 +5,7 @@ import { NLSBackgroundMap, Settings } from "../util/settings";
 export default class BackgoundMapSelectionButton extends Control {
   public constructor(settings: Settings) {
     const icon = document.createElement("i");
-    icon.className = "bi bi-globe-americas";
+    icon.className = "bi bi-layers";
 
     const button = document.createElement("button");
     button.title = "Valitse Maanmittauslaitoksen taustakartta";

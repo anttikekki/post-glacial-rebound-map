@@ -22,7 +22,7 @@ Result map data is in [`EPSG:3067`](https://epsg.io/3067-1149) (ETRS-TM35FIN) pr
 
 Result files are in following folders:
 
-- [Elevation model altered by land upplift calculation](./02_post-glacial-rebound-calculation/02_post-glacial-rebound-calculation/result_cog)
+- [Elevation model altered by land uplift calculation](./02_post-glacial-rebound-calculation/02_post-glacial-rebound-calculation/result_cog)
 - [Cloud Optimized GeoTIFF](./06_generate-map-distribution/result_cog)
 
 ## Requirements
@@ -61,9 +61,9 @@ sudo apt install -y nodejs npm
 
 ```bash
 
-# Calculate land upplift for all years defined in common/seaMapLayerYears.json
+# Calculate land uplift for all years defined in common/seaMapLayerYears.json
 ./run-all.sh
 
-# Calculate land upplift for specific years (minus values are BC)
+# Calculate land uplift for specific years (minus values are BC)
 ./run-all.sh -5000 -7000 1500
 ```

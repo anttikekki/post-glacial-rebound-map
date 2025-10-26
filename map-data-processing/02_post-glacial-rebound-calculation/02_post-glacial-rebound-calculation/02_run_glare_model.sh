@@ -73,8 +73,8 @@ echo "Sea level for $CALENDAR_YEAR = $SEA_LEVEL"
 # Parameters to gdal_calc formula:
 #   A: National land survey of Finland (NLS) elevation model
 #   B: Base Raster@1
-#   C: Base Raster@2
-#   D: Base Raster@3
+#   C: Base Raster@2 = glacier melting year (BP)
+#   D: Base Raster@3 = NKG2016LU postglacial land uplift model 
 #   `yearCE`: CALENDAR_YEAR variable command line parameter, injected directly to formula.
 #   `sea-level ref`: SEA_LEVEL variable from gdallocationinfo, injected directly to formula.
 ORIGINAL_FORMULA='"User_DTM@1" - ((2 / 3.14159 * ("Base Raster@1" * 0.075) * (ATAN("Base Raster@2" / (5 * ("Base Raster@1" * 0.075) + 500)) - ATAN(("Base Raster@2" -1950 + [yearCE]) / (5 * ("Base Raster@1" * 0.075) + 500)))) + ((("Base Raster@3" * 0.072) * ((2020 - [yearCE]) / 100)) - (0.5 * (-0.014 * (("Base Raster@3" * 0.072) * ((2020 - [yearCE]) / 100) ^ 2))))) - [sea-level ref]'

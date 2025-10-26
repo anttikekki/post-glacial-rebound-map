@@ -43,9 +43,9 @@ Script uses [gdal_calc](https://gdal.org/en/stable/programs/gdal_calc.html) to d
 Execute all the scripts by single command:
 
 ```bash
-# Calculate land upplift for all years defined in common/seaMapLayerYears.json
+# Calculate land uplift for all years defined in common/seaMapLayerYears.json
 ./run_all.sh
 
-# Calculate land upplift for specific years (minus values are BC)
+# Calculate land uplift for specific years (minus values are BC)
 ./run_all.sh -5000 -7000 1500
 ```

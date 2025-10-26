@@ -61,9 +61,9 @@ const datasets = [
   vaasa,
 ].map((location, index) => ({
   label: location.name,
-  data: location.data.map(({ year, delta }) => ({
+  data: location.data.map(({ year, delta10BC }) => ({
     x: year,
-    y: delta,
+    y: delta10BC,
   })),
   borderColor: generateColor(index),
   backgroundColor: generateColor(index),
@@ -87,7 +87,7 @@ new Chart(ctx, {
     plugins: {
       title: {
         display: true,
-        text: "Glare-malli: Maankohoamisen nopeus suhteessa merenpintaan 250 vuoden jaksoissa",
+        text: "Glare-malli: Maankohoamisen kaupungeittain siitä päivästä lähtien, kun paikka tuli esiin jään alta",
         font: {
           size: 18,
           weight: "bold",
@@ -115,18 +115,22 @@ new Chart(ctx, {
             });
           },
           label: (context) => {
-            const yearEnd = context.parsed.x!;
-            const yearStart = yearEnd - 250;
+            const year = context.parsed.x!;
             const elevation = context.parsed.y!;
 
             return [
-              `${formatYear(yearStart)} - ${formatYear(yearEnd)}`,
-              `Muutos: ${elevation > 0 ? `+${elevation}` : elevation} metriä`,
+              formatYear(year),
+              `Maankohoaminen verrattuna hetkeen, jolloin paikka tuli esiin jään alta:`,
+              `+${elevation.toFixed(1)} metriä`,
             ];
           },
         },
       },
       zoom: {
+        limits: {
+          x: { min: "original", max: "original", minRange: 5000 },
+          y: { min: "original", max: "original", minRange: 50 },
+        },
         pan: {
           enabled: true,
           mode: "xy",
@@ -162,7 +166,7 @@ new Chart(ctx, {
       y: {
         title: {
           display: true,
-          text: "Maamkohoaminen per 250 vuotta (m)",
+          text: "Maankohoaminen verrattuna hetkeen, jolloin paikka tuli esiin jään alta (m)",
           font: {
             weight: "bold",
           },

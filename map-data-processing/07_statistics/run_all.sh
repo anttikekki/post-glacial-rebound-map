@@ -11,4 +11,7 @@ bash 01_crop_single_pixel_rasters.sh
 echo "2. Running 02_run_glare_calculations.sh..."
 bash 02_run_glare_calculations.sh
 
+echo "3. Running 03_export_result_to_json.mjs..."
+node 03_export_result_to_json.mjs
+
 echo "All scripts executed successfully!"
