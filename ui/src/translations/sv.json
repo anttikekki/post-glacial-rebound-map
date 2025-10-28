@@ -1,8 +1,8 @@
 {
   "mapLink": "map_sv.html",
   "meta": {
-    "title": "Maannousu.info",
-    "titleMap": "Maannousu.info kartan",
+    "title": "Karta över landhöjning",
+    "titleMap": "Karta över landhöjning",
     "description": "Utforska landhöjningen i Finland efter istiden på kartan.",
     "applicationName": "Maannousu.info"
   },
@@ -10,8 +10,8 @@
     "brand": "Maannousu.info"
   },
   "hero": {
-    "heading": "Maannousu.info",
-    "lead": "Webbplatsen Maannousu.info är avsedd för att visualisera hur havsstranden har förändrats i Finland på grund av landhöjningen efter istiden samt för att visa inlandsisens utbredning. Genom kartan kan du se havsnivån under olika årtusenden i historien. Kartmaterialet är fritt att använda.",
+    "heading": "Karta över landhöjning",
+    "lead": "Denna webbplats är avsedd√ för att visualisera hur havsstranden har förändrats i Finland på grund av landhöjningen efter istiden samt för att visa inlandsisens utbredning. Genom kartan kan du se havsnivån under olika årtusenden i historien. Kartmaterialet är fritt att använda.",
     "buttonMap": "Gå till kartan",
     "text": "Samma landhöjningskartor finns också på <a href='https://muinaismuistot.info/' target='_blank'>muinaismuistot.info</a>, där fasta fornlämningar från Museiverkets och Ålands lokalförvaltnings register kan visas på samma karta.",
     "buttonMuinaismuistot": "Gå till muinaismuistot.info"

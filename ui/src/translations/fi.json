@@ -1,8 +1,8 @@
 {
   "mapLink": "map.html",
   "meta": {
-    "title": "Maannousu.info",
-    "titleMap": "Maannousu.info kartta",
+    "title": "Kartta maannoususta",
+    "titleMap": "Kartta maannoususta",
     "description": "Tutki kartalla jääkauden jälkeistä maannousua Suomessa.",
     "applicationName": "Maannousu.info"
   },
@@ -10,8 +10,8 @@
     "brand": "Maannousu.info"
   },
   "hero": {
-    "heading": "Maannousu.info",
-    "lead": "Maannousu.info sivusto on tarkoitettu Suomessa jääkauden jälkeen tapahtuneen maannousun aiheuttaman merenrannan siirtymisen ja jääkauden mannerjään levinneisyyden visualisointiin. Kartan kautta pystyy katsomaan merenpinnan tason eri vuosituhansina historiassa. Kartta-aineisto on vapaasti käytettävissä.",
+    "heading": "Kartta maannoususta",
+    "lead": "Tämä sivusto on tarkoitettu Suomessa jääkauden jälkeen tapahtuneen maannousun aiheuttaman merenrannan siirtymisen ja jääkauden mannerjään levinneisyyden visualisointiin. Kartan kautta pystyy katsomaan merenpinnan tason eri vuosituhansina historiassa. Kartta-aineisto on vapaasti käytettävissä.",
     "buttonMap": "Siirry karttaan",
     "text": "Samat maannousukartat ovat nähtävillä myös <a href='https://muinaismuistot.info/' target='_blank'>muinaismuistot.info</a> sivustolla, jossa samalle kartalle saa Museoviraston ja Ahvenanmaan paikallishallinnon rekistereiden kiinteät muinaisjäännökset.",
     "buttonMuinaismuistot": "Siirry muinaismuistot.info sivustolle"

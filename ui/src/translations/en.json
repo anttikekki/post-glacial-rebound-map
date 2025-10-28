@@ -1,8 +1,8 @@
 {
   "mapLink": "map_en.html",
   "meta": {
-    "title": "Maannousu.info",
-    "titleMap": "Maannousu.info map",
+    "title": "Map of Land Uplift",
+    "titleMap": "Map of Land Uplift",
     "description": "Explore post-glacial land uplift in Finland on the map.",
     "applicationName": "Maannousu.info"
   },
@@ -10,8 +10,8 @@
     "brand": "Maannousu.info"
   },
   "hero": {
-    "heading": "Maannousu.info",
-    "lead": "The Maannousu.info site is intended for visualizing shoreline changes caused by post-glacial land uplift in Finland, as well as the extent of the ice sheet during the last Ice Age. Through the map, you can view sea levels during different millennia in history. The map data is freely available for use.",
+    "heading": "Map of Land Uplift",
+    "lead": "This site is intended for visualizing shoreline changes caused by post-glacial land uplift in Finland, as well as the extent of the ice sheet during the last Ice Age. Through the map, you can view sea levels during different millennia in history. The map data is freely available for use.",
     "buttonMap": "Go to map",
     "text": "The same land uplift maps are also available on <a href='https://muinaismuistot.info/' target='_blank'>muinaismuistot.info</a>, where you can view fixed ancient monuments from the registers of the Finnish Heritage Agency and the Åland local administration on the same map.",
     "buttonMuinaismuistot": "Go to muinaismuistot.info site"
