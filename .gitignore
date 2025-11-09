@@ -33,6 +33,14 @@ map-data-processing/06_generate-map-distribution/source_vrt
 map-data-processing/07_statistics/cropped_gdal_raster
 map-data-processing/07_statistics/cropped-elevation_model
 
+# Sweden data processing
+map-data-processing/Sweden/strandforskjutningsmodell.zip
+map-data-processing/Sweden/strandforskjutningsmodell
+map-data-processing/Sweden/ne_50m_admin_0_countries.zip
+map-data-processing/Sweden/ne_50m_admin_0_countries
+map-data-processing/Sweden/07_rasters
+map-data-processing/Sweden/08_raster_cogs
+
 # Infra temp files
 infra/post-glacial-rebound-worker/.wrangler
 infra/post-glacial-rebound-worker/public
