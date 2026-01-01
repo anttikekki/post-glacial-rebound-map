@@ -28,7 +28,7 @@ Node.js 20+
 npm run start:dev
 
 # Start Webpack dev server is production mode
-# Uses local production maannousu.info as map API
+# Uses production maannousu.info as map API
 npm run start:dev
 
 # Build project to infra/post-glacial-rebound-worker/public for cloud deployment
