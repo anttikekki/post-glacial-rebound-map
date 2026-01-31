@@ -13,11 +13,15 @@
     "dev": "wrangler dev",
     "start": "wrangler dev",
     "generate-types": "wrangler types",
-    "type-check": "npm run generate-types && tsc"
+    "type-check": "npm run generate-types && tsc",
+    "test": "vitest"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.11.1",
+    "@types/node": "^25.1.0",
     "@types/range-parser": "1.2.7",
     "typescript": "5.9.3",
+    "vitest": "^3.2.4",
     "wrangler": "4.61.1"
   },
   "dependencies": {

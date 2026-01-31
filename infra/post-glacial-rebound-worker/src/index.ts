@@ -19,7 +19,7 @@ import {
 import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
-  async fetch(request, env, ctx): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     if (!allowedMethods.includes(request.method)) {
       return new Response("Method Not Allowed", {
         status: 405,

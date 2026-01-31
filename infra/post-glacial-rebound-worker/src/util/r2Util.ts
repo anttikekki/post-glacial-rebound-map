@@ -8,14 +8,13 @@ export const fetchR2FileRange = async (
   r2Key: string,
   env: Env
 ): Promise<Response> => {
-  // HEAD request to get metadata (size)
-  const headObj = await env.MAP_DATA_BUCKET.head(r2Key);
-  if (!headObj) {
+  const object = await env.MAP_DATA_BUCKET.get(r2Key, {
+    range: request.headers
+  });
+
+  if (!object) {
     return new Response("Not Found", { status: 404, headers: errorHeaders });
   }
-  let offset = 0;
-  let length = headObj.size;
-  let status = 200;
 
   const headers = new Headers({
     "Accept-Ranges": "bytes",
@@ -24,33 +23,33 @@ export const fetchR2FileRange = async (
     ...corsHeaders,
   });
 
-  const rangeHeader = request.headers.get("Range");
-
-  // Return range of bytes from full file if Range header is in request
-  if (rangeHeader) {
-    const rangeParseResult = parseRangeHeader(rangeHeader, headObj.size);
-    if (!rangeParseResult.success) {
-      return rangeParseResult.errorResponse; // HTTP 416 Range Not Satisfiable
-    }
-    const { start, end } = rangeParseResult;
-    offset = rangeParseResult.offset;
-    length = rangeParseResult.length;
-    status = 206; // HTTP 206: Partial Content
-    headers.set("Content-Range", `bytes ${start}-${end}/${headObj.size}`);
-  }
-
-  const object = await env.MAP_DATA_BUCKET.get(r2Key, {
-    range: { offset, length },
-  });
-  if (!object) {
-    return new Response("Not Found", { status: 404, headers: errorHeaders });
-  }
-
   headers.set("etag", object.httpEtag);
   object.writeHttpMetadata(headers);
 
+
+  const rangeHeader = request.headers.get("Range");
+
+  if (rangeHeader) {
+    const rangeParseResult = parseRangeHeader(rangeHeader, object.size);
+    if (!rangeParseResult.success) {
+      // Important: Cancel the body stream if we're not going to use it, otherwise we leak resources
+      await object.body.cancel();
+      return rangeParseResult.errorResponse; // HTTP 416 Range Not Satisfiable
+    }
+
+    // If a range was actually applied by R2
+    if (object.range) {
+      const { start, end } = rangeParseResult;
+      headers.set("Content-Range", `bytes ${start}-${end}/${object.size}`);
+      return new Response(object.body, {
+        status: 206, // HTTP 206: Partial Content
+        headers,
+      });
+    }
+  }
+
   return new Response(object.body, {
-    status,
+    status: 200,
     headers,
   });
 };
