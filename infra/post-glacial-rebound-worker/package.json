@@ -14,15 +14,17 @@
     "start": "wrangler dev",
     "generate-types": "wrangler types",
     "type-check": "npm run generate-types && tsc",
-    "test": "vitest"
+    "test": "vitest",
+    "check-updates": "npx npm-check-updates"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.12.13",
-    "@types/node": "25.1.0",
+    "@cloudflare/vitest-pool-workers": "0.12.20",
+    "@types/node": "25.3.5",
     "@types/range-parser": "1.2.7",
+    "npm-check-updates": "19.6.3",
     "typescript": "5.9.3",
     "vitest": "3.2.4",
-    "wrangler": "4.66.0"
+    "wrangler": "4.71.0"
   },
   "dependencies": {
     "range-parser": "1.2.1"
