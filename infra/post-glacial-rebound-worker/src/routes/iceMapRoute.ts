@@ -1,4 +1,4 @@
-import iceYears from "../../../../common/iceMapLayerYears.json" assert { type: "json" };
+import iceYears from "../../../../common/iceMapLayerYears.json"
 import { corsHeaders } from "../util/corsUtils";
 import { fetchR2FileRange } from "../util/r2Util";
 

@@ -1,4 +1,4 @@
-import years from "../../../../common/seaMapLayerYears.json" assert { type: "json" };
+import years from "../../../../common/seaMapLayerYears.json"
 import { corsHeaders } from "../util/corsUtils";
 import { fetchR2FileRange } from "../util/r2Util";
 

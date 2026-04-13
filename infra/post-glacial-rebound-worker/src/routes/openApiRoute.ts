@@ -1,5 +1,5 @@
-import iceYears from "../../../../common/iceMapLayerYears.json" assert { type: "json" };
-import years from "../../../../common/seaMapLayerYears.json" assert { type: "json" };
+import iceYears from "../../../../common/iceMapLayerYears.json"
+import years from "../../../../common/seaMapLayerYears.json"
 
 export const openApiHtmlPath = new URLPattern({ pathname: "/api" });
 export const openApiSpecJsonPath = new URLPattern({
