@@ -14,6 +14,7 @@
     "start": "wrangler dev",
     "generate-types": "wrangler types",
     "type-check": "npm run generate-types && tsc",
+    "copy-ui-and-stac-to-deploy-dir": "./copy-ui-and-stac.sh",
     "test": "vitest",
     "check-updates": "npx npm-check-updates"
   },

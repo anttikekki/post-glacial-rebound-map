@@ -1,6 +1,9 @@
 # Node.js Dependency directories
 node_modules/
 
+# UI build
+ui/public
+
 # NLS (MML) elevation model processing temp files
 map-data-processing/01_download-nls-elevation-model-2m/tif
 map-data-processing/01_download-nls-elevation-model-2m/vrt
@@ -32,6 +35,9 @@ map-data-processing/06_generate-map-distribution/source_vrt
 # Result validation temp files
 map-data-processing/07_statistics/cropped_gdal_raster
 map-data-processing/07_statistics/cropped-elevation_model
+
+# STAC generation result files
+map-data-processing/08_stac-catalog/stac
 
 # Infra temp files
 infra/post-glacial-rebound-worker/.wrangler

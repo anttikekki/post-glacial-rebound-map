@@ -110,7 +110,7 @@ export default (env, argv) => {
       filename: "[name]-[contenthash].js",
       path: path.resolve(
         __dirname,
-        "../infra/post-glacial-rebound-worker/public"
+        "public"
       ),
       assetModuleFilename: "fonts/[name][ext]",
       clean: true,

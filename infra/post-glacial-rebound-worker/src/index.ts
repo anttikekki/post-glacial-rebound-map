@@ -16,10 +16,15 @@ import {
   seaMapDataVersionYearsRoute,
   seaMapVersionYearsApiPath,
 } from "./routes/seaMapRoute";
+import { stackFolderPath, stacRoute } from "./routes/stackRoute";
 import { allowedMethods, corsHeaders } from "./util/corsUtils";
 
 export default {
-  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
     if (!allowedMethods.includes(request.method)) {
       return new Response("Method Not Allowed", {
         status: 405,
@@ -56,7 +61,10 @@ export default {
     if (iceMapApiPath.test(request.url)) {
       return iceMapDataHttpRangeFetchRoute(request, env);
     }
+    if (stackFolderPath.test(request.url)) {
+      return stacRoute(request, env);
+    }
 
-    return env.ASSETS.fetch(request);
+    return new Response(`Unknown route: ${request.url}`, { status: 404 });
   },
 } satisfies ExportedHandler<Env>;
