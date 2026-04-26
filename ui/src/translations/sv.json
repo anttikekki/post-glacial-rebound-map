@@ -106,6 +106,10 @@
       "title": "Projektion",
       "text": "Datan använder det vanligt förekommande finska koordinatsystemet <a href='https://epsg.io/3067-1149' target='_blank'>EPSG:3067</a> (ETRS-TM35FIN). Detta möjliggör användning tillsammans med Lantmäteriverkets bakgrundskartor utan behov av projektionstransformeringar."
     },
+    "stac": {
+      "title": "SpatioTemporal Asset Catalog (STAC)",
+      "text": "<a href='https://stacspec.org/en' target='_blank'>STAC</a> är en standard för att beskriva geospatiala datamängder. STAC-definitionerna för detta material finns på <a href='https://maannousu.info/api/stac/catalog.json' target='_blank'>https://maannousu.info/api/stac/catalog.json</a>. Informationen är lättare att bläddra i via <a href='https://radiantearth.github.io/stac-browser/#/external/maannousu.info/api/stac/catalog.json' target='_blank'>STAC browser</a>-webbplatsen."
+    },
     "api": {
       "title": "API:er",
       "textOpenAPI": "OpenAPI-dokumentationen finns tillgänglig i HTML-format på <a href='api' target='_blank'>maannousu.info/api</a> och i JSON-format på <a href='api/spec.json' target='_blank'>maannousu.info/api/spec.json</a>.",
@@ -129,6 +133,15 @@
     },
     "integrationExample": {
       "title": "Integrations­exempel",
+      "qgis": {
+        "title": "QGIS",
+        "text": "Materialet kan enkelt granskas med den kostnadsfria <a href='https://qgis.org/' target='_blank'>QGIS</a>-applikationen med hjälp av dessa instruktioner.",
+        "step1": "Ladda ner data för ett visst år genom att klicka på API-adressen i avsnittet API:er i detta dokument (t.ex. <a href='https://maannousu.info/api/v2/-1100' target='_blank'>maannousu.info/api/v2/-1100</a>) eller från <a href='https://radiantearth.github.io/stac-browser/#/external/maannousu.info/api/stac/catalog.json' target='_blank'>STAC browser</a>-webbplatsen genom att välja <b>Download</b>.",
+        "step2": "Lägg till den nedladdade filen som ett kartlager i QGIS-applikationen.",
+        "step3": "Högerklicka på kartlagret i sidopanelens <b>Layers</b>-sektion och välj <b>Properties</b>, och gå sedan till avsnittet <b>Symbology</b> i fönstret som öppnas.",
+        "step4": "Ställ in <b>Render type</b> till <b>Paletted/Unique values</b>.",
+        "step5": "Använd <code>+</code>-knappen för att lägga till en regel för värdet <code>0</code> och välj en havsfärg som passar din bakgrundskarta."
+      },
       "openLayers": {
         "title": "OpenLayers",
         "intro": "<a href='https://openlayers.org/' target='_blank'>OpenLayers</a> är ett JavaScript-bibliotek med öppen källkod som kan rendera GeoTIFF-filer direkt i webbläsaren. Biblioteket hämtar effektivt kakel för olika zoomnivåer från materialet med HTTP Range-anrop.",

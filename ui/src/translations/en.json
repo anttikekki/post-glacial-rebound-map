@@ -106,7 +106,10 @@
       "title": "Projection",
       "text": "The data uses the commonly used Finnish coordinate system <a href='https://epsg.io/3067-1149' target='_blank'>EPSG:3067</a> (ETRS-TM35FIN). This allows the dataset to be used together with the National Land Survey of Finland’s base maps without any projection conversions."
     },
-
+    "stac": {
+      "title": "SpatioTemporal Asset Catalog (STAC)",
+      "text": "<a href='https://stacspec.org/en' target='_blank'>STAC</a> is a standard for describing geospatial data collections. The STAC definitions for this dataset can be found at <a href='https://maannousu.info/api/stac/catalog.json' target='_blank'>https://maannousu.info/api/stac/catalog.json</a>. The data is easier to browse via the <a href='https://radiantearth.github.io/stac-browser/#/external/maannousu.info/api/stac/catalog.json' target='_blank'>STAC browser</a> website."
+    },
     "api": {
       "title": "APIs",
       "textOpenAPI": "OpenAPI documentation is available in HTML format at <a href='api' target='_blank'>maannousu.info/api</a> and in JSON format at <a href='api/spec.json' target='_blank'>maannousu.info/api/spec.json</a>.",
@@ -130,6 +133,15 @@
     },
     "integrationExample": {
       "title": "Integration Examples",
+      "qgis": {
+        "title": "QGIS",
+        "text": "The dataset can be easily viewed using the free <a href='https://qgis.org/' target='_blank'>QGIS</a> application with these instructions.",
+        "step1": "Download the dataset for a specific year by clicking the API address in the APIs section of this document (e.g. <a href='https://maannousu.info/api/v2/-1100' target='_blank'>maannousu.info/api/v2/-1100</a>) or from the <a href='https://radiantearth.github.io/stac-browser/#/external/maannousu.info/api/stac/catalog.json' target='_blank'>STAC browser</a> website by selecting <b>Download</b>.",
+        "step2": "Add the downloaded file as a map layer in the QGIS application.",
+        "step3": "Right-click the map layer in the <b>Layers</b> section of the sidebar and select <b>Properties</b>, then in the opened window go to the <b>Symbology</b> section.",
+        "step4": "Set the <b>Render type</b> value to <b>Paletted/Unique values</b>.",
+        "step5": "Use the <code>+</code> button to add a rule for the value <code>0</code> and choose a sea color that matches your basemap."
+      },
       "openLayers": {
         "title": "OpenLayers",
         "intro": "<a href='https://openlayers.org/' target='_blank'>OpenLayers</a> is an open-source JavaScript library capable of rendering GeoTIFF files directly in the browser. It efficiently fetches zoom-level tiles from the dataset using HTTP Range requests.",

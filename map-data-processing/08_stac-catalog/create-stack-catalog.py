@@ -29,10 +29,10 @@ def parse_year(filename: str) -> int:
 
 def label(year: int) -> str:
     if year < 0:
-        return f"{abs(year)} BC"
+        return f"{abs(year)} BCE"
     if year == 0:
         return "0"
-    return f"{year} AD"
+    return f"{year} CE"
 
 
 def main() -> None:
@@ -77,10 +77,8 @@ def main() -> None:
                 collection="post-glacial-land-uplift-in-Finland",
                 with_proj=True,
                 properties={
-                    "year": year,
-                    "label": year_label,
                     "description": f"Post-glacial land uplift in Finland for {year_label}",
-                    "source_file": path.name,
+                    "source_file": path.name
                 },
             )
             item.stac_extensions.append(
@@ -89,7 +87,9 @@ def main() -> None:
             item.stac_extensions.append(
                 "https://stac-extensions.github.io/file/v2.1.0/schema.json"
             )
-            item.id = f"year_{year}"
+            item.id = f"{year_label.replace(' ', '').lower()}"
+            item.extra_fields["title"] = year_label
+            item.properties["title"] = year_label
 
             for asset in item.assets.values():
                 asset.href = f"{BASE_URL}/{year}"

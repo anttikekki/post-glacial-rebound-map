@@ -106,6 +106,10 @@
       "title": "Projektio",
       "text": "Datan projektio on Suomessa yleisesti käytetty <a href='https://epsg.io/3067-1149' target='_blank'>EPSG:3067</a> (ETRS-TM35FIN). Tämä mahdollistaa aineiston käytön esim. Maanmittauslaitoksen pohjakarttojen kannsa ilman projektion muunoksia."
     },
+    "stac": {
+      "title": "SpatioTemporal Asset Catalog (STAC)",
+      "text": "<a href='https://stacspec.org/en' target='_blank'>STAC</a> on paikkatietokokoelmien kuvausstandardi. Tämän aineiston STAC-määritykset löytyvät osoitteesta <a href='https://maannousu.info/api/stac/catalog.json' target='_blank'>https://maannousu.info/api/stac/catalog.json</a>. Tietoja on helpompi selailla <a href='https://radiantearth.github.io/stac-browser/#/external/maannousu.info/api/stac/catalog.json' target='_blank'>STAC browser</a> verkkosivun kautta."
+    },
     "api": {
       "title": "Rajapinnat",
       "textOpenAPI": "OpenAPI dokumentaatio löytyy Html-muodossa osoitteesta <a href='api' target='_blank'>maannousu.info/api</a> ja JSON-muodossa osoitteesta <a href='api/spec.json' target='_blank'>maannousu.info/api/spec.json</a>.",
@@ -129,6 +133,15 @@
     },
     "integrationExample": {
       "title": "Integraatio-esimerkit",
+      "qgis": {
+        "title": "QGIS",
+        "text": "Aineistoa on helppo tarkastella ilmaisella <a href='https://qgis.org/' target='_blank'>QGIS</a>-sovelluksella näillä ohjeilla.",
+        "step1": "Lataa tietyn vuoden aineisto klikkaamalla tämän dokumentin Rajapinnat-osiosta rajapinnan osoitetta (esim. <a href='https://maannousu.info/api/v2/-1100' target='_blank'>maannousu.info/api/v2/-1100</a>) tai <a href='https://radiantearth.github.io/stac-browser/#/external/maannousu.info/api/stac/catalog.json' target='_blank'>STAC browser</a> verkkosivulta valitsemalla <b>Download</b>.",
+        "step2": "Lisää ladattu tiedosto QGIS-sovelluksen karttatasoksi.",
+        "step3": "Klikkaa hiiren oikealla karttatasoa sivupalkin <b>Layers</b>-osiosta ja valitse <b>Properties</b> ja avautuvasta ikkunasta <b>Symbology</b>-osio.",
+        "step4": "Valitse ikkunasta <b>Render type</b> arvoksi <b>Paletted/Unique values</b>.",
+        "step5": "Lisää <code>+</code> painikkeella määritys arvolle <code>0</code> ja valitse sille taustakarttaasi sopiva meren väri."
+      },
       "openLayers": {
         "title": "OpenLayers",
         "intro": "<a href='https://openlayers.org/' target='_blank'>OpenLayers</a> on avoimen lähdekoodin JavaScript-kirjasto, joka osaa renderöidä GeoTIFF-tiedostoja selaimessa. Kirjasto osaa hakea tehokkaasti zoomaustason mukaisia tiilejä aineistosta HTTP Range-kutsuilla.",

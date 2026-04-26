@@ -6,10 +6,10 @@ const errorHeaders = { ...corsHeaders, "Accept-Ranges": "bytes" };
 export const fetchR2FileRange = async (
   request: Request,
   r2Key: string,
-  env: Env
+  env: Env,
 ): Promise<Response> => {
   const object = await env.MAP_DATA_BUCKET.get(r2Key, {
-    range: request.headers
+    range: request.headers,
   });
 
   if (!object) {
@@ -25,7 +25,6 @@ export const fetchR2FileRange = async (
 
   headers.set("etag", object.httpEtag);
   object.writeHttpMetadata(headers);
-
 
   const rangeHeader = request.headers.get("Range");
 
@@ -48,8 +47,25 @@ export const fetchR2FileRange = async (
     }
   }
 
+  // Return full file with valid filename
+  headers.set(
+    "Content-Disposition",
+    `attachment; filename="${getFullDownloadFileName(r2Key)}"`,
+  );
   return new Response(object.body, {
     status: 200,
     headers,
   });
+};
+
+const getFullDownloadFileName = (r2Key: string) => {
+  // Extract "-100" from "V2/-100.tif"
+  const match = r2Key.match(/(-?\d+)\.tif$/);
+  if (!match) return "unknown.tif";
+
+  const year = parseInt(match[1], 10);
+
+  if (year < 0) return `${Math.abs(year)}bc.tif`;
+  if (year === 0) return `0.tif`;
+  return `${year}ad.tif`;
 };
