@@ -7,6 +7,7 @@ from pathlib import Path
 import pystac
 import rasterio
 from rio_stac.stac import create_stac_item
+import os
 
 DATA_DIR = Path("../06_generate-map-distribution/result_cog")
 OUTPUT_DIR = Path("stac")
@@ -67,6 +68,7 @@ def main() -> None:
     for path in sorted(DATA_DIR.glob("*.tif")):
         year = parse_year(path.name)
         year_label = label(year)
+        file_size = os.path.getsize(path)
 
         with rasterio.open(path) as src:
             item = create_stac_item(
@@ -84,11 +86,15 @@ def main() -> None:
             item.stac_extensions.append(
                 "https://stac-extensions.github.io/raster/v1.1.0/schema.json"
             )
+            item.stac_extensions.append(
+                "https://stac-extensions.github.io/file/v2.1.0/schema.json"
+            )
             item.id = f"year_{year}"
 
             for asset in item.assets.values():
                 asset.href = f"{BASE_URL}/{year}"
                 asset.roles = ["data", "cog"]
+                asset.extra_fields["file:size"] = file_size
                 asset.extra_fields["raster:bands"] = [
                     {
                         "data_type": "uint8",
@@ -99,6 +105,13 @@ def main() -> None:
                             {"value": 2, "description": "Glacier ice"},
                             {"value": 255, "description": "No data (outside Finland)"}
                         ]
+                    }
+                ]
+                asset.extra_fields["bands"] = [
+                    {
+                        "name": "classification",
+                        "data_type": "uint8",
+                        "description": "0=land, 1=sea, 2=glacier ice, 255=no data"
                     }
                 ]
 
