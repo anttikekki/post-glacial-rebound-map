@@ -8,8 +8,9 @@
     "url": "https://github.com/anttikekki/post-glacial-rebound-map.git"
   },
   "scripts": {
-    "start:dev": "MAANNOUSU_API_BASE_URL=http://localhost:3000 webpack serve --open  --mode development",
-    "start:prod": "MAANNOUSU_API_BASE_URL=https://maannousu.info webpack serve --open  --mode production",
+    "start:dev:local-worker": "MAANNOUSU_API_BASE_URL=http://localhost:8787 webpack serve --open --mode development",
+    "start:dev:fake-local-worker": "MAANNOUSU_API_BASE_URL=http://localhost:3000 webpack serve --open --mode development",
+    "start:prod:remote-worker": "MAANNOUSU_API_BASE_URL=https://maannousu.info webpack serve --open --mode production",
     "build": "webpack --mode production",
     "check-updates": "npx npm-check-updates"
   },

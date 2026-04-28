@@ -24,12 +24,16 @@ Node.js 20+
 
 ```bash
 # Start Webpack dev server is development mode
-# Uses local ui/cog-dev-server as map API
-npm run start:dev
+# Uses local ui/cog-dev-server as fake worker map API
+npm run start:start:dev:fake-local-worker
+
+# Start Webpack dev server is development mode
+# Uses local worker map API from Clouflare wrangler dev mode
+npm run start:start:dev:local-worker
 
 # Start Webpack dev server is production mode
 # Uses production maannousu.info as map API
-npm run start:dev
+npm run start:prod:remote-worker
 
 # Build project to infra/post-glacial-rebound-worker/public for cloud deployment
 npm run build

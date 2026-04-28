@@ -14,7 +14,8 @@
   "r2_buckets": [
     {
       "binding": "MAP_DATA_BUCKET",
-      "bucket_name": "post-glacial-rebound-data"
+      "bucket_name": "post-glacial-rebound-data",
+      "remote": true
     }
   ],
   "observability": {

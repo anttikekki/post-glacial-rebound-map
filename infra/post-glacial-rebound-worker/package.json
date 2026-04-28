@@ -10,8 +10,7 @@
   },
   "scripts": {
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev",
+    "start:dev": "wrangler dev",
     "generate-types": "wrangler types",
     "type-check": "npm run generate-types && tsc",
     "copy-ui-and-stac-to-deploy-dir": "./copy-ui-and-stac.sh",
