@@ -8,9 +8,18 @@ export const fetchR2FileRange = async (
   r2Key: string,
   env: Env,
 ): Promise<Response> => {
-  const object = await env.MAP_DATA_BUCKET.get(r2Key, {
-    range: request.headers,
-  });
+  let object: R2ObjectBody | null = null;
+
+  try {
+    object = await env.MAP_DATA_BUCKET.get(r2Key, {
+      range: request.headers,
+    });
+  } catch (e: unknown) {
+    return new Response(String(e), {
+      status: 416, // Range Not Satisfiable
+      headers: errorHeaders,
+    });
+  }
 
   if (!object) {
     return new Response("Not Found", { status: 404, headers: errorHeaders });
