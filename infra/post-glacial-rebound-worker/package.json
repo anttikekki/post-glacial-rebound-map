@@ -18,13 +18,13 @@
     "check-updates": "npx npm-check-updates"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.15.1",
-    "@types/node": "25.6.0",
+    "@cloudflare/vitest-pool-workers": "0.16.7",
+    "@types/node": "25.9.1",
     "@types/range-parser": "1.2.7",
-    "npm-check-updates": "22.0.1",
+    "npm-check-updates": "22.2.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.5",
-    "wrangler": "4.86.0"
+    "vitest": "4.1.7",
+    "wrangler": "4.93.0"
   },
   "dependencies": {
     "range-parser": "1.2.1"
