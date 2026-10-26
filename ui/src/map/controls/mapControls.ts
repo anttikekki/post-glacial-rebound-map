@@ -8,7 +8,6 @@ import BackgoundMapSelectionButton from "./backgoundMapSelectionButton";
 import InfoButton from "./infoButton";
 import LoadingAnimation from "./loadingAnimation";
 import "./mapControls.css";
-import ServiceOutageNotice from "./serviceOutageNotice";
 import UserLocationButton from "./userLocationButton";
 import WebGLSupportErrorMessage from "./webGLSupportErrorMessage";
 import YearMapControls from "./yearMapControls";
@@ -38,6 +37,5 @@ export const getMapControls = ({
     new BackgoundMapSelectionButton(settings),
     new LoadingAnimation(settings),
     new WebGLSupportErrorMessage(),
-    new ServiceOutageNotice(),
   ]);
 };
