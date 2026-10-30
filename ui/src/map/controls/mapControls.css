@@ -1,31 +1,10 @@
-.zoom-in-button {
-  top: 10px;
-  left: 10px;
+.map-buttons {
   position: absolute;
-}
-
-.zoom-out-button {
-  top: 50px;
-  left: 10px;
-  position: absolute;
-}
-
-.user-location-button {
-  top: 90px;
-  left: 10px;
-  position: absolute;
-}
-
-.info-button {
-  top: 130px;
-  left: 10px;
-  position: absolute;
-}
-
-.backgound-map-selection-button {
-  top: 170px;
-  left: 10px;
-  position: absolute;
+  top: 0.625rem;
+  left: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .year-buttons {
